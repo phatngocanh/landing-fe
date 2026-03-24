@@ -1,14 +1,31 @@
-import { Search, ShoppingCart, User, Phone } from "lucide-react";
-import { useState } from "react";
+import { Search, ShoppingCart, User, Phone, X } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 
 const SiteHeader = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "/" && !searchFocused) {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+      if (e.key === "Escape" && searchFocused) {
+        searchRef.current?.blur();
+        setSearchQuery("");
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [searchFocused]);
 
   return (
     <header className="bg-card border-b border-border relative z-[60]">
       <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-5">
-          <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-extrabold text-[10px] text-center p-2 border-2 border-yellow-400 shadow-sm shrink-0">
+        <a href="#hero" className="flex items-center gap-5 group">
+          <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-extrabold text-[10px] text-center p-2 border-2 border-yellow-400 shadow-sm shrink-0 group-hover:scale-105 transition-transform">
             PHÁT NGỌC ANH
           </div>
           <div>
@@ -22,32 +39,41 @@ const SiteHeader = () => {
               430/33 Đường TA 28, P. Thới An, Quận 12, TP.HCM
             </p>
           </div>
-        </div>
+        </a>
         <div className="flex items-center gap-8">
-          <div className="hidden lg:flex items-center gap-3 text-muted-foreground">
-            <span className="text-primary bg-primary/10 p-2 rounded-full">
+          <a href="tel:02862713214" className="hidden lg:flex items-center gap-3 text-muted-foreground group">
+            <span className="text-primary bg-primary/10 p-2 rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
               <Phone className="w-5 h-5" />
             </span>
-            <span className="font-bold text-secondary text-lg">0286.271.3214</span>
-          </div>
-          <div className="flex bg-muted rounded-full px-5 py-2.5 border border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all duration-300">
+            <span className="font-bold text-secondary text-lg group-hover:underline">0286.271.3214</span>
+          </a>
+          <div className={`flex bg-muted rounded-full px-5 py-2.5 border transition-all duration-300 ${searchFocused ? "border-primary ring-2 ring-primary/10 w-80" : "border-border w-64 lg:w-72"}`}>
             <input
-              className="bg-transparent border-none focus:outline-none text-sm w-48 lg:w-72"
-              placeholder="Tìm kiếm sản phẩm..."
+              ref={searchRef}
+              className="bg-transparent border-none focus:outline-none text-sm flex-1 min-w-0"
+              placeholder="Tìm kiếm sản phẩm... (/)"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
             />
-            <button className="text-muted-foreground hover:text-primary transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
+            {searchQuery ? (
+              <button className="text-muted-foreground hover:text-foreground transition-colors" onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}>
+                <X className="w-4 h-4" />
+              </button>
+            ) : (
+              <button className="text-muted-foreground hover:text-primary transition-colors">
+                <Search className="w-5 h-5" />
+              </button>
+            )}
           </div>
-          <div className="flex items-center gap-4">
-            <button className="p-2.5 text-muted-foreground hover:text-primary transition-all active:scale-95 relative">
+          <div className="flex items-center gap-2">
+            <button className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
               <ShoppingCart className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card" />
+              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card group-hover:scale-125 transition-transform" />
             </button>
-            <button className="p-2.5 text-muted-foreground hover:text-primary transition-all active:scale-95">
+            <button className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
               <User className="w-5 h-5" />
             </button>
           </div>
