@@ -28,8 +28,9 @@ const NewsSection = () => (
         <div className="space-y-7">
           <div className="flex gap-5 group cursor-pointer items-start">
             <img className="w-16 h-16 object-cover rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product1} alt="Bí kíp chọn nước lau sàn" loading="lazy" />
-            <p className="text-[14px] leading-snug font-bold text-muted-foreground group-hover:text-primary transition-colors">
+            <p className="text-[14px] leading-snug font-bold text-foreground/80 group-hover:text-primary transition-colors">
               7 bí kíp lựa chọn nước lau sàn an toàn cho trẻ nhỏ trong nhà.
+            </p>
             </p>
           </div>
           <div className="flex gap-5 group cursor-pointer items-start">
