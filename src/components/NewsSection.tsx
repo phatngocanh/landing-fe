@@ -31,7 +31,6 @@ const NewsSection = () => (
             <p className="text-[14px] leading-snug font-bold text-foreground/80 group-hover:text-primary transition-colors">
               7 bí kíp lựa chọn nước lau sàn an toàn cho trẻ nhỏ trong nhà.
             </p>
-            </p>
           </div>
           <div className="flex gap-5 group cursor-pointer items-start">
             <img className="w-16 h-16 object-cover rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product2} alt="Giải pháp tẩy rửa công nghiệp" loading="lazy" />
