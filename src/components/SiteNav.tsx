@@ -41,7 +41,6 @@ const SiteNav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -57,7 +56,7 @@ const SiteNav = () => {
 
   return (
     <nav className={`bg-primary text-primary-foreground sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-lg" : "shadow-md"}`}>
-      <div className="container">
+      <div className="container relative">
         <div className="flex items-center justify-between md:justify-start py-4 gap-10 text-[13px] font-bold uppercase tracking-widest">
           {/* Mobile toggle */}
           <button
@@ -129,21 +128,13 @@ const SiteNav = () => {
           </div>
         </div>
 
-        {/* Mobile menu overlay */}
+        {/* Mobile menu panel — positioned absolutely below the nav bar */}
         <div
-          className={`md:hidden fixed inset-0 top-[60px] bg-foreground/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-            mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-          onClick={() => setMobileOpen(false)}
-        />
-
-        {/* Mobile menu panel */}
-        <div
-          className={`md:hidden fixed left-0 right-0 top-[60px] bg-primary z-50 transition-all duration-300 overflow-hidden ${
-            mobileOpen ? "max-h-[70vh] opacity-100" : "max-h-0 opacity-0"
+          className={`md:hidden absolute left-1/2 -translate-x-1/2 w-screen top-full bg-primary z-50 transition-all duration-300 overflow-hidden ${
+            mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="container pb-6 pt-2 space-y-1">
+          <div className="overflow-y-auto max-h-[80vh] pb-6 pt-2 space-y-1 px-4">
             {navLinks.map((l) => (
               <button
                 key={l.label}
@@ -161,9 +152,33 @@ const SiteNav = () => {
             >
               Sản Phẩm
             </button>
+
+            {/* Product categories in mobile */}
+            <div className="pt-2 border-t border-primary-foreground/20 mt-2">
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary-foreground/50 px-4 pb-2">Danh mục sản phẩm</p>
+              {productCategories.map((cat) => (
+                <a
+                  key={cat}
+                  href="#"
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full text-left py-2.5 px-4 rounded-xl hover:bg-primary-foreground/5 transition-all text-sm normal-case font-medium tracking-normal hover:text-yellow-300"
+                >
+                  {cat}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Backdrop overlay */}
+      <div
+        className={`md:hidden fixed inset-0 bg-foreground/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMobileOpen(false)}
+        style={{ top: 0 }}
+      />
     </nav>
   );
 };
