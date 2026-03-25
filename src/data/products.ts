@@ -1,3 +1,4 @@
+import type { StaticImageData } from "next/image";
 import product1 from "@/assets/product1.jpg";
 import product2 from "@/assets/product2.jpg";
 import product3 from "@/assets/product3.jpg";
@@ -8,8 +9,8 @@ import combo3 from "@/assets/combo3.jpg";
 
 export interface Product {
   id: string;
-  img: any;
-  images: any[];
+  img: StaticImageData;
+  images: StaticImageData[];
   name: string;
   price: string;
   priceRaw: number;
@@ -29,9 +30,7 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "bong-vo-xe-zifat-999",
-    // @ts-ignore
     img: product1,
-    // @ts-ignore
     images: [product1, product2, product3],
     name: "Bóng Vỏ Xe Siêu Đặc ZIFAT 999",
     price: "100.000đ",
@@ -60,9 +59,7 @@ export const products: Product[] = [
   },
   {
     id: "nuoc-tay-may-zifat-999",
-    // @ts-ignore
     img: product2,
-    // @ts-ignore
     images: [product2, product1, product4],
     name: "Nước Tẩy Máy Cao Cấp ZIFAT 999",
     price: "60.000đ",
@@ -91,9 +88,7 @@ export const products: Product[] = [
   },
   {
     id: "nuoc-tay-gach-men",
-    // @ts-ignore
     img: product3,
-    // @ts-ignore
     images: [product3, product4, product1],
     name: "Nước Tẩy Gạch Men & Đồ Sứ",
     price: "38.000đ",
@@ -122,9 +117,7 @@ export const products: Product[] = [
   },
   {
     id: "nuoc-lau-san-khang-khuan",
-    // @ts-ignore
     img: product4,
-    // @ts-ignore
     images: [product4, product2, product3],
     name: "Nước Lau Sàn Kháng Khuẩn",
     price: "45.000đ",
@@ -154,9 +147,7 @@ export const products: Product[] = [
   },
   {
     id: "combo-thong-cong",
-    // @ts-ignore
     img: combo1,
-    // @ts-ignore
     images: [combo1, combo2, combo3],
     name: "Combo Thông Cống Triệt Để + Bột Vi Sinh Khử Mùi",
     price: "99.000đ",
@@ -186,9 +177,7 @@ export const products: Product[] = [
   },
   {
     id: "combo-lau-san-xit-phong",
-    // @ts-ignore
     img: combo2,
-    // @ts-ignore
     images: [combo2, combo1, combo3],
     name: "Combo Nước Lau Sàn Hương Hoa + Xịt Phòng Kháng Khuẩn",
     price: "120.000đ",
@@ -218,9 +207,7 @@ export const products: Product[] = [
   },
   {
     id: "combo-javel-nuoc-giat",
-    // @ts-ignore
     img: combo3,
-    // @ts-ignore
     images: [combo3, combo1, combo2],
     name: "Combo Javel Đậm Đặc + Nước Giặt Hương Nắng",
     price: "85.000đ",
@@ -250,9 +237,7 @@ export const products: Product[] = [
   },
   {
     id: "combo-nuoc-rua-chen-tay-bep",
-    // @ts-ignore
     img: combo1,
-    // @ts-ignore
     images: [combo1, combo3, combo2],
     name: "Combo Nước Rửa Chén + Tẩy Nhà Bếp Đa Năng",
     price: "75.000đ",

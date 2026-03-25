@@ -66,6 +66,9 @@ export default function ProductDetailPage() {
 
   const avgRating = (REVIEWS.reduce((s, r) => s + r.rating, 0) / REVIEWS.length).toFixed(1);
 
+  const mainGalleryImage =
+    product.images[activeImg] ?? product.images[0];
+
   return (
     <div className="scroll-smooth">
       <SiteHeader />
@@ -100,7 +103,7 @@ export default function ProductDetailPage() {
                   </span>
                 )}
                 <img
-                  src={product.images[activeImg]?.src || product.images[activeImg]}
+                  src={mainGalleryImage.src}
                   alt={product.name}
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
                 />
@@ -118,7 +121,7 @@ export default function ProductDetailPage() {
                         : "border-border hover:border-primary/50"
                     }`}
                   >
-                    <img src={img?.src || img} alt="" className="w-full h-full object-contain" />
+                    <img src={img.src} alt="" className="w-full h-full object-contain" />
                   </button>
                 ))}
               </div>
@@ -431,7 +434,7 @@ export default function ProductDetailPage() {
                     <div className="aspect-square mb-3 sm:mb-6 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-6 flex items-center justify-center overflow-hidden relative">
                       <img
                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
-                        src={p.img?.src || p.img}
+                        src={p.img.src}
                         alt={p.name}
                         loading="lazy"
                       />
