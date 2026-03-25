@@ -1,17 +1,10 @@
 import { ShoppingCart, Eye } from "lucide-react";
 import Image from "next/image";
-import product1 from "@/assets/product1.jpg";
-import product2 from "@/assets/product2.jpg";
-import product3 from "@/assets/product3.jpg";
-import product4 from "@/assets/product4.jpg";
+import Link from "next/link";
+import { products } from "@/data/products";
 import ScrollReveal from "./ScrollReveal";
 
-const products = [
-  { img: product1, name: "Bóng Vỏ Xe Siêu Đặc ZIFAT 999", price: "100.000đ", badge: null },
-  { img: product2, name: "Nước Tẩy Máy Cao Cấp ZIFAT 999", price: "60.000đ", badge: "Mới" },
-  { img: product3, name: "Nước Tẩy Gạch Men & Đồ Sứ", price: "38.000đ", badge: null },
-  { img: product4, name: "Nước Lau Sàn Kháng Khuẩn", price: "45.000đ", badge: "Bán chạy" },
-];
+const displayProducts = products.filter(p => p.category !== "Combo ưu đãi").slice(0, 4);
 
 const ProductsSection = () => (
   <section className="scroll-mt-28" id="products">
@@ -24,9 +17,9 @@ const ProductsSection = () => (
       </div>
     </ScrollReveal>
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-5 md:gap-8">
-      {products.map((p, i) => (
-        <ScrollReveal key={p.name} delay={`${i * 100}ms`}>
-          <div className="bg-card border border-border p-3 sm:p-6 rounded-xl sm:rounded-3xl text-center product-card group cursor-pointer h-full relative">
+      {displayProducts.map((p, i) => (
+        <ScrollReveal key={p.id} delay={`${i * 100}ms`}>
+          <Link href={`/product/${p.id}`} className="bg-card border border-border p-3 sm:p-6 rounded-xl sm:rounded-3xl text-center product-card group cursor-pointer h-full relative block">
             {p.badge && (
               <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">{p.badge}</div>
             )}
@@ -44,7 +37,7 @@ const ProductsSection = () => (
             </div>
             <h3 className="text-[11px] sm:text-[14px] font-bold text-foreground h-8 sm:h-11 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">{p.name}</h3>
             <p className="text-secondary font-black text-sm sm:text-lg mt-2 sm:mt-3">{p.price}</p>
-          </div>
+          </Link>
         </ScrollReveal>
       ))}
     </div>
