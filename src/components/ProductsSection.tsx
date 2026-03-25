@@ -2,6 +2,7 @@ import { ShoppingCart, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/data/products";
+
 import ScrollReveal from "./ScrollReveal";
 
 const displayProducts = products.filter(p => p.category !== "Combo ưu đãi").slice(0, 4);
@@ -11,9 +12,9 @@ const ProductsSection = () => (
     <ScrollReveal>
       <div className="flex items-center justify-between border-b border-border pb-4 md:pb-5 mb-5 md:mb-10">
         <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary">Danh Mục ZIFAT 999</h2>
-        <a className="text-[12px] md:text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group" href="#">
+        <Link className="text-[12px] md:text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group" href="/products">
           Tất cả <span className="group-hover:translate-x-1 transition-transform">→</span>
-        </a>
+        </Link>
       </div>
     </ScrollReveal>
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-5 md:gap-8">
