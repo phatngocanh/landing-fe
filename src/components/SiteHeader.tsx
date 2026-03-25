@@ -23,35 +23,44 @@ const SiteHeader = () => {
 
   return (
     <header className="bg-card border-b border-border relative z-[60]">
-      <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-6">
-        <a href="#hero" className="flex items-center gap-5 group">
-          <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-extrabold text-[10px] text-center p-2 border-2 border-yellow-400 shadow-sm shrink-0 group-hover:scale-105 transition-transform">
-            PHÁT NGỌC ANH
+      <div className="container py-3 md:py-5 flex items-center justify-between gap-3 md:gap-6">
+        {/* Logo — compact on mobile */}
+        <a href="#hero" className="flex items-center gap-3 md:gap-5 group shrink-0">
+          <div className="w-10 h-10 md:w-16 md:h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-extrabold text-[7px] md:text-[10px] text-center p-1 md:p-2 border-2 border-yellow-400 shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+            PNA
           </div>
-          <div>
-            <h1 className="text-xl font-extrabold text-foreground tracking-tight leading-none uppercase">
+          <div className="hidden sm:block">
+            <h1 className="text-base md:text-xl font-extrabold text-foreground tracking-tight leading-none uppercase">
               Công Ty TNHH Hóa Phẩm
             </h1>
-            <h2 className="text-4xl font-black text-primary tracking-tighter uppercase">
+            <h2 className="text-2xl md:text-4xl font-black text-primary tracking-tighter uppercase">
               Phát Ngọc Anh
             </h2>
-            <p className="text-xs text-muted-foreground font-medium mt-1">
+            <p className="text-xs text-muted-foreground font-medium mt-1 hidden md:block">
               430/33 Đường TA 28, P. Thới An, Quận 12, TP.HCM
             </p>
           </div>
+          {/* Mobile brand name */}
+          <div className="sm:hidden">
+            <p className="text-xs font-extrabold text-foreground uppercase leading-tight">Hóa Phẩm</p>
+            <p className="text-base font-black text-primary uppercase tracking-tight leading-tight">Phát Ngọc Anh</p>
+          </div>
         </a>
-        <div className="flex items-center gap-8">
+
+        {/* Right side */}
+        <div className="flex items-center gap-2 md:gap-8">
           <a href="tel:02862713214" className="hidden lg:flex items-center gap-3 text-muted-foreground group">
             <span className="text-primary bg-primary/10 p-2 rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
               <Phone className="w-5 h-5" />
             </span>
             <span className="font-bold text-secondary text-lg group-hover:underline">0286.271.3214</span>
           </a>
-          <div className={`flex bg-muted rounded-full px-5 py-2.5 border transition-all duration-300 ${searchFocused ? "border-primary ring-2 ring-primary/10 w-80" : "border-border w-64 lg:w-72"}`}>
+          {/* Search — hidden on small mobile, shown from sm+ */}
+          <div className={`hidden sm:flex bg-muted rounded-full px-4 md:px-5 py-2 md:py-2.5 border transition-all duration-300 ${searchFocused ? "border-primary ring-2 ring-primary/10 w-56 md:w-80" : "border-border w-44 md:w-64 lg:w-72"}`}>
             <input
               ref={searchRef}
               className="bg-transparent border-none focus:outline-none text-sm flex-1 min-w-0"
-              placeholder="Tìm kiếm sản phẩm... (/)"
+              placeholder="Tìm kiếm... (/)"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -68,12 +77,16 @@ const SiteHeader = () => {
               </button>
             )}
           </div>
-          <div className="flex items-center gap-2">
-            <button className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
+          {/* Mobile search icon */}
+          <button className="sm:hidden p-2 text-muted-foreground hover:text-primary rounded-full transition-colors">
+            <Search className="w-5 h-5" />
+          </button>
+          <div className="flex items-center gap-1 md:gap-2">
+            <button className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
               <ShoppingCart className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card group-hover:scale-125 transition-transform" />
+              <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card group-hover:scale-125 transition-transform" />
             </button>
-            <button className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
+            <button className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
               <User className="w-5 h-5" />
             </button>
           </div>
