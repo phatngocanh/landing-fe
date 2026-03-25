@@ -116,18 +116,22 @@ const HeroSection = () => {
         </button>
 
         {/* Dots */}
-        <div className="absolute bottom-3 sm:bottom-6 md:bottom-8 right-5 sm:right-8 md:right-12 flex gap-2 md:gap-3 z-[4]">
+        <div className="absolute bottom-3 sm:bottom-6 md:bottom-8 right-5 sm:right-8 md:right-12 flex gap-1 sm:gap-2 z-[4]">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-2.5 md:h-3 rounded-full shadow-sm transition-all duration-300 ${
-                i === current
-                  ? "w-6 md:w-8 bg-primary-foreground"
-                  : "w-2.5 md:w-3 bg-primary-foreground/40 hover:bg-primary-foreground/60"
-              }`}
-            />
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-0 m-0 group outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 rounded-full"
+            >
+              <div
+                className={`h-2.5 md:h-3 rounded-full shadow-sm transition-all duration-300 ${
+                  i === current
+                    ? "w-6 md:w-8 bg-primary-foreground"
+                    : "w-2.5 md:w-3 bg-primary-foreground/40 group-hover:bg-primary-foreground/60"
+                }`}
+              />
+            </button>
           ))}
         </div>
 

@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
+const inter = Inter({
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 export const metadata: Metadata = {
+  robots: "noindex, nofollow",
   title: "PHÁT NGỌC ANH | Hóa Phẩm Chất Lượng Cao - ZIFAT 999",
   description: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh - Thương hiệu Zifat 999, sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
   openGraph: {
@@ -29,8 +38,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
-      <body>
+    <html lang="vi" className={inter.variable}>
+      <head>
+        <meta name="description" content="Công Ty TNHH Hóa Phẩm Phát Ngọc Anh - Thương hiệu Zifat 999, sản phẩm tẩy rửa chất lượng cao cho gia đình Việt" />
+      </head>
+      <body className={inter.className}>
         <Providers>
           {children}
         </Providers>

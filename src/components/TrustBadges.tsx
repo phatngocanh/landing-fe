@@ -18,7 +18,7 @@ const TrustBadges = () => (
               <b.icon className="w-4 h-4 text-primary" />
             </div>
             <div>
-              <h4 className="font-bold text-foreground text-[9px] tracking-wider uppercase leading-tight">{b.title}</h4>
+              <h3 className="font-bold text-foreground text-[9px] tracking-wider uppercase leading-tight">{b.title}</h3>
               <p className="text-[9px] text-muted-foreground mt-0.5 leading-snug">{b.desc}</p>
             </div>
           </div>
@@ -29,7 +29,7 @@ const TrustBadges = () => (
               <b.icon className="w-8 h-8 text-primary" />
             </div>
             <div>
-              <h4 className="font-bold text-foreground text-sm tracking-widest uppercase">{b.title}</h4>
+              <h3 className="font-bold text-foreground text-sm tracking-widest uppercase">{b.title}</h3>
               <p className="text-[13px] text-muted-foreground mt-1">{b.desc}</p>
             </div>
           </div>
