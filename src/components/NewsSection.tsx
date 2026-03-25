@@ -12,7 +12,7 @@ const NewsSection = () => (
           <Play className="w-4 h-4 md:w-5 md:h-5 text-primary" /> Video Hoạt Động
         </div>
         <div className="aspect-video bg-foreground rounded-xl md:rounded-2xl overflow-hidden relative group cursor-pointer shadow-xl">
-          <img className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" src={heroBanner} alt="Video giới thiệu Phát Ngọc Anh" loading="lazy" />
+          <img className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" src={heroBanner.src} alt="Video giới thiệu Phát Ngọc Anh" loading="lazy" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-12 h-12 md:w-16 md:h-16 bg-card/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-125 transition-transform duration-500 shadow-2xl border border-card/30">
               <Play className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground fill-current" />
@@ -27,13 +27,13 @@ const NewsSection = () => (
         </div>
         <div className="space-y-4 md:space-y-7">
           <div className="flex gap-4 md:gap-5 group cursor-pointer items-start">
-            <img className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg md:rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product1} alt="Bí kíp chọn nước lau sàn" loading="lazy" />
+            <img className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg md:rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product1.src} alt="Bí kíp chọn nước lau sàn" loading="lazy" />
             <p className="text-[13px] md:text-[14px] leading-snug font-bold text-foreground/80 group-hover:text-primary transition-colors line-clamp-3">
               7 bí kíp lựa chọn nước lau sàn an toàn cho trẻ nhỏ trong nhà.
             </p>
           </div>
           <div className="flex gap-4 md:gap-5 group cursor-pointer items-start">
-            <img className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg md:rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product2} alt="Giải pháp tẩy rửa công nghiệp" loading="lazy" />
+            <img className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg md:rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product2.src} alt="Giải pháp tẩy rửa công nghiệp" loading="lazy" />
             <p className="text-[13px] md:text-[14px] leading-snug font-bold text-muted-foreground group-hover:text-primary transition-colors line-clamp-3">
               Giải pháp tẩy rửa công nghiệp quy mô lớn tối ưu chi phí.
             </p>

@@ -23,7 +23,7 @@ const AboutSection = () => (
           <div className="h-52 md:h-full w-full overflow-hidden">
             <img
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              src={aboutImage}
+              src={aboutImage.src}
               alt="Nhà máy sản xuất Phát Ngọc Anh"
               loading="lazy"
             />

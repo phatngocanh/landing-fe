@@ -26,7 +26,7 @@ const ComboSection = () => (
         <ScrollReveal key={c.title} delay={`${i * 100}ms`}>
           <div className="bg-card rounded-xl sm:rounded-3xl overflow-hidden product-card group h-full">
             <div className="relative aspect-square p-2 sm:p-6 bg-muted flex items-center justify-center overflow-hidden">
-              <img className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" src={c.img} alt={c.title} loading="lazy" width={512} height={512} />
+              <img className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" src={c.img.src} alt={c.title} loading="lazy" width={512} height={512} />
               <div className="absolute top-1.5 left-1.5 sm:top-4 sm:left-4 bg-secondary text-secondary-foreground text-[8px] sm:text-[11px] font-black px-1.5 py-0.5 sm:px-3 sm:py-1.5 rounded-full shadow-xl">{c.discount}</div>
               {c.tag && (
                 <div className="absolute top-1.5 right-1.5 sm:top-4 sm:right-4 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-1.5 py-0.5 sm:px-3 sm:py-1.5 rounded-full">{c.tag}</div>

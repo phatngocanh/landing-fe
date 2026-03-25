@@ -26,9 +26,11 @@ const SiteHeader = () => {
       <div className="container py-3 md:py-5 flex items-center justify-between gap-3 md:gap-6">
         {/* Logo — compact on mobile */}
         <a href="#hero" className="flex items-center gap-3 md:gap-5 group shrink-0">
-          <div className="w-10 h-10 md:w-16 md:h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-extrabold text-[7px] md:text-[10px] text-center p-1 md:p-2 border-2 border-yellow-400 shadow-sm shrink-0 group-hover:scale-105 transition-transform">
-            PNA
-          </div>
+          <img
+            src="/phatngocanhlogo.jpg"
+            alt="PHÁT NGỌC ANH — logo công ty"
+            className="h-12 w-auto md:h-20 object-contain shrink-0 group-hover:scale-105 transition-transform"
+          />
           <div className="hidden sm:block">
             <h1 className="text-base md:text-xl font-extrabold text-foreground tracking-tight leading-none uppercase">
               Công Ty TNHH Hóa Phẩm

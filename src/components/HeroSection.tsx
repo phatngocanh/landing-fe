@@ -64,7 +64,7 @@ const HeroSection = () => {
             <img
               alt={`Slide ${i + 1}`}
               className="w-full h-full object-cover"
-              src={slide.img}
+              src={slide.img.src}
               width={1920}
               height={800}
               loading={i === 0 ? "eager" : "lazy"}
