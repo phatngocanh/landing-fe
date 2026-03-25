@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
 import combo1 from "@/assets/combo1.jpg";
 import combo2 from "@/assets/combo2.jpg";
+
+const SLIDE_DURATION = 5000; // ms per slide
 
 const slides = [
   {
@@ -32,21 +34,48 @@ const slides = [
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  // progressKey is bumped every time a new slide cycle starts,
+  // which forces the CSS animation to restart in perfect sync.
+  const [progressKey, setProgressKey] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const goTo = useCallback((index: number) => {
+  const goTo = useCallback((index: number, fromAutoplay = false) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrent(index);
+    // Restart the progress bar animation
+    setProgressKey((k) => k + 1);
     setTimeout(() => setIsTransitioning(false), 700);
   }, [isTransitioning]);
 
-  const next = useCallback(() => goTo((current + 1) % slides.length), [current, goTo]);
-  const prev = useCallback(() => goTo((current - 1 + slides.length) % slides.length), [current, goTo]);
+  const next = useCallback(() => {
+    setCurrent((prev) => {
+      const nextIndex = (prev + 1) % slides.length;
+      return nextIndex;
+    });
+    setProgressKey((k) => k + 1);
+  }, []);
 
+  const prev = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    setProgressKey((k) => k + 1);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, [isTransitioning]);
+
+  // Single autoplay timer: uses setTimeout chained, not setInterval,
+  // so each cycle is exactly SLIDE_DURATION after the progress bar starts.
   useEffect(() => {
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [next]);
+    timerRef.current = setTimeout(() => {
+      next();
+    }, SLIDE_DURATION);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+    // progressKey change = new slide cycle started → schedule next auto-advance
+  }, [progressKey, next]);
 
   return (
     <section className="container mt-4 md:mt-10" id="hero">
@@ -108,7 +137,7 @@ const HeroSection = () => {
           <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
         </button>
         <button
-          onClick={next}
+          onClick={() => goTo((current + 1) % slides.length)}
           className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-[4] w-10 h-10 md:w-12 md:h-12 rounded-full bg-card/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground opacity-0 group-hover:opacity-100 transition-all hover:bg-card/40 active:scale-90"
           aria-label="Next slide"
         >
@@ -135,16 +164,16 @@ const HeroSection = () => {
           ))}
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar — animation restarts in sync with each slide via progressKey */}
         <div className="absolute bottom-0 left-0 right-0 h-0.5 md:h-1 bg-primary-foreground/10 z-[4]">
           <div
-            className="h-full bg-primary transition-none"
+            key={progressKey}
+            className="h-full bg-primary"
             style={{
-              animation: `heroProgress 5s linear infinite`,
+              animation: `heroProgress ${SLIDE_DURATION}ms linear forwards`,
               width: "100%",
               transformOrigin: "left",
             }}
-            key={`progress-${current}`}
           />
         </div>
       </div>
@@ -153,4 +182,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
