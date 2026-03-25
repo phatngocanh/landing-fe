@@ -1,5 +1,6 @@
-import { Phone, MapPin, Mail, MessageCircle, Star } from "lucide-react";
+import { Phone, MapPin, Mail, MessageCircle, Star, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 import ScrollReveal from "./ScrollReveal";
 
 const testimonials = [
@@ -64,6 +65,13 @@ const SiteFooter = () => {
                 <a href="mailto:hoaphamphatngocanh@gmail.com" className="hover:text-white transition-colors break-all text-[12px] md:text-[14px] focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none">hoaphamphatngocanh@gmail.com</a>
               </li>
             </ul>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 mt-2 text-[12px] md:text-[13px] font-bold text-emerald-400 hover:text-white group transition-colors"
+            >
+              Gửi yêu cầu liên hệ
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
 
           <div className="space-y-6 md:space-y-10">

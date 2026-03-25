@@ -61,6 +61,10 @@ const SiteNav = () => {
   const smoothScroll = useCallback((anchor: string) => {
     setMobileOpen(false);
     const run = () => {
+      if (anchor === "#hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
       const el = document.querySelector(anchor);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     };
