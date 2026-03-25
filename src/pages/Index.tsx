@@ -18,8 +18,8 @@ const Index = () => {
       <HeroSection />
       <TrustBadges />
 
-      <main className="container py-20">
-        <div className="space-y-24">
+      <main className="container py-10 md:py-20">
+        <div className="space-y-12 md:space-y-24">
           <AboutSection />
           <ComboSection />
           <ProductsSection />
