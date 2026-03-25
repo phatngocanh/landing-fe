@@ -165,9 +165,8 @@ const HeroSection = () => {
           key={current}
           style={{ animation: "heroTextIn 0.6s ease-out forwards" }}
         >
-          <span className="inline-block mb-3 md:mb-4 px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] md:text-[11px] font-black uppercase tracking-[0.15em] md:tracking-[0.2em] whitespace-nowrap">
-            <span className="md:hidden">ZIFAT 999</span>
-            <span className="hidden md:inline">ZIFAT 999 — Hàng Việt Chất Lượng Cao</span>
+          <span className="inline-block mb-3 md:mb-4 px-3 py-1 rounded-xl md:rounded-full bg-primary/90 text-primary-foreground text-[10px] md:text-[11px] font-black uppercase tracking-[0.08em] md:tracking-[0.2em] leading-relaxed">
+            ZIFAT 999 — Hàng Việt Chất Lượng Cao
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight tracking-tight italic text-emerald-400 drop-shadow-lg">
             {slides[current].title}
