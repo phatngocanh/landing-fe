@@ -119,10 +119,11 @@ const SiteFooter = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-10 text-[10px] md:text-[11px] uppercase font-bold tracking-[0.15em] md:tracking-[0.25em] text-footer-foreground/60">
           <p>© 2025 PHÁT NGỌC ANH</p>
           <div className="flex gap-4 md:gap-10">
-            <a className="hover:text-white transition-colors" href="#hero">Trang chủ</a>
-            <a className="hover:text-white transition-colors" href="#products">Sản phẩm</a>
-            <a className="hover:text-white transition-colors" href="#about">Giới thiệu</a>
-            <a className="hover:text-white transition-colors" href="#footer">Liên hệ</a>
+            <a className="hover:text-white transition-colors" href="/">Trang chủ</a>
+            <a className="hover:text-white transition-colors" href="/products">Sản phẩm</a>
+            <a className="hover:text-white transition-colors" href="/about">Giới thiệu</a>
+            <a className="hover:text-white transition-colors" href="/news">Tin tức</a>
+            <a className="hover:text-white transition-colors" href="/contact">Liên hệ</a>
           </div>
         </div>
       </div>

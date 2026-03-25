@@ -1,5 +1,6 @@
 import { Play, Newspaper, ThumbsUp } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import heroBanner from "@/assets/hero-banner.jpg";
 import product1 from "@/assets/product1.jpg";
 import product2 from "@/assets/product2.jpg";
@@ -7,7 +8,14 @@ import ScrollReveal from "./ScrollReveal";
 
 const NewsSection = () => (
   <ScrollReveal>
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 bg-card p-5 md:p-14 rounded-2xl md:rounded-3xl border border-border shadow-sm scroll-mt-28" id="news">
+    <section className="scroll-mt-28" id="news">
+    <div className="flex items-center justify-between border-b border-border pb-4 md:pb-5 mb-5 md:mb-10">
+      <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary">Tin Tức & Kiến Thức</h2>
+      <Link href="/news" className="text-[12px] md:text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group active:scale-95">
+        Xem thêm <span className="group-hover:translate-x-1 transition-transform">→</span>
+      </Link>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 bg-card p-5 md:p-14 rounded-2xl md:rounded-3xl border border-border shadow-sm">
       <div className="space-y-4 md:space-y-8">
         <div className="flex items-center gap-3 text-foreground font-black uppercase text-[11px] md:text-[12px] tracking-[0.2em] border-b border-border pb-4 md:pb-5">
           <Play className="w-4 h-4 md:w-5 md:h-5 text-primary" /> Video Hoạt Động
@@ -54,6 +62,7 @@ const NewsSection = () => (
           </button>
         </div>
       </div>
+    </div>
     </section>
   </ScrollReveal>
 );
