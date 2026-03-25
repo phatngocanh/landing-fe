@@ -39,6 +39,10 @@ const HeroSection = () => {
   const [progressKey, setProgressKey] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Swipe / Drag state
+  const dragStartX = useRef<number | null>(null);
+  const dragEndX = useRef<number | null>(null);
+
   const goTo = useCallback((index: number, fromAutoplay = false) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
@@ -77,9 +81,55 @@ const HeroSection = () => {
     // progressKey change = new slide cycle started → schedule next auto-advance
   }, [progressKey, next]);
 
+  const handleDragStart = useCallback((e: React.TouchEvent | React.MouseEvent) => {
+    if ("touches" in e) {
+      dragStartX.current = e.touches[0].clientX;
+    } else {
+      dragStartX.current = (e as React.MouseEvent).clientX;
+    }
+    dragEndX.current = null;
+  }, []);
+
+  const handleDragMove = useCallback((e: React.TouchEvent | React.MouseEvent) => {
+    if (dragStartX.current === null) return;
+    if ("touches" in e) {
+      dragEndX.current = e.touches[0].clientX;
+    } else {
+      dragEndX.current = (e as React.MouseEvent).clientX;
+    }
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    if (dragStartX.current === null || dragEndX.current === null) {
+      dragStartX.current = null;
+      return;
+    }
+
+    const distance = dragStartX.current - dragEndX.current;
+    const SWIPE_THRESHOLD = 50; // pixels to trigger a swipe
+
+    if (distance > SWIPE_THRESHOLD) {
+      next(); // Swiped left → Next slide
+    } else if (distance < -SWIPE_THRESHOLD) {
+      prev(); // Swiped right → Previous slide
+    }
+
+    dragStartX.current = null;
+    dragEndX.current = null;
+  }, [next, prev]);
+
   return (
     <section className="container mt-4 md:mt-10" id="hero">
-      <div className="relative h-[280px] sm:h-[360px] md:h-[540px] rounded-2xl overflow-hidden shadow-2xl group">
+      <div 
+        className="relative h-[280px] sm:h-[360px] md:h-[540px] rounded-2xl overflow-hidden shadow-2xl group select-none cursor-grab active:cursor-grabbing touch-pan-y"
+        onTouchStart={handleDragStart}
+        onTouchMove={handleDragMove}
+        onTouchEnd={handleDragEnd}
+        onMouseDown={handleDragStart}
+        onMouseMove={handleDragMove}
+        onMouseUp={handleDragEnd}
+        onMouseLeave={handleDragEnd}
+      >
         {/* Slides */}
         {slides.map((slide, i) => (
           <div
@@ -100,6 +150,7 @@ const HeroSection = () => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
               quality={85}
+              draggable={false}
             />
           </div>
         ))}
