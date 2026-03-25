@@ -31,8 +31,8 @@ const TrustBadges = () => (
     <div className="hidden md:grid grid-cols-3 gap-8">
       {badges.map((b, i) => (
         <ScrollReveal key={b.title} delay={`${i * 100}ms`}>
-          <div className="bg-card p-8 rounded-2xl flex items-center gap-6 border border-border shadow-sm hover:shadow-xl transition-all duration-300">
-            <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center shrink-0">
+          <div className="bg-card p-8 rounded-2xl flex flex-col items-center text-center gap-4 border border-border shadow-sm hover:shadow-xl transition-all duration-300">
+            <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center">
               <b.icon className="w-8 h-8 text-primary" />
             </div>
             <div>
