@@ -11,10 +11,10 @@ const TrustBadges = () => (
   <section className="container mt-6 md:mt-12">
     <div className="grid grid-cols-3 gap-2 md:gap-8">
       {badges.map((b, i) => (
-        <ScrollReveal key={b.title} delay={`${i * 100}ms`}>
+        <ScrollReveal key={b.title} delay={`${i * 100}ms`} className="h-full">
           {/* Mobile card */}
-          <div className="md:hidden flex flex-col items-center text-center gap-2 bg-card border border-border rounded-2xl px-2 py-4 shadow-sm">
-            <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center">
+          <div className="md:hidden h-full flex flex-col items-center text-center gap-2 bg-card border border-border rounded-2xl px-2 py-4 shadow-sm">
+            <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
               <b.icon className="w-4 h-4 text-primary" />
             </div>
             <div>
@@ -24,8 +24,8 @@ const TrustBadges = () => (
           </div>
 
           {/* Desktop card */}
-          <div className="hidden md:flex flex-col items-center text-center gap-4 bg-card border border-border rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 group">
-            <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
+          <div className="hidden md:flex h-full flex-col items-center text-center gap-4 bg-card border border-border rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 group">
+            <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300 shrink-0">
               <b.icon className="w-8 h-8 text-primary" />
             </div>
             <div>
