@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
 import combo1 from "@/assets/combo1.jpg";
@@ -61,13 +62,15 @@ const HeroSection = () => {
               zIndex: i === current ? 1 : 0,
             }}
           >
-            <img
+            <Image
               alt={`Slide ${i + 1}`}
               className="w-full h-full object-cover"
-              src={slide.img.src}
-              width={1920}
-              height={800}
-              loading={i === 0 ? "eager" : "lazy"}
+              src={slide.img}
+              placeholder="blur"
+              priority={i === 0}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
+              quality={85}
             />
           </div>
         ))}
@@ -90,6 +93,7 @@ const HeroSection = () => {
           <a
             className="inline-block bg-primary text-primary-foreground px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 rounded-full font-bold uppercase tracking-widest text-[11px] sm:text-xs md:text-sm hover:brightness-110 transition-all shadow-xl hover:-translate-y-1"
             href={slides[current].href}
+            aria-label={`Khám phá ngay: ${slides[current].desc}`}
           >
             {slides[current].cta}
           </a>
@@ -145,3 +149,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

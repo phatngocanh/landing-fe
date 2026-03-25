@@ -1,5 +1,6 @@
 import { Search, ShoppingCart, User, Phone, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 
 const SiteHeader = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,10 +27,13 @@ const SiteHeader = () => {
       <div className="container py-3 md:py-5 flex items-center justify-between gap-3 md:gap-6">
         {/* Logo — compact on mobile */}
         <a href="#hero" className="flex items-center gap-3 md:gap-5 group shrink-0">
-          <img
+          <Image
             src="/phatngocanhlogo.jpg"
             alt="PHÁT NGỌC ANH — logo công ty"
+            width={80}
+            height={80}
             className="h-12 w-auto md:h-20 object-contain shrink-0 group-hover:scale-105 transition-transform"
+            priority
           />
           <div className="hidden sm:block">
             <h1 className="text-base md:text-xl font-extrabold text-foreground tracking-tight leading-none uppercase">
@@ -70,25 +74,25 @@ const SiteHeader = () => {
               onBlur={() => setSearchFocused(false)}
             />
             {searchQuery ? (
-              <button className="text-muted-foreground hover:text-foreground transition-colors" onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}>
+              <button aria-label="Xóa tìm kiếm" className="text-muted-foreground hover:text-foreground transition-colors" onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}>
                 <X className="w-4 h-4" />
               </button>
             ) : (
-              <button className="text-muted-foreground hover:text-primary transition-colors">
+              <button aria-label="Tìm kiếm" className="text-muted-foreground hover:text-primary transition-colors">
                 <Search className="w-5 h-5" />
               </button>
             )}
           </div>
           {/* Mobile search icon */}
-          <button className="sm:hidden p-2 text-muted-foreground hover:text-primary rounded-full transition-colors">
+          <button aria-label="Mở tìm kiếm" className="sm:hidden p-2 text-muted-foreground hover:text-primary rounded-full transition-colors">
             <Search className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-1 md:gap-2">
-            <button className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
+            <button aria-label="Giỏ hàng" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
               <ShoppingCart className="w-5 h-5" />
               <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card group-hover:scale-125 transition-transform" />
             </button>
-            <button className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
+            <button aria-label="Tài khoản người dùng" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
               <User className="w-5 h-5" />
             </button>
           </div>

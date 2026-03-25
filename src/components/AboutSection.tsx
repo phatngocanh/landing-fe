@@ -1,3 +1,4 @@
+import Image from "next/image";
 import aboutImage from "@/assets/about-image.jpg";
 import ScrollReveal from "./ScrollReveal";
 
@@ -20,12 +21,14 @@ const AboutSection = () => (
       <div className="flex flex-col md:flex-row">
         {/* Image column */}
         <ScrollReveal animation="fade-in-left" className="md:w-72 shrink-0">
-          <div className="h-52 md:h-full w-full overflow-hidden">
-            <img
+          <div className="h-52 md:h-full w-full overflow-hidden relative">
+            <Image
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              src={aboutImage.src}
+              src={aboutImage}
+              placeholder="blur"
               alt="Nhà máy sản xuất Phát Ngọc Anh"
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 100vw, 288px"
             />
           </div>
         </ScrollReveal>
