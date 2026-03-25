@@ -121,7 +121,7 @@ const HeroSection = () => {
   return (
     <section className="container mt-4 md:mt-10" id="hero">
       <div 
-        className="relative h-[280px] sm:h-[360px] md:h-[540px] rounded-2xl overflow-hidden shadow-2xl group select-none cursor-grab active:cursor-grabbing touch-pan-y"
+        className="relative h-[240px] sm:h-[300px] md:h-[480px] lg:h-[520px] xl:h-[560px] md:max-h-[calc(100svh-400px)] rounded-2xl overflow-hidden shadow-2xl group select-none cursor-grab active:cursor-grabbing touch-pan-y"
         onTouchStart={handleDragStart}
         onTouchMove={handleDragMove}
         onTouchEnd={handleDragEnd}

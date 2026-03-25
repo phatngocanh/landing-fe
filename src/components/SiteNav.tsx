@@ -6,21 +6,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CATEGORIES } from "@/data/products";
 
-const HOME_NAV_LINKS = [
-  { label: "Trang Chủ", href: "#hero" },
-  { label: "Giới Thiệu", href: "#about" },
-  { label: "Ưu Đãi", href: "#combo" },
-  { label: "Kiểm Nghiệm", href: "#about" },
-  { label: "Tin Tức", href: "#news" },
-  { label: "Liên Hệ", href: "#footer" },
-];
-
-const PAGE_NAV_LINKS = [
-  { label: "Trang Chủ", href: "/" },
-  { label: "Giới Thiệu", href: "/about" },
-  { label: "Ưu Đãi", href: "/#combo" },
-  { label: "Tin Tức", href: "/#news" },
-  { label: "Liên Hệ", href: "/#footer" },
+// Unified nav structure — same items on every page.
+// homeHref = smooth-scroll target on /
+// pageHref = full-page link from any other page
+const NAV_ITEMS = [
+  { label: "Trang Chủ",  homeHref: "#hero",   pageHref: "/"        },
+  { label: "Giới Thiệu", homeHref: "#about",  pageHref: "/about"   },
+  // "Sản Phẩm" is the dropdown — rendered separately between index 1 and 2
+  { label: "Ưu Đãi",     homeHref: "#combo",  pageHref: "/#combo"  },
+  { label: "Tin Tức",    homeHref: "#news",   pageHref: "/#news"   },
+  { label: "Liên Hệ",   homeHref: "#footer", pageHref: "/#footer" },
 ];
 
 const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
@@ -31,7 +26,10 @@ const SiteNav = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isProductsActive = pathname.startsWith("/products") || pathname.startsWith("/product");
+  const isAboutActive = pathname === "/about";
 
+  // Scroll-spy only on homepage
   useEffect(() => {
     if (!isHomePage) return;
     const handleScroll = () => {
@@ -49,29 +47,80 @@ const SiteNav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const handleHomeNavClick = useCallback((href: string) => {
+  // Smooth-scroll to a section id on the homepage
+  const handleHomeNavClick = useCallback((sectionHref: string) => {
     setMobileOpen(false);
     setTimeout(() => {
-      const el = document.querySelector(href);
+      const el = document.querySelector(sectionHref);
       if (el) el.scrollIntoView({ behavior: "smooth" });
-    }, 300);
-  }, []);
+    }, mobileOpen ? 350 : 0);
+  }, [mobileOpen]);
 
-  const navLinks = isHomePage ? HOME_NAV_LINKS : PAGE_NAV_LINKS;
+  // Determine active state for a nav item
+  const isItemActive = (item: typeof NAV_ITEMS[number]) => {
+    if (isHomePage) return activeSection === item.homeHref;
+    if (item.pageHref === "/about") return isAboutActive;
+    if (item.pageHref === "/") return !isProductsActive && !isAboutActive;
+    return false;
+  };
 
-  const isProductsActive = pathname.startsWith("/products");
+  // Render a single nav link — button on homepage, Link on inner pages
+  const NavLink = ({
+    item,
+    className,
+    index,
+  }: {
+    item: typeof NAV_ITEMS[number];
+    className?: string;
+    index: number;
+  }) => {
+    const active = isItemActive(item);
+    const base = `relative py-1 transition-colors whitespace-nowrap ${
+      active ? "text-yellow-300" : "hover:text-yellow-300"
+    } ${className ?? ""}`;
+
+    const indicator = active && (
+      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
+    );
+
+    if (isHomePage) {
+      return (
+        <button key={item.label} onClick={() => handleHomeNavClick(item.homeHref)} className={base}>
+          {item.label}
+          {indicator}
+        </button>
+      );
+    }
+    return (
+      <Link key={item.label} href={item.pageHref} className={base}>
+        {item.label}
+        {indicator}
+      </Link>
+    );
+  };
+
+  // Items shown BEFORE the Sản Phẩm dropdown (desktop)
+  const leftItems = NAV_ITEMS.slice(0, 2);
+  // Items shown AFTER the Sản Phẩm dropdown (desktop)
+  const rightItems = NAV_ITEMS.slice(2);
 
   return (
     <>
-      <nav className={`bg-primary text-primary-foreground sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-lg" : "shadow-md"}`}>
+      <nav
+        className={`bg-primary text-primary-foreground sticky top-0 z-50 transition-shadow duration-300 ${
+          scrolled ? "shadow-lg" : "shadow-md"
+        }`}
+      >
         <div className="container relative">
-          <div className="flex items-center justify-between md:justify-start py-4 gap-10 text-[13px] font-bold uppercase tracking-widest">
-            {/* Mobile toggle */}
+          <div className="flex items-center justify-between md:justify-start py-4 gap-8 text-[13px] font-bold uppercase tracking-widest">
+
+            {/* Mobile hamburger */}
             <button
               className="md:hidden p-1"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -79,38 +128,19 @@ const SiteNav = () => {
             >
               <div className="relative w-6 h-6">
                 <Menu className={`w-6 h-6 absolute transition-all duration-300 ${mobileOpen ? "opacity-0 rotate-90" : "opacity-100 rotate-0"}`} />
-                <X className={`w-6 h-6 absolute transition-all duration-300 ${mobileOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"}`} />
+                <X    className={`w-6 h-6 absolute transition-all duration-300 ${mobileOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"}`} />
               </div>
             </button>
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-10 overflow-visible">
-              {(isHomePage ? navLinks.slice(0, 2) : navLinks.slice(0, 2)).map((l) =>
-                isHomePage ? (
-                  <button
-                    key={l.label}
-                    onClick={() => handleHomeNavClick(l.href)}
-                    className={`relative py-1 transition-colors whitespace-nowrap ${
-                      activeSection === l.href ? "text-yellow-300" : "hover:text-yellow-300"
-                    }`}
-                  >
-                    {l.label}
-                    {activeSection === l.href && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
-                    )}
-                  </button>
-                ) : (
-                  <Link
-                    key={l.label}
-                    href={l.href}
-                    className="relative py-1 transition-colors whitespace-nowrap hover:text-yellow-300"
-                  >
-                    {l.label}
-                  </Link>
-                )
-              )}
+            {/* ===== Desktop nav ===== */}
+            <div className="hidden md:flex items-center gap-8 overflow-visible">
 
-              {/* Products dropdown */}
+              {/* Left items: Trang Chủ, Giới Thiệu */}
+              {leftItems.map((item, i) => (
+                <NavLink key={item.label} item={item} index={i} />
+              ))}
+
+              {/* Sản Phẩm dropdown */}
               <div className="group relative py-4 -my-4 cursor-pointer">
                 <Link
                   href="/products"
@@ -124,6 +154,8 @@ const SiteNav = () => {
                     <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
                   )}
                 </Link>
+
+                {/* Dropdown panel */}
                 <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-8 grid grid-cols-2 gap-x-12 gap-y-4 w-[500px] z-50 normal-case font-medium">
                   {productCategories.map((cat) => (
                     <Link
@@ -144,30 +176,10 @@ const SiteNav = () => {
                 </div>
               </div>
 
-              {(isHomePage ? navLinks.slice(3) : navLinks.slice(2)).map((l) =>
-                isHomePage ? (
-                  <button
-                    key={l.label}
-                    onClick={() => handleHomeNavClick(l.href)}
-                    className={`relative py-1 transition-colors whitespace-nowrap ${
-                      activeSection === l.href ? "text-yellow-300" : "hover:text-yellow-300"
-                    }`}
-                  >
-                    {l.label}
-                    {activeSection === l.href && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
-                    )}
-                  </button>
-                ) : (
-                  <Link
-                    key={l.label}
-                    href={l.href}
-                    className="relative py-1 transition-colors whitespace-nowrap hover:text-yellow-300"
-                  >
-                    {l.label}
-                  </Link>
-                )
-              )}
+              {/* Right items: Ưu Đãi, Tin Tức, Liên Hệ */}
+              {rightItems.map((item, i) => (
+                <NavLink key={item.label} item={item} index={i + leftItems.length + 1} />
+              ))}
             </div>
           </div>
         </div>
@@ -194,11 +206,9 @@ const SiteNav = () => {
           }`}
           style={{ maxHeight: "100dvh" }}
         >
-          {/* Menu header */}
+          {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-primary-foreground/15">
-            <span className="text-sm font-black uppercase tracking-widest text-primary-foreground/90">
-              Menu
-            </span>
+            <span className="text-sm font-black uppercase tracking-widest text-primary-foreground/90">Menu</span>
             <button
               onClick={() => setMobileOpen(false)}
               className="p-2 -mr-2 rounded-full hover:bg-primary-foreground/10 transition-colors"
@@ -208,53 +218,58 @@ const SiteNav = () => {
             </button>
           </div>
 
-          {/* Scrollable content */}
           <div className="overflow-y-auto flex-1 overscroll-contain">
-            {/* Main nav links */}
+            {/* All nav items */}
             <div className="px-4 pt-4 pb-2 space-y-0.5">
-              {navLinks.map((l, i) =>
-                isHomePage ? (
+              {NAV_ITEMS.map((item, i) => {
+                const active = isItemActive(item);
+                const baseClass = `flex items-center w-full text-left py-3.5 px-4 rounded-2xl transition-all text-[15px] font-bold uppercase tracking-wider ${
+                  active
+                    ? "bg-primary-foreground/15 text-yellow-300"
+                    : "hover:bg-primary-foreground/10 hover:text-yellow-300"
+                }`;
+                const anim = { animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${i * 50}ms both` : "none" };
+
+                return isHomePage ? (
                   <button
-                    key={l.label}
-                    onClick={() => handleHomeNavClick(l.href)}
-                    className={`flex items-center w-full text-left py-3.5 px-4 rounded-2xl transition-all text-[15px] font-bold uppercase tracking-wider ${
-                      activeSection === l.href
-                        ? "bg-primary-foreground/15 text-yellow-300"
-                        : "hover:bg-primary-foreground/8 hover:text-yellow-300"
-                    }`}
-                    style={{ animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${i * 50}ms both` : "none" }}
+                    key={item.label}
+                    onClick={() => handleHomeNavClick(item.homeHref)}
+                    className={baseClass}
+                    style={anim}
                   >
-                    <span>{l.label}</span>
-                    {activeSection === l.href && <span className="ml-auto w-2 h-2 rounded-full bg-yellow-300" />}
+                    <span>{item.label}</span>
+                    {active && <span className="ml-auto w-2 h-2 rounded-full bg-yellow-300" />}
                   </button>
                 ) : (
                   <Link
-                    key={l.label}
-                    href={l.href}
+                    key={item.label}
+                    href={item.pageHref}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center w-full text-left py-3.5 px-4 rounded-2xl transition-all text-[15px] font-bold uppercase tracking-wider hover:bg-primary-foreground/8 hover:text-yellow-300"
-                    style={{ animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${i * 50}ms both` : "none" }}
+                    className={baseClass}
+                    style={anim}
                   >
-                    {l.label}
+                    <span>{item.label}</span>
+                    {active && <span className="ml-auto w-2 h-2 rounded-full bg-yellow-300" />}
                   </Link>
-                )
-              )}
+                );
+              })}
+
+              {/* Sản Phẩm link */}
               <Link
                 href="/products"
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center w-full text-left py-3.5 px-4 rounded-2xl transition-all text-[15px] font-bold uppercase tracking-wider ${
                   isProductsActive
                     ? "bg-primary-foreground/15 text-yellow-300"
-                    : "hover:bg-primary-foreground/8 hover:text-yellow-300"
+                    : "hover:bg-primary-foreground/10 hover:text-yellow-300"
                 }`}
-                style={{ animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${navLinks.length * 50}ms both` : "none" }}
+                style={{ animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${NAV_ITEMS.length * 50}ms both` : "none" }}
               >
                 <span>Sản Phẩm</span>
                 {isProductsActive && <span className="ml-auto w-2 h-2 rounded-full bg-yellow-300" />}
               </Link>
             </div>
 
-            {/* Divider */}
             <div className="mx-6 my-2 border-t border-primary-foreground/15" />
 
             {/* Product categories */}
@@ -268,8 +283,8 @@ const SiteNav = () => {
                     key={cat}
                     href={`/products?category=${encodeURIComponent(cat)}`}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 w-full text-left py-3 px-4 rounded-xl hover:bg-primary-foreground/8 transition-all text-sm normal-case font-medium tracking-normal hover:text-yellow-300"
-                    style={{ animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${(navLinks.length + 1 + i) * 40}ms both` : "none" }}
+                    className="flex items-center gap-3 w-full text-left py-3 px-4 rounded-xl hover:bg-primary-foreground/10 transition-all text-sm normal-case font-medium tracking-normal hover:text-yellow-300"
+                    style={{ animation: mobileOpen ? `slideInFromLeft 0.3s ease-out ${(NAV_ITEMS.length + 1 + i) * 40}ms both` : "none" }}
                   >
                     <ArrowRight className="w-3.5 h-3.5 text-primary-foreground/40" />
                     {cat}
@@ -278,7 +293,6 @@ const SiteNav = () => {
               </div>
             </div>
 
-            {/* Divider */}
             <div className="mx-6 my-1 border-t border-primary-foreground/15" />
 
             {/* Contact CTA */}
