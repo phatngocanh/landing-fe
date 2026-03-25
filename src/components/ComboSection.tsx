@@ -11,9 +11,12 @@ const ComboSection = () => (
     <ScrollReveal>
       <div className="flex items-center justify-between border-b border-border pb-4 md:pb-5 mb-5 md:mb-10">
         <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary">Ưu Đãi Combo</h2>
-        <a className="text-[12px] md:text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group" href="#">
+        <Link
+          href="/products?category=Combo+%C6%B0u+%C4%91%C3%A3i"
+          className="text-[12px] md:text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group active:scale-95"
+        >
           Xem thêm <span className="group-hover:translate-x-1 transition-transform">→</span>
-        </a>
+        </Link>
       </div>
     </ScrollReveal>
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 lg:gap-8">

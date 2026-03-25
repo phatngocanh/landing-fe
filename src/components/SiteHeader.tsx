@@ -1,6 +1,7 @@
 import { Search, ShoppingCart, User, Phone, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const SiteHeader = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,7 +27,7 @@ const SiteHeader = () => {
     <header className="bg-card border-b border-border relative z-[60]">
       <div className="container py-3 md:py-5 flex items-center justify-between gap-3 md:gap-6">
         {/* Logo — compact on mobile */}
-        <a href="#hero" className="flex items-center gap-3 md:gap-5 group shrink-0">
+        <Link href="/" className="flex items-center gap-3 md:gap-5 group shrink-0">
           <Image
             src="/phatngocanhlogo.jpg"
             alt="PHÁT NGỌC ANH — logo công ty"
@@ -51,7 +52,7 @@ const SiteHeader = () => {
             <p className="text-xs font-extrabold text-foreground uppercase leading-tight">Hóa Phẩm</p>
             <p className="text-base font-black text-primary uppercase tracking-tight leading-tight">Phát Ngọc Anh</p>
           </div>
-        </a>
+        </Link>
 
         {/* Right side */}
         <div className="flex items-center gap-2 md:gap-8">
