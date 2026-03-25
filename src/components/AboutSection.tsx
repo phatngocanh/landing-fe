@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import aboutImage from "@/assets/about-image.jpg";
 import ScrollReveal from "./ScrollReveal";
 
@@ -13,7 +14,7 @@ const AboutSection = () => (
     <ScrollReveal>
       <div className="flex items-center justify-between border-b border-border pb-4 mb-6">
         <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-primary">Về Chúng Tôi</h2>
-        <a className="text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5" href="#">Xem thêm →</a>
+        <Link className="text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group active:scale-95" href="/about">Xem thêm <span className="group-hover:translate-x-1 transition-transform">→</span></Link>
       </div>
     </ScrollReveal>
 
@@ -55,12 +56,12 @@ const AboutSection = () => (
               ))}
             </div>
 
-            <a
-              href="#"
+            <Link
+              href="/about"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95"
             >
-              Tìm hiểu lịch sử →
-            </a>
+              Tìm hiểu thêm →
+            </Link>
           </div>
         </ScrollReveal>
       </div>

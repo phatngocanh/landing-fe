@@ -17,7 +17,7 @@ const HOME_NAV_LINKS = [
 
 const PAGE_NAV_LINKS = [
   { label: "Trang Chủ", href: "/" },
-  { label: "Giới Thiệu", href: "/#about" },
+  { label: "Giới Thiệu", href: "/about" },
   { label: "Ưu Đãi", href: "/#combo" },
   { label: "Tin Tức", href: "/#news" },
   { label: "Liên Hệ", href: "/#footer" },
