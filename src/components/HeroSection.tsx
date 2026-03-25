@@ -121,7 +121,7 @@ const HeroSection = () => {
   return (
     <section className="container mt-4 md:mt-10" id="hero">
       <div 
-        className="relative h-[240px] sm:h-[300px] md:h-[480px] lg:h-[520px] xl:h-[560px] md:max-h-[calc(100svh-400px)] rounded-2xl overflow-hidden shadow-2xl group select-none cursor-grab active:cursor-grabbing touch-pan-y"
+        className="relative h-[240px] sm:h-[360px] md:h-[500px] lg:h-[580px] xl:h-[640px] md:max-h-[calc(100svh-200px)] rounded-2xl overflow-hidden shadow-2xl group select-none cursor-grab active:cursor-grabbing touch-pan-y"
         onTouchStart={handleDragStart}
         onTouchMove={handleDragMove}
         onTouchEnd={handleDragEnd}
@@ -155,19 +155,23 @@ const HeroSection = () => {
           </div>
         ))}
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent z-[2]" />
+        {/* Overlay — left-side darkening anchors the text, bottom fade adds depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent z-[2]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-[2]" />
 
         {/* Text — responsive sizing */}
         <div
-          className="absolute bottom-10 sm:bottom-14 md:bottom-16 left-5 sm:left-8 md:left-12 text-primary-foreground max-w-[85%] sm:max-w-lg md:max-w-2xl z-[3] transition-all duration-500"
+          className="absolute bottom-10 sm:bottom-14 md:bottom-16 left-5 sm:left-8 md:left-12 max-w-[85%] sm:max-w-lg md:max-w-2xl z-[3] transition-all duration-500"
           key={current}
           style={{ animation: "heroTextIn 0.6s ease-out forwards" }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-6 leading-tight tracking-tight italic">
+          <span className="inline-block mb-3 md:mb-4 px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em]">
+            ZIFAT 999 — Hàng Việt Chất Lượng Cao
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight tracking-tight italic text-emerald-400 drop-shadow-lg">
             {slides[current].title}
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-primary-foreground/90 font-medium mb-4 sm:mb-6 md:mb-8 line-clamp-2 sm:line-clamp-none">
+          <p className="text-sm sm:text-base md:text-lg text-white/90 font-medium mb-4 sm:mb-6 md:mb-8 line-clamp-2 sm:line-clamp-none drop-shadow">
             {slides[current].desc}
           </p>
           <a
