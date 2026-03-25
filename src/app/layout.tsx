@@ -10,62 +10,77 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const SITE_NAME = "Phát Ngọc Anh – ZIFAT 999";
+const BASE_URL = "https://phatngocanh.com";
+
 export const metadata: Metadata = {
-  robots: "noindex, nofollow",
-  title: "PHÁT NGỌC ANH | Hóa Phẩm Chất Lượng Cao - ZIFAT 999",
-  description: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh - Thương hiệu Zifat 999, sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999 | Chất Lượng Việt Cho Người Việt",
+    template: `%s | ${SITE_NAME}`,
+  },
+  description:
+    "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh – thương hiệu ZIFAT 999. Hơn 50 sản phẩm tẩy rửa, vệ sinh nhà cửa, chăm sóc xe chất lượng cao, giá cạnh tranh, phân phối toàn quốc.",
+  keywords: [
+    "hóa phẩm",
+    "ZIFAT 999",
+    "nước tẩy rửa",
+    "nước rửa chén",
+    "nước lau sàn",
+    "thông cống",
+    "Phát Ngọc Anh",
+    "hóa phẩm Việt Nam",
+    "chăm sóc xe",
+  ],
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "PHÁT NGỌC ANH | Hóa Phẩm Chất Lượng Cao - ZIFAT 999",
-    description: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh - Thương hiệu Zifat 999, sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
     type: "website",
-    url: "https://pna-test.lovable.app/",
-    images: [{
-      url: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/87c9bdc9-4d20-4278-9b4b-3e17267fce01/id-preview-9370c030--701cd2fc-c1fa-4c6a-aeee-72ee4af73196.lovable.app-1774368676052.png"
-    }]
+    locale: "vi_VN",
+    url: BASE_URL,
+    siteName: SITE_NAME,
+    title: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999 | Chất Lượng Việt Cho Người Việt",
+    description:
+      "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh – thương hiệu ZIFAT 999. Hơn 50 sản phẩm tẩy rửa chất lượng cao, phân phối 64 tỉnh thành.",
+    images: [{ url: "/phatngocanhlogo.jpg", width: 800, height: 800, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@Lovable",
-    title: "PHÁT NGỌC ANH | Hóa Phẩm Chất Lượng Cao - ZIFAT 999",
-    description: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh - Thương hiệu Zifat 999, sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
-    images: ["https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/87c9bdc9-4d20-4278-9b4b-3e17267fce01/id-preview-9370c030--701cd2fc-c1fa-4c6a-aeee-72ee4af73196.lovable.app-1774368676052.png"]
-  }
+    title: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999",
+    description:
+      "Hơn 50 sản phẩm tẩy rửa chất lượng cao thương hiệu ZIFAT 999, phân phối toàn quốc.",
+    images: ["/phatngocanhlogo.jpg"],
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="vi" className={inter.variable}>
-      <head>
-        <meta name="description" content="Công Ty TNHH Hóa Phẩm Phát Ngọc Anh - Thương hiệu Zifat 999, sản phẩm tẩy rửa chất lượng cao cho gia đình Việt" />
-      </head>
       <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh",
-              "url": "https://pna-test.lovable.app",
-              "logo": "https://pna-test.lovable.app/favicon.ico",
-              "description": "Thương hiệu Zifat 999 - Sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
-              "address": {
+              name: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh",
+              alternateName: "ZIFAT 999",
+              url: BASE_URL,
+              logo: `${BASE_URL}/phatngocanhlogo.jpg`,
+              description:
+                "Thương hiệu ZIFAT 999 – sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
+              address: {
                 "@type": "PostalAddress",
-                "streetAddress": "430/33 Đường TA 28, P. Thới An",
-                "addressLocality": "Quận 12",
-                "addressRegion": "TP. Hồ Chí Minh",
-                "addressCountry": "VN"
+                streetAddress: "430/33 Đường TA 28, Khu phố 2, P. Thới An",
+                addressLocality: "Quận 12",
+                addressRegion: "TP. Hồ Chí Minh",
+                addressCountry: "VN",
               },
-              "telephone": "+84-28-6271-3214",
-              "email": "hoaphamphatngocanh@gmail.com"
-            })
+              telephone: "+84-28-6271-3214",
+              email: "hoaphamphatngocanh@gmail.com",
+            }),
           }}
         />
       </body>
