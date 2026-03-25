@@ -10,13 +10,13 @@ const badges = [
 const TrustBadges = () => (
   <section className="container mt-6 md:mt-12">
     {/* Mobile: horizontal scroll strip */}
-    <div className="flex md:hidden gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-4 px-4 pb-2">
+    <div className="flex md:hidden gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-4 px-4 pb-2 justify-center">
       {badges.map((b) => (
         <div
           key={b.title}
-          className="bg-card px-4 py-3 rounded-xl flex items-center gap-3 border border-border shadow-sm shrink-0 snap-start min-w-[260px]"
+          className="bg-card px-4 py-3 rounded-xl flex flex-col items-center text-center gap-2 border border-border shadow-sm shrink-0 snap-start min-w-[260px]"
         >
-          <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center">
             <b.icon className="w-5 h-5 text-primary" />
           </div>
           <div>
@@ -31,8 +31,8 @@ const TrustBadges = () => (
     <div className="hidden md:grid grid-cols-3 gap-8">
       {badges.map((b, i) => (
         <ScrollReveal key={b.title} delay={`${i * 100}ms`}>
-          <div className="bg-card p-8 rounded-2xl flex items-center gap-6 border border-border shadow-sm hover:shadow-xl transition-all duration-300">
-            <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center shrink-0">
+          <div className="bg-card p-8 rounded-2xl flex flex-col items-center text-center gap-4 border border-border shadow-sm hover:shadow-xl transition-all duration-300">
+            <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center">
               <b.icon className="w-8 h-8 text-primary" />
             </div>
             <div>
