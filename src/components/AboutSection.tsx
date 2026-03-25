@@ -32,7 +32,7 @@ const AboutSection = () => (
 
         {/* Content column */}
         <ScrollReveal animation="fade-in-right" className="flex-1">
-          <div className="p-6 md:p-8 flex flex-col justify-between h-full gap-5">
+          <div className="p-6 md:p-8 flex flex-col items-center text-center justify-between h-full gap-5">
             <div>
               <h3 className="text-lg md:text-xl font-black text-foreground uppercase leading-tight tracking-tight mb-3">
                 PHÁT NGỌC ANH CO.,LTD — <span className="text-primary">ZIFAT 999</span>
@@ -43,7 +43,7 @@ const AboutSection = () => (
             </div>
 
             {/* Stats */}
-            <div className="flex gap-4 border-t border-border pt-4">
+            <div className="flex gap-4 border-t border-border pt-4 w-full">
               {stats.map((s) => (
                 <div key={s.label} className="flex-1 text-center">
                   <p className="text-base font-black text-primary">{s.value}</p>
@@ -54,7 +54,7 @@ const AboutSection = () => (
 
             <a
               href="#"
-              className="inline-flex self-start items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95"
             >
               Tìm hiểu lịch sử →
             </a>
