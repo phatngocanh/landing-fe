@@ -210,7 +210,7 @@ export default function MobileDrawer() {
               <Link
                 href="/products"
                 onClick={close}
-                className="flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-bold uppercase tracking-wider hover:bg-primary-foreground/10 transition-colors text-yellow-300"
+                className="flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors text-yellow-300/80"
                 data-testid="link-mobile-all-products"
               >
                 <span>Tất Cả Sản Phẩm</span>

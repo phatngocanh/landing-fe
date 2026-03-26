@@ -103,6 +103,21 @@ function ProductsContent() {
     setPage(1);
   };
 
+  // Sync category/search state when URL search params change (e.g. mobile nav links)
+  useEffect(() => {
+    const urlCategory = (searchParams.get("category") as Category) ?? "Tất cả";
+    const urlSearch = searchParams.get("q") ?? "";
+    if (urlCategory !== category) {
+      setCategory(urlCategory as Category | "Tất cả");
+      setPage(1);
+    }
+    if (urlSearch !== search) {
+      setSearch(urlSearch);
+      setSearchInput(urlSearch);
+      setPage(1);
+    }
+  }, [searchParams]);
+
   // Reset page on filter change
   useEffect(() => {
     setPage(1);
