@@ -123,13 +123,15 @@ export default function AboutPage() {
       <SiteHeader />
       <SiteNav />
 
-      {/* ── Breadcrumb ── */}
-      <div className="container py-4">
-        <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-foreground font-semibold">Về chúng tôi</span>
-        </nav>
+      {/* ── Breadcrumb band — same bg as hero for seamless flow ── */}
+      <div className="bg-primary text-primary-foreground">
+        <div className="container py-3">
+          <nav className="flex items-center gap-1.5 text-xs text-primary-foreground/60">
+            <Link href="/" className="hover:text-primary-foreground transition-colors font-medium">Trang chủ</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-primary-foreground/80 font-semibold">Giới Thiệu</span>
+          </nav>
+        </div>
       </div>
 
       {/* ── HERO ── */}

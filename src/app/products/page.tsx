@@ -119,16 +119,20 @@ function ProductsContent() {
       <SiteHeader />
       <SiteNav />
 
-      <main className="container py-6 md:py-12">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-6 md:mb-8 flex-wrap">
-          <Link href="/" className="hover:text-primary transition-colors font-medium">
-            Trang chủ
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-          <span className="text-foreground font-semibold">Sản phẩm</span>
-        </nav>
+      {/* Page header strip */}
+      <div className="bg-muted/50 border-b border-border">
+        <div className="container py-3 md:py-4">
+          <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground flex-wrap">
+            <Link href="/" className="hover:text-primary transition-colors font-medium">
+              Trang chủ
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+            <span className="text-foreground font-semibold">Sản phẩm</span>
+          </nav>
+        </div>
+      </div>
 
+      <main className="container py-6 md:py-12">
         {/* Page title */}
         <div className="mb-6 md:mb-10">
           <h1 className="text-xl md:text-3xl font-black text-foreground">

@@ -69,14 +69,18 @@ export default function ContactPage() {
       <SiteHeader />
       <SiteNav />
 
-      <div className="container py-6 md:py-10">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-muted-foreground mb-6 md:mb-10">
-          <Link href="/" className="hover:text-primary transition-colors">Trang chủ</Link>
-          <span>›</span>
-          <span className="text-foreground font-semibold">Liên hệ</span>
-        </nav>
+      {/* Page header strip */}
+      <div className="bg-muted/50 border-b border-border">
+        <div className="container py-3 md:py-4">
+          <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>
+            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+            <span className="text-foreground font-semibold">Liên hệ</span>
+          </nav>
+        </div>
+      </div>
 
+      <div className="container py-6 md:py-10">
         {/* Page header */}
         <div className="mb-8 md:mb-14">
           <h1 className="text-2xl md:text-4xl font-black text-foreground mb-2">Liên Hệ Với Chúng Tôi</h1>
