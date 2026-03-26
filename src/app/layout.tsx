@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { MobileMenuProvider } from "@/context/MobileMenuContext";
+import MobileDrawer from "@/components/MobileDrawer";
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -56,9 +58,16 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="vi" className={inter.variable}>
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
+    <html lang="vi" className={inter.variable} style={{ overflowX: "hidden" }}>
+      <body className={inter.className} style={{ overflowX: "hidden" }}>
+        <Providers>
+          <MobileMenuProvider>
+            <MobileDrawer />
+            <div id="page-wrap" style={{ position: "relative", minHeight: "100vh" }}>
+              {children}
+            </div>
+          </MobileMenuProvider>
+        </Providers>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
