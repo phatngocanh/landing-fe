@@ -139,7 +139,7 @@ export default function AboutPage() {
           </nav>
         </div>
 
-        <div className="container relative pt-5 pb-14 md:pt-6 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div className="container relative pt-8 pb-14 md:pt-14 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           {/* Text */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-xs font-black uppercase tracking-widest">
