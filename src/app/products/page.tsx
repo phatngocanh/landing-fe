@@ -116,12 +116,7 @@ function ProductsContent() {
       setSearchInput(urlSearch);
       setPage(1);
     }
-  }, [searchParams]);
-
-  // Reset page on filter change
-  useEffect(() => {
-    setPage(1);
-  }, [category, search]);
+  }, [searchParams, category, search]);
 
   const categoryLabel = category === "Tất cả" ? "Tất cả sản phẩm" : category;
   const showingProducts = data?.data ?? [];
