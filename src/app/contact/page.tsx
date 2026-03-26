@@ -241,10 +241,15 @@ export default function ContactPage() {
                 <Phone className="w-5 h-5" />
                 <span>Gọi ngay: 0286.271.3214</span>
               </a>
-              <button className="flex items-center gap-3 w-full py-3.5 px-5 bg-[hsl(210,100%,40%)] text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all active:scale-95">
+              <a
+                href="https://zalo.me/02862713214"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 w-full py-3.5 px-5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all active:scale-95"
+              >
                 <MessageCircle className="w-5 h-5" />
                 <span>Nhắn tin Zalo</span>
-              </button>
+              </a>
               <a
                 href="mailto:hoaphamphatngocanh@gmail.com"
                 className="flex items-center gap-3 w-full py-3.5 px-5 bg-muted border border-border text-foreground rounded-xl font-bold text-sm hover:border-primary hover:text-primary transition-all active:scale-95"

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, Tag, ArrowRight, Play, Search, ChevronRight } from "lucide-react";
@@ -87,8 +88,20 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function NewsPage() {
-  const featured = articles.find((a) => a.featured)!;
-  const rest = articles.filter((a) => !a.featured);
+  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredArticles = useMemo(() => {
+    return articles.filter((a) => {
+      const matchesCategory = selectedCategory === "Tất cả" || a.category === selectedCategory;
+      const q = searchQuery.trim().toLowerCase();
+      const matchesSearch = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  const featured = filteredArticles.find((a) => a.featured) ?? filteredArticles[0] ?? null;
+  const rest = filteredArticles.filter((a) => a !== featured);
 
   return (
     <div>
@@ -121,8 +134,9 @@ export default function NewsPage() {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
+                onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-all active:scale-95 ${
-                  cat === "Tất cả"
+                  cat === selectedCategory
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-card text-muted-foreground border-border hover:border-primary hover:text-primary"
                 }`}
@@ -131,16 +145,27 @@ export default function NewsPage() {
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2 bg-muted border border-border rounded-full px-4 py-2 w-full sm:w-64">
+          <div className="flex items-center gap-2 bg-muted border border-border rounded-full px-4 py-2 w-full sm:w-64 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
             <Search className="w-4 h-4 text-muted-foreground shrink-0" />
             <input
               className="bg-transparent border-none outline-none text-sm flex-1 min-w-0 placeholder:text-muted-foreground"
               placeholder="Tìm kiếm bài viết..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
 
+        {/* No results state */}
+        {filteredArticles.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-muted-foreground text-lg font-semibold mb-2">Không tìm thấy bài viết nào</p>
+            <p className="text-muted-foreground text-sm">Thử tìm kiếm với từ khóa khác hoặc chọn danh mục khác.</p>
+          </div>
+        )}
+
         {/* Featured article */}
+        {featured && (
         <div className="mb-10 md:mb-16 bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border shadow-sm group cursor-pointer hover:shadow-lg transition-shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="relative aspect-video md:aspect-auto md:min-h-[340px] overflow-hidden">
@@ -153,9 +178,11 @@ export default function NewsPage() {
                 placeholder="blur"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent md:bg-gradient-to-r md:from-transparent md:to-transparent" />
+              {featured.featured && (
               <span className="absolute top-4 left-4 bg-primary text-primary-foreground text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
                 Nổi bật
               </span>
+              )}
             </div>
             <div className="p-6 md:p-10 flex flex-col justify-center">
               <span className={`inline-flex items-center gap-1.5 text-[11px] font-bold px-3 py-1 rounded-full mb-4 w-fit ${categoryColors[featured.category]}`}>
@@ -179,6 +206,7 @@ export default function NewsPage() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Article grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 mb-10 md:mb-16">
