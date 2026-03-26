@@ -307,7 +307,7 @@ export default function AboutPage() {
         </ScrollReveal>
 
         {/* ── BUSINESS CRITERIA ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
           <ScrollReveal animation="fade-in-left">
             <div className="space-y-6">
               <div>
