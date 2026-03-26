@@ -18,7 +18,6 @@ import {
 import dynamic from "next/dynamic";
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
-import ScrollReveal from "@/components/ScrollReveal";
 import { useProducts } from "@/lib/api/products";
 import { CATEGORIES, type Category } from "@/data/products";
 
@@ -363,111 +362,109 @@ function ProductsContent() {
               </div>
             ) : gridCols === "list" ? (
               <div className="space-y-3">
-                {showingProducts.map((p, i) => (
-                  <ScrollReveal key={p.id} delay={`${i * 40}ms`}>
-                    <Link
-                      href={`/product/${p.id}`}
-                      data-testid={`product-card-${p.id}`}
-                      className="flex gap-4 sm:gap-6 bg-card border border-border rounded-xl sm:rounded-2xl p-3 sm:p-5 group hover:border-primary/40 hover:shadow-md transition-all"
-                    >
-                      <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 bg-muted rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden relative">
-                        {p.badge && (
-                          <span className="absolute top-1.5 left-1.5 bg-primary text-primary-foreground text-[8px] font-black px-1.5 py-0.5 rounded-full z-10">
-                            {p.badge}
+                {showingProducts.map((p) => (
+                  <Link
+                    key={p.id}
+                    href={`/product/${p.id}`}
+                    data-testid={`product-card-${p.id}`}
+                    className="flex gap-4 sm:gap-6 bg-card border border-border rounded-xl sm:rounded-2xl p-3 sm:p-5 group hover:border-primary/40 hover:shadow-md transition-all"
+                  >
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 bg-muted rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden relative">
+                      {p.badge && (
+                        <span className="absolute top-1.5 left-1.5 bg-primary text-primary-foreground text-[8px] font-black px-1.5 py-0.5 rounded-full z-10">
+                          {p.badge}
+                        </span>
+                      )}
+                      <Image
+                        src={p.img}
+                        alt={p.name}
+                        width={128}
+                        height={128}
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        placeholder="blur"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center gap-1 min-w-0">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit">
+                        {p.category}
+                      </span>
+                      <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                        {p.name}
+                      </h3>
+                      <div className="flex items-baseline gap-2 mt-1">
+                        <span className="text-secondary font-black text-base sm:text-lg">{p.price}</span>
+                        {p.oldPrice && (
+                          <span className="text-xs text-muted-foreground line-through">{p.oldPrice}</span>
+                        )}
+                        {p.discount && (
+                          <span className="text-xs font-black text-secondary bg-secondary/10 px-1.5 py-0.5 rounded-full">
+                            {p.discount}
                           </span>
                         )}
-                        <Image
-                          src={p.img}
-                          alt={p.name}
-                          width={128}
-                          height={128}
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                          placeholder="blur"
-                        />
                       </div>
-                      <div className="flex flex-col justify-center gap-1 min-w-0">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit">
-                          {p.category}
-                        </span>
-                        <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                          {p.name}
-                        </h3>
-                        <div className="flex items-baseline gap-2 mt-1">
-                          <span className="text-secondary font-black text-base sm:text-lg">{p.price}</span>
-                          {p.oldPrice && (
-                            <span className="text-xs text-muted-foreground line-through">{p.oldPrice}</span>
-                          )}
-                          {p.discount && (
-                            <span className="text-xs font-black text-secondary bg-secondary/10 px-1.5 py-0.5 rounded-full">
-                              {p.discount}
-                            </span>
-                          )}
-                        </div>
-                        {!p.inStock && (
-                          <span className="text-xs font-bold text-muted-foreground">Hết hàng</span>
-                        )}
-                      </div>
-                    </Link>
-                  </ScrollReveal>
+                      {!p.inStock && (
+                        <span className="text-xs font-bold text-muted-foreground">Hết hàng</span>
+                      )}
+                    </div>
+                  </Link>
                 ))}
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5">
-                {showingProducts.map((p, i) => (
-                  <ScrollReveal key={p.id} delay={`${i * 50}ms`}>
-                    <Link
-                      href={`/product/${p.id}`}
-                      data-testid={`product-card-${p.id}`}
-                      className="bg-card border border-border p-3 sm:p-5 rounded-xl sm:rounded-3xl text-center group cursor-pointer h-full relative block hover:border-primary/40 hover:shadow-md transition-all"
-                    >
-                      {p.badge && (
-                        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
-                          {p.badge}
-                        </div>
-                      )}
-                      {p.discount && (
-                        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-secondary text-secondary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
-                          {p.discount}
-                        </div>
-                      )}
-                      <div className="aspect-square mb-3 sm:mb-5 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-5 flex items-center justify-center overflow-hidden relative">
-                        <Image
-                          src={p.img}
-                          alt={p.name}
-                          width={300}
-                          height={300}
-                          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
-                          placeholder="blur"
-                        />
-                        {/* Hover actions — desktop only */}
-                        <div className="absolute inset-0 hidden sm:flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          <span className="w-9 h-9 rounded-full bg-card shadow-md flex items-center justify-center text-foreground hover:text-primary translate-y-3 group-hover:translate-y-0 duration-300">
-                            <Eye className="w-4 h-4" />
-                          </span>
-                          <span className="w-9 h-9 rounded-full bg-primary shadow-md flex items-center justify-center text-primary-foreground translate-y-3 group-hover:translate-y-0 duration-500">
-                            <ShoppingCart className="w-4 h-4" />
-                          </span>
-                        </div>
+                {showingProducts.map((p) => (
+                  <Link
+                    key={p.id}
+                    href={`/product/${p.id}`}
+                    data-testid={`product-card-${p.id}`}
+                    className="bg-card border border-border p-3 sm:p-5 rounded-xl sm:rounded-3xl text-center group cursor-pointer h-full relative block hover:border-primary/40 hover:shadow-md transition-all"
+                  >
+                    {p.badge && (
+                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                        {p.badge}
                       </div>
-                      <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary mb-1">
-                        {p.category}
-                      </p>
-                      <h3 className="text-[11px] sm:text-[13px] font-bold text-foreground h-8 sm:h-10 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                        {p.name}
-                      </h3>
-                      <div className="mt-2 sm:mt-3 flex items-baseline justify-center gap-2 flex-wrap">
-                        <span className="text-secondary font-black text-sm sm:text-base">{p.price}</span>
-                        {p.oldPrice && (
-                          <span className="text-[10px] text-muted-foreground line-through">{p.oldPrice}</span>
-                        )}
+                    )}
+                    {p.discount && (
+                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-secondary text-secondary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                        {p.discount}
                       </div>
-                      {!p.inStock && (
-                        <span className="inline-block mt-1 text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                          Hết hàng
+                    )}
+                    <div className="aspect-square mb-3 sm:mb-5 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-5 flex items-center justify-center overflow-hidden relative">
+                      <Image
+                        src={p.img}
+                        alt={p.name}
+                        width={300}
+                        height={300}
+                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                        placeholder="blur"
+                      />
+                      {/* Hover actions — desktop only */}
+                      <div className="absolute inset-0 hidden sm:flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <span className="w-9 h-9 rounded-full bg-card shadow-md flex items-center justify-center text-foreground hover:text-primary translate-y-3 group-hover:translate-y-0 duration-300">
+                          <Eye className="w-4 h-4" />
                         </span>
+                        <span className="w-9 h-9 rounded-full bg-primary shadow-md flex items-center justify-center text-primary-foreground translate-y-3 group-hover:translate-y-0 duration-500">
+                          <ShoppingCart className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary mb-1">
+                      {p.category}
+                    </p>
+                    <h3 className="text-[11px] sm:text-[13px] font-bold text-foreground h-8 sm:h-10 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                      {p.name}
+                    </h3>
+                    <div className="mt-2 sm:mt-3 flex items-baseline justify-center gap-2 flex-wrap">
+                      <span className="text-secondary font-black text-sm sm:text-base">{p.price}</span>
+                      {p.oldPrice && (
+                        <span className="text-[10px] text-muted-foreground line-through">{p.oldPrice}</span>
                       )}
-                    </Link>
-                  </ScrollReveal>
+                    </div>
+                    {!p.inStock && (
+                      <span className="inline-block mt-1 text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                        Hết hàng
+                      </span>
+                    )}
+                  </Link>
                 ))}
               </div>
             )}
