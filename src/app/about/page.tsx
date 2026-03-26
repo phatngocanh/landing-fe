@@ -123,25 +123,23 @@ export default function AboutPage() {
       <SiteHeader />
       <SiteNav />
 
-      {/* ── Breadcrumb band — same bg as hero for seamless flow ── */}
-      <div className="bg-primary text-primary-foreground">
-        <div className="container py-3">
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+        {/* Decorative rings — span the full section including breadcrumb */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full border-[40px] border-white/5 pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full border-[30px] border-white/5 pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/5 pointer-events-none" />
+
+        {/* Breadcrumb — sits inside the hero so rings flow through it unclipped */}
+        <div className="container relative pt-4 pb-0">
           <nav className="flex items-center gap-1.5 text-xs text-primary-foreground/60">
             <Link href="/" className="hover:text-primary-foreground transition-colors font-medium">Trang chủ</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-primary-foreground/80 font-semibold">Giới Thiệu</span>
           </nav>
         </div>
-      </div>
 
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
-        {/* Decorative rings */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full border-[40px] border-white/5 pointer-events-none" />
-        <div className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full border-[30px] border-white/5 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/5 pointer-events-none" />
-
-        <div className="container relative py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div className="container relative py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           {/* Text */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-xs font-black uppercase tracking-widest">
