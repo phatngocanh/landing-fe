@@ -76,21 +76,18 @@ export default function ProductDetailPage() {
 
       <main className="container py-6 md:py-12">
         {/* Breadcrumb */}
-        <ScrollReveal>
-          <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-6 md:mb-10 flex-wrap">
-            <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>
-            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-            <Link href={`/products?category=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors font-medium">{product.category}</Link>
-            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-            <span className="text-foreground font-semibold line-clamp-1">{product.name}</span>
-          </nav>
-        </ScrollReveal>
+        <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-6 md:mb-10 flex-wrap">
+          <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <Link href={`/products?category=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors font-medium">{product.category}</Link>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-foreground font-semibold line-clamp-1">{product.name}</span>
+        </nav>
 
         {/* Main product layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14 mb-14 md:mb-24">
           {/* Image gallery */}
-          <ScrollReveal>
-            <div className="flex flex-col gap-3 md:gap-4">
+          <div className="flex flex-col gap-3 md:gap-4">
               <div className="bg-card border border-border rounded-2xl md:rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-6 md:p-12 relative group">
                 {product.badge && (
                   <span className="absolute top-4 left-4 z-10 bg-primary text-primary-foreground text-[10px] font-black px-3 py-1 rounded-full shadow">
@@ -125,12 +122,10 @@ export default function ProductDetailPage() {
                   </button>
                 ))}
               </div>
-            </div>
-          </ScrollReveal>
+          </div>
 
           {/* Product info */}
-          <ScrollReveal delay="100ms">
-            <div className="flex flex-col gap-4 md:gap-6">
+          <div className="flex flex-col gap-4 md:gap-6">
               {/* Category + SKU */}
               <div className="flex items-center gap-3">
                 <span className="text-[11px] md:text-xs font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
@@ -296,8 +291,7 @@ export default function ProductDetailPage() {
                   </button>
                 ))}
               </div>
-            </div>
-          </ScrollReveal>
+          </div>
         </div>
 
         {/* Description + Specs + Reviews */}
@@ -414,9 +408,9 @@ export default function ProductDetailPage() {
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-5 md:gap-8">
-              {related.map((p, i) => (
-                <ScrollReveal key={p.id} delay={`${i * 100}ms`}>
+              {related.map((p) => (
                   <Link
+                    key={p.id}
                     href={`/product/${p.id}`}
                     data-testid={`related-product-${p.id}`}
                     className="bg-card border border-border p-3 sm:p-6 rounded-xl sm:rounded-3xl text-center product-card group cursor-pointer h-full relative block"
@@ -452,7 +446,6 @@ export default function ProductDetailPage() {
                     </h5>
                     <p className="text-secondary font-black text-sm sm:text-lg mt-2 sm:mt-3">{p.price}</p>
                   </Link>
-                </ScrollReveal>
               ))}
             </div>
           </div>
