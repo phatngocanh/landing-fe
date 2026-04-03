@@ -2,32 +2,35 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
-import combo1 from "@/assets/combo1.jpg";
-import combo2 from "@/assets/combo2.jpg";
+import product1 from "@/assets/product1.jpg";
+import product2 from "@/assets/product2.jpg";
 
 const SLIDE_DURATION = 5000; // ms per slide
 
 const slides = [
   {
     img: heroBanner,
-    title: <>Chất Lượng Việt<br />Cho Người Việt</>,
-    desc: "Đồng hành cùng gia đình Việt trong việc bảo vệ không gian sống sạch khuẩn và an toàn tuyệt đối.",
-    cta: "Khám phá ngay",
+    title: <>Giải Pháp Vệ Sinh<br />Toàn Diện</>,
+    desc: "Phát Ngọc Anh - Nhà sản xuất hàng đầu với hơn 10 năm kinh nghiệm trong ngành hóa mỹ phẩm Việt Nam.",
+    cta: "Khám phá sản phẩm",
     href: "#products",
+    badge: "PHÁT NGỌC ANH — Hàng Việt Chất Lượng Cao",
   },
   {
-    img: combo1,
-    title: <>Ưu Đãi Combo<br />Tiết Kiệm Hơn</>,
-    desc: "Mua combo tiết kiệm lên đến 15% — dọn sạch mọi ngóc ngách chỉ với một lần đặt hàng.",
-    cta: "Xem combo",
-    href: "#combo",
+    img: product1,
+    title: <>ZIFAT 999<br />Sức Mạnh Công Nghiệp</>,
+    desc: "Dòng sản phẩm tẩy rửa chuyên dụng cho công nghiệp và thương mại với hiệu quả vượt trội.",
+    cta: "Khám phá ZIFAT",
+    href: "/zifat999",
+    badge: "ZIFAT 999 — Công Nghiệp Mạnh Mẽ",
   },
   {
-    img: combo2,
-    title: <>Thương Hiệu<br />Được Tin Dùng</>,
-    desc: "Hơn 12 năm đạt danh hiệu Hàng Việt Nam Chất Lượng Cao — sự lựa chọn hàng đầu.",
-    cta: "Tìm hiểu thêm",
-    href: "#about",
+    img: product2,
+    title: <>SIFA 999<br />An Toàn Cho Mọi Nhà</>,
+    desc: "Dòng sản phẩm thiên nhiên, an toàn cho gia đình có trẻ nhỏ và thú cưng.",
+    cta: "Khám phá SIFA",
+    href: "/sifa999",
+    badge: "SIFA 999 — Thân Thiện Môi Trường",
   },
 ];
 
@@ -166,7 +169,7 @@ const HeroSection = () => {
           style={{ animation: "heroTextIn 0.6s ease-out forwards" }}
         >
           <span className="hidden sm:inline-block mb-3 md:mb-4 px-3 py-1 rounded-xl md:rounded-full bg-primary/90 text-primary-foreground text-[10px] md:text-[11px] font-black uppercase tracking-[0.08em] md:tracking-[0.2em] leading-relaxed whitespace-nowrap">
-            ZIFAT 999 — Hàng Việt Chất Lượng Cao
+            {slides[current].badge}
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight tracking-tight italic text-emerald-400 drop-shadow-lg">
             {slides[current].title}

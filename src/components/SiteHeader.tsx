@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, User, Phone, X } from "lucide-react";
+import { Search, Phone, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -88,15 +88,12 @@ const SiteHeader = () => {
           <button aria-label="Mở tìm kiếm" className="sm:hidden p-2 text-muted-foreground hover:text-primary rounded-full transition-colors">
             <Search className="w-5 h-5" />
           </button>
-          <div className="flex items-center gap-1 md:gap-2">
-            <button aria-label="Giỏ hàng" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card group-hover:scale-125 transition-transform" />
-            </button>
-            <button aria-label="Tài khoản người dùng" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
-              <User className="w-5 h-5" />
-            </button>
-          </div>
+          <Link
+            href="/contact"
+            className="hidden md:inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-full font-bold text-xs hover:brightness-110 transition-all uppercase tracking-wider active:scale-95"
+          >
+            Trở Thành Đại Lý
+          </Link>
         </div>
       </div>
     </header>

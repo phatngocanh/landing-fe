@@ -39,10 +39,10 @@ const AboutSection = () => (
           <div className="p-6 md:p-8 flex flex-col items-center text-center justify-between h-full gap-5">
             <div>
               <h3 className="text-lg md:text-xl font-black text-foreground uppercase leading-tight tracking-tight mb-3">
-                PHÁT NGỌC ANH CO.,LTD — <span className="text-primary">ZIFAT 999</span>
+                Công Ty TNHH Hóa Phẩm <span className="text-primary">Phát Ngọc Anh</span>
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Thương hiệu Zifat 999 đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012. Quy trình sản xuất tiên tiến mang đến giải pháp tẩy rửa an toàn, hiệu quả cho mọi gia đình Việt.
+                Hơn 10 năm kinh nghiệm trong ngành hóa mỹ phẩm với hai thương hiệu chủ lực ZIFAT 999 và SIFA 999. Quy trình sản xuất tiên tiến mang đến giải pháp tẩy rửa toàn diện cho cả công nghiệp và gia đình.
               </p>
             </div>
 

@@ -3,9 +3,6 @@ import product1 from "@/assets/product1.jpg";
 import product2 from "@/assets/product2.jpg";
 import product3 from "@/assets/product3.jpg";
 import product4 from "@/assets/product4.jpg";
-import combo1 from "@/assets/combo1.jpg";
-import combo2 from "@/assets/combo2.jpg";
-import combo3 from "@/assets/combo3.jpg";
 
 export interface Product {
   id: string;
@@ -19,6 +16,7 @@ export interface Product {
   discount?: string;
   badge?: string | null;
   category: string;
+  brand: "ZIFAT 999" | "SIFA 999";
   sku: string;
   description: string;
   uses: string[];
@@ -36,8 +34,10 @@ export const CATEGORIES = [
   "Chăm sóc xe",
   "Thông cống & WC",
   "Diệt côn trùng",
-  "Combo ưu đãi",
 ] as const;
+
+export const BRANDS = ["Tất cả", "ZIFAT 999", "SIFA 999"] as const;
+export type Brand = (typeof BRANDS)[number];
 
 export type Category = (typeof CATEGORIES)[number];
 
@@ -52,6 +52,7 @@ export const products: Product[] = [
     priceRaw: 45000,
     badge: "Bán chạy",
     category: "Vệ sinh nhà cửa",
+    brand: "ZIFAT 999",
     sku: "ZF-004",
     description:
       "Nước Lau Sàn Kháng Khuẩn ZIFAT 999 với công thức kháng khuẩn tiên tiến, giúp tiêu diệt 99,9% vi khuẩn và virus có hại. Mùi hương dịu nhẹ, không gây kích ứng, phù hợp cho cả gia đình có trẻ nhỏ và người già.",
@@ -82,6 +83,7 @@ export const products: Product[] = [
     priceRaw: 38000,
     badge: null,
     category: "Vệ sinh nhà cửa",
+    brand: "ZIFAT 999",
     sku: "ZF-003",
     description:
       "Nước Tẩy Gạch Men & Đồ Sứ ZIFAT 999 là giải pháp hoàn hảo để làm sạch các vết ố vàng, cặn khoáng và mốc trên gạch men, bồn cầu, chậu rửa và các bề mặt sứ.",
@@ -111,6 +113,7 @@ export const products: Product[] = [
     priceRaw: 52000,
     badge: "Mới",
     category: "Vệ sinh nhà cửa",
+    brand: "ZIFAT 999",
     sku: "ZF-011",
     description:
       "Xịt Phòng Kháng Khuẩn ZIFAT 999 với hương thảo mộc tự nhiên giúp tiêu diệt vi khuẩn trong không khí, khử mùi ẩm mốc, tạo không gian sống trong lành và thoải mái.",
@@ -140,6 +143,7 @@ export const products: Product[] = [
     priceRaw: 32000,
     badge: null,
     category: "Vệ sinh nhà cửa",
+    brand: "ZIFAT 999",
     sku: "ZF-012",
     description:
       "Nước Lau Kính ZIFAT 999 cho bề mặt kính, gương sáng bóng không vết, không lem sau mỗi lần lau. Công thức đặc biệt chống bám bụi và hơi nước lâu dài.",
@@ -172,6 +176,7 @@ export const products: Product[] = [
     discount: "-20%",
     badge: "Hot",
     category: "Vệ sinh nhà cửa",
+    brand: "ZIFAT 999",
     sku: "ZF-013",
     description:
       "Javel Đậm Đặc ZIFAT 999 với nồng độ Clo cao giúp tẩy trắng và khử trùng mạnh mẽ trên nhiều bề mặt. Hiệu quả tức thì trong việc loại bỏ nấm mốc, vi khuẩn và virus.",
@@ -202,6 +207,7 @@ export const products: Product[] = [
     priceRaw: 60000,
     badge: "Mới",
     category: "Tẩy rửa công nghiệp",
+    brand: "ZIFAT 999",
     sku: "ZF-002",
     description:
       "Nước Tẩy Máy Cao Cấp ZIFAT 999 được thiết kế đặc biệt để làm sạch các bề mặt kim loại, động cơ và máy móc công nghiệp. Công thức đậm đặc giúp loại bỏ dầu mỡ, gỉ sét và bụi bẩn cứng đầu.",
@@ -231,6 +237,7 @@ export const products: Product[] = [
     priceRaw: 85000,
     badge: null,
     category: "Tẩy rửa công nghiệp",
+    brand: "ZIFAT 999",
     sku: "ZF-021",
     description:
       "Chất Tẩy Dầu Công Nghiệp ZIFAT 999 chuyên dùng cho xưởng sản xuất, gara ô tô, nhà máy. Khả năng tẩy dầu mỡ vượt trội, an toàn với kim loại và hầu hết các loại bề mặt công nghiệp.",
@@ -260,6 +267,7 @@ export const products: Product[] = [
     priceRaw: 72000,
     badge: "Bán chạy",
     category: "Tẩy rửa công nghiệp",
+    brand: "ZIFAT 999",
     sku: "ZF-022",
     description:
       "Dung Dịch Tẩy Rỉ Sét ZIFAT 999 nhanh chóng loại bỏ rỉ sét, vôi bám, cặn khoáng trên bề mặt kim loại, gạch đá, thiết bị vệ sinh. Không ăn mòn bề mặt, an toàn sử dụng.",
@@ -291,6 +299,7 @@ export const products: Product[] = [
     priceRaw: 55000,
     badge: "Bán chạy",
     category: "Nước giặt & xả",
+    brand: "ZIFAT 999",
     sku: "ZF-031",
     description:
       "Nước Giặt Hương Nắng Mới ZIFAT 999 với công thức enzym sinh học tiên tiến, giúp loại bỏ hiệu quả các vết bẩn cứng đầu, trả lại màu sắc tươi sáng cho quần áo và để lại mùi hương dịu nhẹ.",
@@ -320,6 +329,7 @@ export const products: Product[] = [
     priceRaw: 62000,
     badge: "Mới",
     category: "Nước giặt & xả",
+    brand: "ZIFAT 999",
     sku: "ZF-032",
     description:
       "Nước Giặt Vải Trắng ZIFAT 999 chứa chất tẩy quang học giúp áo trắng luôn trắng sáng, loại bỏ vết ố vàng do mồ hôi và thức ăn, giữ vải mềm mại và không bị xù lông.",
@@ -348,6 +358,7 @@ export const products: Product[] = [
     priceRaw: 42000,
     badge: null,
     category: "Nước giặt & xả",
+    brand: "ZIFAT 999",
     sku: "ZF-033",
     description:
       "Nước Xả Vải Hương Hoa Anh Đào ZIFAT 999 làm mềm sợi vải, giảm tĩnh điện, giữ hương thơm lâu đến 72 giờ. Phù hợp cho cả quần áo người lớn và trẻ em.",
@@ -379,6 +390,7 @@ export const products: Product[] = [
     priceRaw: 25000,
     badge: "Bán chạy",
     category: "Nước rửa chén",
+    brand: "ZIFAT 999",
     sku: "ZF-041",
     description:
       "Nước Rửa Chén Hương Chanh ZIFAT 999 với công thức siêu đặc sạch dầu mỡ ngay từ lần rửa đầu tiên. Hương chanh tươi mát, dưỡng ẩm tay, ít tạo bọt nhưng hiệu quả rửa sạch vượt trội.",
@@ -408,6 +420,7 @@ export const products: Product[] = [
     priceRaw: 35000,
     badge: null,
     category: "Nước rửa chén",
+    brand: "ZIFAT 999",
     sku: "ZF-042",
     description:
       "Nước Rửa Chén Thảo Mộc ZIFAT 999 bổ sung chiết xuất lô hội và trà xanh giúp dưỡng ẩm và bảo vệ da tay trong khi rửa. Loại bỏ dầu mỡ hiệu quả, an toàn cho người dùng thường xuyên.",
@@ -436,6 +449,7 @@ export const products: Product[] = [
     priceRaw: 68000,
     badge: "Mới",
     category: "Nước rửa chén",
+    brand: "ZIFAT 999",
     sku: "ZF-043",
     description:
       "Nước Rửa Chén Máy ZIFAT 999 được thiết kế đặc biệt cho máy rửa chén, tạo ít bọt, ngăn ngừa cặn khoáng trên bát đĩa và bảo vệ thiết bị máy rửa chén dài lâu.",
@@ -467,6 +481,7 @@ export const products: Product[] = [
     priceRaw: 100000,
     badge: null,
     category: "Chăm sóc xe",
+    brand: "ZIFAT 999",
     sku: "ZF-001",
     description:
       "Bóng Vỏ Xe Siêu Đặc ZIFAT 999 là dòng sản phẩm cao cấp giúp làm bóng và bảo vệ vỏ xe ô tô, xe máy. Công thức đặc biệt tạo lớp màng bảo vệ bền vững, chống bám bụi và chống tia UV.",
@@ -496,6 +511,7 @@ export const products: Product[] = [
     priceRaw: 78000,
     badge: "Bán chạy",
     category: "Chăm sóc xe",
+    brand: "ZIFAT 999",
     sku: "ZF-051",
     description:
       "Nước Rửa Xe Bọt Tuyết ZIFAT 999 tạo bọt dày đặc bao phủ toàn bộ bề mặt xe, thấm sâu và nâng bụi bẩn lên mà không làm xước sơn. Công thức trung tính an toàn cho mọi loại sơn xe.",
@@ -526,6 +542,7 @@ export const products: Product[] = [
     priceRaw: 48000,
     badge: null,
     category: "Chăm sóc xe",
+    brand: "ZIFAT 999",
     sku: "ZF-052",
     description:
       "Dung Dịch Rửa Kính Xe ZIFAT 999 làm sạch nhanh kính lái, kính hậu, tẩy sạch vết côn trùng, nhựa cây và vết nước mưa. Tạo lớp màng kỵ nước giúp tầm nhìn rõ hơn trong trời mưa.",
@@ -556,6 +573,7 @@ export const products: Product[] = [
     priceRaw: 48000,
     badge: "Bán chạy",
     category: "Thông cống & WC",
+    brand: "ZIFAT 999",
     sku: "ZF-061",
     description:
       "Nước Thông Cống Triệt Để ZIFAT 999 phân hủy nhanh các chất gây tắc như tóc, mỡ, xà phòng cặn và các vật chất hữu cơ khác chỉ trong 30 phút. Hiệu quả với cả cống nghẹt nặng.",
@@ -585,6 +603,7 @@ export const products: Product[] = [
     priceRaw: 55000,
     badge: null,
     category: "Thông cống & WC",
+    brand: "ZIFAT 999",
     sku: "ZF-062",
     description:
       "Bột Vi Sinh ZIFAT 999 chứa hàng tỷ vi sinh vật có lợi giúp phân hủy chất hữu cơ, khử mùi hôi thối từ đường ống thoát nước, hầm tự hoại và bể phốt. An toàn, thân thiện môi trường.",
@@ -614,6 +633,7 @@ export const products: Product[] = [
     priceRaw: 35000,
     badge: "Mới",
     category: "Thông cống & WC",
+    brand: "ZIFAT 999",
     sku: "ZF-063",
     description:
       "Nước Khử Mùi WC ZIFAT 999 diệt khuẩn tức thì, khử mùi hôi bồn cầu và giúp nhà vệ sinh luôn sạch sẽ, thơm tho. Công thức dạng gel bám lâu, hiệu quả kéo dài đến 7 ngày.",
@@ -645,6 +665,7 @@ export const products: Product[] = [
     priceRaw: 65000,
     badge: "Bán chạy",
     category: "Diệt côn trùng",
+    brand: "ZIFAT 999",
     sku: "ZF-071",
     description:
       "Thuốc Diệt Gián & Muỗi ZIFAT 999 với hoạt chất Cypermethrin tác dụng nhanh, tiêu diệt gián, muỗi, kiến và nhiều loại côn trùng gây hại khác trong 24 giờ. Hiệu lực kéo dài đến 3 tháng.",
@@ -674,6 +695,7 @@ export const products: Product[] = [
     priceRaw: 120000,
     badge: null,
     category: "Diệt côn trùng",
+    brand: "ZIFAT 999",
     sku: "ZF-072",
     description:
       "Thuốc Diệt Mối Chuyên Dụng ZIFAT 999 sử dụng công nghệ lan truyền sinh học, tiêu diệt toàn bộ tổ mối kể cả mối chúa chỉ sau 1-3 tuần. Không cần đục phá công trình.",
@@ -703,6 +725,7 @@ export const products: Product[] = [
     priceRaw: 55000,
     badge: "Mới",
     category: "Diệt côn trùng",
+    brand: "ZIFAT 999",
     sku: "ZF-073",
     description:
       "Xịt Côn Trùng Thảo Mộc ZIFAT 999 chiết xuất hoàn toàn từ tinh dầu sả, bạc hà và đinh hương, đuổi và tiêu diệt muỗi, kiến, ruồi hiệu quả mà an toàn tuyệt đối với người và thú cưng.",
@@ -724,154 +747,184 @@ export const products: Product[] = [
     inStock: true,
   },
 
-  // ── Combo ưu đãi ─────────────────────────────────────────────────
+  // ── SIFA 999 - Vệ sinh nhà cửa ────────────────────────────────────
   {
-    id: "combo-thong-cong",
-    img: combo1,
-    images: [combo1, combo2, combo3],
-    name: "Combo Thông Cống Triệt Để + Bột Vi Sinh Khử Mùi",
-    price: "99.000đ",
-    priceRaw: 99000,
-    oldPrice: "110.000đ",
-    oldPriceRaw: 110000,
-    discount: "-10%",
-    badge: "Bán chạy",
-    category: "Combo ưu đãi",
-    sku: "ZF-C001",
-    description:
-      "Bộ combo tiết kiệm gồm Nước Thông Cống Triệt Để ZIFAT 999 và Bột Vi Sinh Khử Mùi, mang đến giải pháp toàn diện cho đường ống tắc nghẽn và mùi hôi khó chịu trong nhà. Tiết kiệm 10% so với mua lẻ.",
-    uses: [
-      "Thông cống bồn rửa chén, nhà tắm bị tắc",
-      "Khử mùi hôi trong đường ống thoát nước",
-      "Tiêu diệt vi khuẩn trong đường ống",
-      "Ngăn ngừa tắc cống tái phát",
-    ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
-    specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước thông cống 500ml + Bột vi sinh 200g" },
-      { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
-    ],
-    inStock: true,
-  },
-  {
-    id: "combo-lau-san-xit-phong",
-    img: combo2,
-    images: [combo2, combo1, combo3],
-    name: "Combo Nước Lau Sàn Hương Hoa + Xịt Phòng Kháng Khuẩn",
-    price: "120.000đ",
-    priceRaw: 120000,
-    oldPrice: "135.000đ",
-    oldPriceRaw: 135000,
-    discount: "-11%",
+    id: "sifa-nuoc-lau-san-eco",
+    img: product2,
+    images: [product2, product3, product4],
+    name: "Nước Lau Sàn Eco SIFA 999",
+    price: "52.000đ",
+    priceRaw: 52000,
     badge: "Mới",
-    category: "Combo ưu đãi",
-    sku: "ZF-C002",
+    category: "Vệ sinh nhà cửa",
+    brand: "SIFA 999",
+    sku: "SF-001",
     description:
-      "Combo tiết kiệm gồm Nước Lau Sàn Hương Hoa ZIFAT 999 và Xịt Phòng Kháng Khuẩn. Bộ đôi hoàn hảo giúp không gian sống luôn sạch sẽ, thơm tho và được bảo vệ tối ưu khỏi vi khuẩn gây hại.",
+      "Nước Lau Sàn Eco SIFA 999 với công thức 100% từ thiên nhiên, chiết xuất từ dầu dừa và tinh dầu sả chanh. An toàn tuyệt đối cho trẻ em, thú cưng và người có làn da nhạy cảm. Không chứa phosphate, paraben hay hóa chất độc hại.",
     uses: [
-      "Lau sàn sạch bóng với hương hoa dịu nhẹ",
-      "Xịt phòng khử khuẩn không khí trong nhà",
-      "Khử mùi ẩm mốc trong phòng kín",
-      "Phù hợp cho gia đình có trẻ nhỏ",
+      "Lau sạch mọi loại sàn nhà an toàn",
+      "Khử khuẩn tự nhiên từ tinh dầu sả",
+      "Không để lại cặn hóa chất trên sàn",
+      "An toàn cho bé bò chơi trên sàn",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["500ml", "1 lít", "2 lít"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước lau sàn 1L + Xịt phòng 300ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Thành phần", value: "Chiết xuất dầu dừa, tinh dầu sả chanh" },
+      { label: "Chứng nhận", value: "Eco-Friendly, Dermatologically Tested" },
+      { label: "Hạn sử dụng", value: "24 tháng kể từ ngày sản xuất" },
+      { label: "Bảo quản", value: "Nơi thoáng mát, tránh ánh nắng trực tiếp" },
     ],
     inStock: true,
   },
   {
-    id: "combo-javel-nuoc-giat",
-    img: combo3,
-    images: [combo3, combo1, combo2],
-    name: "Combo Javel Đậm Đặc + Nước Giặt Hương Nắng",
-    price: "85.000đ",
-    priceRaw: 85000,
-    oldPrice: "90.000đ",
-    oldPriceRaw: 90000,
-    discount: "-6%",
+    id: "sifa-nuoc-rua-chen-diu-nhe",
+    img: product3,
+    images: [product3, product1, product2],
+    name: "Nước Rửa Chén Dịu Nhẹ SIFA 999",
+    price: "38.000đ",
+    priceRaw: 38000,
+    badge: "Bán chạy",
+    category: "Nước rửa chén",
+    brand: "SIFA 999",
+    sku: "SF-002",
+    description:
+      "Nước Rửa Chén Dịu Nhẹ SIFA 999 được phát triển đặc biệt cho người có làn da nhạy cảm. Công thức pH trung tính kết hợp với chiết xuất lô hội và vitamin E giúp dưỡng ẩm và bảo vệ đôi tay trong khi rửa chén.",
+    uses: [
+      "Rửa sạch bát đĩa, nồi chảo hiệu quả",
+      "Dưỡng ẩm da tay với vitamin E và lô hội",
+      "Rửa trái cây, rau củ an toàn 100%",
+      "Không gây dị ứng cho da nhạy cảm",
+    ],
+    volumes: ["400ml", "800ml", "1.5 lít"],
+    specs: [
+      { label: "Thương hiệu", value: "SIFA 999" },
+      { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "pH", value: "6.5 - 7.5 (trung tính)" },
+      { label: "Thành phần đặc biệt", value: "Lô hội, Vitamin E, dầu olive" },
+      { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Bảo quản", value: "Nơi thoáng mát" },
+    ],
+    inStock: true,
+  },
+  {
+    id: "sifa-xit-kinh-sinh-hoc",
+    img: product4,
+    images: [product4, product2, product1],
+    name: "Xịt Kính Sinh Học SIFA 999",
+    price: "35.000đ",
+    priceRaw: 35000,
     badge: null,
-    category: "Combo ưu đãi",
-    sku: "ZF-C003",
+    category: "Vệ sinh nhà cửa",
+    brand: "SIFA 999",
+    sku: "SF-003",
     description:
-      "Combo tiết kiệm gồm Javel Đậm Đặc ZIFAT 999 và Nước Giặt Hương Nắng. Bộ đôi giúp quần áo trắng sáng, thơm tho và sạch khuẩn ngay từ lần giặt đầu tiên.",
+      "Xịt Kính Sinh Học SIFA 999 với thành phần enzyme sinh học tự nhiên, làm sạch kính và gương không vết ố mà không sử dụng hóa chất độc hại. Phân hủy sinh học hoàn toàn, thân thiện với môi trường.",
     uses: [
-      "Tẩy trắng quần áo bị ố vàng",
-      "Giặt sạch vết bẩn cứng đầu",
-      "Khử mùi hôi trên quần áo",
-      "An toàn cho vải cotton, polyester",
+      "Lau kính cửa sổ trong vắt không vết",
+      "Làm sạch gương trang điểm, gương phòng tắm",
+      "An toàn khi xịt gần thực phẩm",
+      "Không để lại mùi hóa chất khó chịu",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["300ml", "500ml"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Javel 1L + Nước giặt 750ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Công nghệ", value: "Enzyme sinh học" },
+      { label: "Phân hủy sinh học", value: "100% trong 28 ngày" },
+      { label: "Hạn sử dụng", value: "18 tháng" },
+      { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
   },
   {
-    id: "combo-nuoc-rua-chen-tay-bep",
-    img: combo1,
-    images: [combo1, combo3, combo2],
-    name: "Combo Nước Rửa Chén + Tẩy Nhà Bếp Đa Năng",
-    price: "75.000đ",
-    priceRaw: 75000,
-    oldPrice: "88.000đ",
-    oldPriceRaw: 88000,
-    discount: "-15%",
-    badge: "Hot",
-    category: "Combo ưu đãi",
-    sku: "ZF-C004",
+    id: "sifa-nuoc-giat-thao-moc",
+    img: product1,
+    images: [product1, product3, product4],
+    name: "Nước Giặt Thảo Mộc SIFA 999",
+    price: "65.000đ",
+    priceRaw: 65000,
+    badge: "Mới",
+    category: "Nước giặt & xả",
+    brand: "SIFA 999",
+    sku: "SF-004",
     description:
-      "Combo tiết kiệm nhất gồm Nước Rửa Chén và Tẩy Nhà Bếp Đa Năng ZIFAT 999. Bộ đôi không thể thiếu trong mỗi căn bếp, giúp làm sạch bát đĩa, bếp nấu và mặt bếp hiệu quả.",
+      "Nước Giặt Thảo Mộc SIFA 999 được chiết xuất từ 7 loại thảo mộc quý: bồ hòn, bồ kết, hương nhu, sả, chanh, quế và gừng. Làm sạch sâu sợi vải, diệt khuẩn tự nhiên và để lại hương thảo mộc dịu nhẹ.",
     uses: [
-      "Rửa sạch bát đĩa, nồi chảo dầu mỡ",
-      "Tẩy sạch mặt bếp, bếp từ, bếp gas",
-      "Khử mùi tanh, hôi trong bếp",
-      "An toàn cho da tay",
+      "Giặt sạch quần áo cho cả gia đình",
+      "Đặc biệt phù hợp cho quần áo em bé",
+      "Giữ màu vải bền đẹp sau nhiều lần giặt",
+      "Hương thảo mộc thư giãn, dễ chịu",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["750ml", "1.5 lít", "3 lít"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước rửa chén 500ml + Tẩy bếp 400ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Thành phần", value: "Bồ hòn, bồ kết, hương nhu, sả, chanh, quế, gừng" },
+      { label: "Chứng nhận", value: "Organic, Hypoallergenic" },
       { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Bảo quản", value: "Nơi khô ráo, thoáng mát" },
     ],
     inStock: true,
   },
   {
-    id: "combo-cham-soc-xe-toan-dien",
-    img: combo2,
-    images: [combo2, combo3, combo1],
-    name: "Combo Chăm Sóc Xe Toàn Diện 4 Món",
-    price: "199.000đ",
-    priceRaw: 199000,
-    oldPrice: "240.000đ",
-    oldPriceRaw: 240000,
-    discount: "-17%",
-    badge: "Hot",
-    category: "Combo ưu đãi",
-    sku: "ZF-C005",
+    id: "sifa-xa-vai-huong-hoa",
+    img: product2,
+    images: [product2, product4, product3],
+    name: "Nước Xả Vải Hương Hoa Thiên Nhiên SIFA 999",
+    price: "48.000đ",
+    priceRaw: 48000,
+    badge: null,
+    category: "Nước giặt & xả",
+    brand: "SIFA 999",
+    sku: "SF-005",
     description:
-      "Bộ combo chăm sóc xe toàn diện 4 món gồm Nước Rửa Xe Bọt Tuyết, Bóng Vỏ Xe, Dung Dịch Rửa Kính và Nước Lau Nội Thất ZIFAT 999. Tiết kiệm 17% so với mua lẻ.",
+      "Nước Xả Vải Hương Hoa Thiên Nhiên SIFA 999 với tinh dầu hoa nhài và lavender, làm mềm sợi vải tự nhiên mà không cần sử dụng silicon hay hóa chất tổng hợp. Hương thơm nhẹ nhàng, kéo dài đến 48 giờ.",
     uses: [
-      "Rửa xe sạch bóng từ ngoài đến trong",
-      "Bảo vệ sơn xe khỏi tia UV và oxy hóa",
-      "Làm sạch và tạo độ bóng nội thất",
-      "Đầy đủ dụng cụ chăm sóc xe tại nhà",
+      "Làm mềm vải tự nhiên, không silicon",
+      "Khử mùi hôi ẩm mốc trên quần áo",
+      "Giảm nhăn vải, dễ ủi",
+      "An toàn cho da em bé và da nhạy cảm",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ cao cấp"],
+    volumes: ["500ml", "1 lít", "2 lít"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước rửa xe 500ml + Bóng vỏ 250ml + Rửa kính 300ml + Lau nội thất 250ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Hương thơm", value: "Hoa nhài và lavender" },
+      { label: "Thời gian lưu hương", value: "Lên đến 48 giờ" },
       { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Bảo quản", value: "Nơi thoáng mát" },
+    ],
+    inStock: true,
+  },
+  {
+    id: "sifa-tay-da-nang-nha-bep",
+    img: product3,
+    images: [product3, product1, product2],
+    name: "Tẩy Đa Năng Nhà Bếp Organic SIFA 999",
+    price: "42.000đ",
+    priceRaw: 42000,
+    badge: "Bán chạy",
+    category: "Vệ sinh nhà cửa",
+    brand: "SIFA 999",
+    sku: "SF-006",
+    description:
+      "Tẩy Đa Năng Nhà Bếp Organic SIFA 999 với công thức từ baking soda và axit citric tự nhiên, tẩy sạch dầu mỡ và vết bẩn trong bếp mà không để lại hóa chất độc hại gần thực phẩm.",
+    uses: [
+      "Tẩy dầu mỡ trên mặt bếp, tủ bếp",
+      "Làm sạch bồn rửa, vòi nước inox",
+      "Vệ sinh lò vi sóng, lò nướng an toàn",
+      "Không để lại hóa chất gần thực phẩm",
+    ],
+    volumes: ["400ml", "800ml"],
+    specs: [
+      { label: "Thương hiệu", value: "SIFA 999" },
+      { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Thành phần chính", value: "Baking soda, axit citric, chiết xuất cam" },
+      { label: "Chứng nhận", value: "Food-Safe, Eco-Friendly" },
+      { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Bảo quản", value: "Nơi thoáng mát, tránh nhiệt độ cao" },
     ],
     inStock: true,
   },
@@ -882,3 +935,17 @@ export const getProductById = (id: string): Product | undefined =>
 
 export const getRelatedProducts = (id: string, limit = 4): Product[] =>
   products.filter((p) => p.id !== id).slice(0, limit);
+
+export const getProductsByBrand = (brand: "ZIFAT 999" | "SIFA 999"): Product[] =>
+  products.filter((p) => p.brand === brand);
+
+export const getProductsByCategory = (category: string): Product[] =>
+  category === "Tất cả" ? products : products.filter((p) => p.category === category);
+
+export const filterProducts = (brand?: string, category?: string): Product[] => {
+  return products.filter((p) => {
+    const matchesBrand = !brand || brand === "Tất cả" || p.brand === brand;
+    const matchesCategory = !category || category === "Tất cả" || p.category === category;
+    return matchesBrand && matchesCategory;
+  });
+};

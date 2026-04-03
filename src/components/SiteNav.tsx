@@ -9,21 +9,26 @@ import { useMobileMenu } from "@/context/MobileMenuContext";
 const HOME_LINKS = [
   { label: "Trang Chủ",  anchor: "#hero"   },
   { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Ưu Đãi",     anchor: "#combo"  },
+  { label: "Thương Hiệu", anchor: "#brands" },
   { label: "Tin Tức",    anchor: "#news"   },
   { label: "Liên Hệ",   anchor: "#footer" },
 ];
 
 const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"                                               },
-  { label: "Giới Thiệu", href: "/about"                                          },
-  { label: "Ưu Đãi",     href: "/products?category=Combo+%C6%B0u+%C4%91%C3%A3i" },
-  { label: "Tin Tức",    href: "/news"                                           },
-  { label: "Liên Hệ",   href: "/contact"                                        },
+  { label: "Trang Chủ",  href: "/"        },
+  { label: "Giới Thiệu", href: "/about"   },
+  { label: "Tin Tức",    href: "/news"    },
+  { label: "Liên Hệ",   href: "/contact" },
 ];
 
-import { CATEGORIES } from "@/data/products";
+const BRAND_LINKS = [
+  { label: "ZIFAT 999", href: "/zifat999", color: "text-emerald-600" },
+  { label: "SIFA 999",  href: "/sifa999",  color: "text-sky-600" },
+];
+
+import { CATEGORIES, BRANDS } from "@/data/products";
 const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
+const productBrands = BRANDS.filter((b) => b !== "Tất cả");
 
 const SiteNav = () => {
   const { mobileOpen, toggleMobile } = useMobileMenu();
@@ -37,7 +42,7 @@ const SiteNav = () => {
     if (!isHome) return;
     const onScroll = () => {
       setScrolled(window.scrollY > 10);
-      for (const id of ["footer", "news", "combo", "about", "hero"]) {
+      for (const id of ["footer", "news", "brands", "about", "hero"]) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 120) {
           setActiveAnchor(`#${id}`);
@@ -58,10 +63,11 @@ const SiteNav = () => {
     setTimeout(run, 0);
   }, []);
 
+  const isBrandPage = pathname === "/zifat999" || pathname === "/sifa999";
+  
   const isPageLinkActive = (href: string) => {
-    if (href === "/") return !isProducts && pathname === "/";
+    if (href === "/") return !isProducts && !isBrandPage && pathname === "/";
     if (href === "/about") return pathname === "/about";
-    if (href.startsWith("/products?category=Combo")) return isProducts && typeof window !== "undefined" && window.location.search.includes("Combo");
     if (href === "/news") return pathname === "/news";
     if (href === "/contact") return pathname === "/contact";
     return false;
@@ -124,6 +130,33 @@ const SiteNav = () => {
               );
             })}
 
+            {/* Thương Hiệu dropdown */}
+            <div className="group relative py-4 -my-4 cursor-pointer">
+              <button
+                className={`flex items-center gap-1 transition-colors whitespace-nowrap ${
+                  isBrandPage ? "text-yellow-300" : "hover:text-yellow-300"
+                }`}
+              >
+                <span>Thương Hiệu</span>
+                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+                {isBrandPage && (
+                  <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
+                )}
+              </button>
+              <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-6 w-[280px] z-50 normal-case font-medium">
+                {BRAND_LINKS.map((brand) => (
+                  <Link
+                    key={brand.label}
+                    href={brand.href}
+                    className={`flex items-center gap-3 hover:translate-x-1 transition-all text-sm py-2 ${brand.color} hover:opacity-80 font-bold`}
+                  >
+                    <span className={`w-2 h-2 rounded-full ${brand.label === "ZIFAT 999" ? "bg-emerald-500" : "bg-sky-500"}`} />
+                    {brand.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             {/* Sản Phẩm dropdown */}
             <div className="group relative py-4 -my-4 cursor-pointer">
               <Link
@@ -138,21 +171,46 @@ const SiteNav = () => {
                   <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
                 )}
               </Link>
-              <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-8 grid grid-cols-2 gap-x-12 gap-y-4 w-[500px] z-50 normal-case font-medium">
-                {productCategories.map((cat) => (
-                  <Link
-                    key={cat}
-                    href={`/products?category=${encodeURIComponent(cat)}`}
-                    className="flex items-center gap-3 hover:text-primary hover:translate-x-1 transition-all text-sm"
-                  >
-                    {cat}
-                  </Link>
-                ))}
+              <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-6 w-[560px] z-50 normal-case font-medium">
+                <div className="grid grid-cols-2 gap-8">
+                  {/* By Brand */}
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Theo Thương Hiệu</h4>
+                    {productBrands.map((brand) => (
+                      <Link
+                        key={brand}
+                        href={`/products?brand=${encodeURIComponent(brand)}`}
+                        className={`flex items-center gap-2 hover:translate-x-1 transition-all text-sm py-1.5 font-semibold ${brand === "ZIFAT 999" ? "text-emerald-600 hover:text-emerald-700" : "text-sky-600 hover:text-sky-700"}`}
+                      >
+                        <span className={`w-2 h-2 rounded-full ${brand === "ZIFAT 999" ? "bg-emerald-500" : "bg-sky-500"}`} />
+                        {brand}
+                      </Link>
+                    ))}
+                  </div>
+                  {/* By Category */}
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Theo Danh Mục</h4>
+                    <div className="space-y-1">
+                      {productCategories.slice(0, 5).map((cat) => (
+                        <Link
+                          key={cat}
+                          href={`/products?category=${encodeURIComponent(cat)}`}
+                          className="flex items-center gap-2 hover:text-primary hover:translate-x-1 transition-all text-sm py-1"
+                        >
+                          {cat}
+                        </Link>
+                      ))}
+                      {productCategories.length > 5 && (
+                        <span className="text-xs text-muted-foreground">+{productCategories.length - 5} danh mục khác</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
                 <Link
                   href="/products"
-                  className="flex items-center gap-3 font-bold text-primary mt-4 border-t border-border pt-4 col-span-2 text-sm hover:gap-4 transition-all"
+                  className="flex items-center gap-3 font-bold text-primary mt-4 border-t border-border pt-4 text-sm hover:gap-4 transition-all"
                 >
-                  <span>Tất cả sản phẩm</span>
+                  <span>Xem tất cả sản phẩm</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

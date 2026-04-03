@@ -5,22 +5,26 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
-import { CATEGORIES } from "@/data/products";
+import { CATEGORIES, BRANDS } from "@/data/products";
 
 const HOME_LINKS = [
   { label: "Trang Chủ",  anchor: "#hero"   },
   { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Ưu Đãi",     anchor: "#combo"  },
+  { label: "Thương Hiệu", anchor: "#brands" },
   { label: "Tin Tức",    anchor: "#news"   },
   { label: "Liên Hệ",   anchor: "#footer" },
 ];
 
 const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"                                               },
-  { label: "Giới Thiệu", href: "/about"                                          },
-  { label: "Ưu Đãi",     href: "/products?category=Combo+%C6%B0u+%C4%91%C3%A3i" },
-  { label: "Tin Tức",    href: "/news"                                           },
-  { label: "Liên Hệ",   href: "/contact"                                        },
+  { label: "Trang Chủ",  href: "/"        },
+  { label: "Giới Thiệu", href: "/about"   },
+  { label: "Tin Tức",    href: "/news"    },
+  { label: "Liên Hệ",   href: "/contact" },
+];
+
+const BRAND_LINKS = [
+  { label: "ZIFAT 999", href: "/zifat999", bgColor: "bg-emerald-600" },
+  { label: "SIFA 999",  href: "/sifa999",  bgColor: "bg-sky-600" },
 ];
 
 const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
@@ -29,7 +33,7 @@ const DRAWER_WIDTH = 280;
 
 export default function MobileDrawer() {
   const { mobileOpen, setMobileOpen } = useMobileMenu();
-  const [panel, setPanel] = useState<"main" | "products">("main");
+  const [panel, setPanel] = useState<"main" | "products" | "brands">("main");
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isProducts = pathname.startsWith("/products") || pathname.startsWith("/product");
@@ -84,10 +88,11 @@ export default function MobileDrawer() {
     [close]
   );
 
+  const isBrandPage = pathname === "/zifat999" || pathname === "/sifa999";
+
   const isPageActive = (href: string) => {
-    if (href === "/") return !isProducts && pathname === "/";
+    if (href === "/") return !isProducts && !isBrandPage && pathname === "/";
     if (href === "/about") return pathname === "/about";
-    if (href.startsWith("/products?category=Combo")) return isProducts && typeof window !== "undefined" && window.location.search.includes("Combo");
     if (href === "/news") return pathname === "/news";
     if (href === "/contact") return pathname === "/contact";
     return false;
@@ -164,6 +169,18 @@ export default function MobileDrawer() {
                 );
               })}
 
+              {/* Thương Hiệu — opens brands panel */}
+              <button
+                onClick={() => setPanel("brands")}
+                className={`flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[14px] font-bold uppercase tracking-wider transition-colors ${
+                  isBrandPage ? "text-yellow-300 bg-primary-foreground/10" : "hover:bg-primary-foreground/10"
+                }`}
+                data-testid="button-mobile-brands"
+              >
+                <span>Thương Hiệu</span>
+                <ChevronRight className="w-4 h-4 text-primary-foreground/60 flex-shrink-0" />
+              </button>
+
               {/* Sản Phẩm — opens subcategory panel */}
               <button
                 onClick={() => setPanel("products")}
@@ -190,10 +207,41 @@ export default function MobileDrawer() {
             </div>
           </div>
 
+          {/* ── Brands sub-panel ── */}
+          <div
+            className="absolute inset-0 flex flex-col overflow-y-auto overscroll-contain transition-transform duration-300 ease-in-out"
+            style={{ transform: panel === "brands" ? "translateX(0)" : `translateX(${DRAWER_WIDTH}px)` }}
+          >
+            {/* Back header */}
+            <button
+              onClick={() => setPanel("main")}
+              className="flex items-center gap-2 px-5 py-3.5 border-b border-primary-foreground/15 hover:bg-primary-foreground/10 transition-colors text-[14px] font-bold uppercase tracking-wider flex-shrink-0 w-full text-left"
+              data-testid="button-mobile-brands-back"
+            >
+              <ChevronLeft className="w-5 h-5 text-primary-foreground/70" />
+              <span>Thương Hiệu</span>
+            </button>
+
+            <nav className="pt-1 pb-4">
+              {BRAND_LINKS.map((brand) => (
+                <Link
+                  key={brand.label}
+                  href={brand.href}
+                  onClick={close}
+                  className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[14px] font-bold tracking-normal hover:bg-primary-foreground/10 transition-colors"
+                  data-testid={`link-mobile-brand-${brand.label.toLowerCase().replace(/\s/g, "-")}`}
+                >
+                  <span className={`w-3 h-3 rounded-full ${brand.bgColor}`} />
+                  <span>{brand.label}</span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+
           {/* ── Products sub-panel ── */}
           <div
             className="absolute inset-0 flex flex-col overflow-y-auto overscroll-contain transition-transform duration-300 ease-in-out"
-            style={{ transform: panel === "products" ? "translateX(0)" : `translateX(${DRAWER_WIDTH}px)` }}
+            style={{ transform: panel === "products" ? "translateX(0)" : panel === "main" ? `translateX(${DRAWER_WIDTH}px)` : `translateX(${DRAWER_WIDTH * 2}px)` }}
           >
             {/* Back header */}
             <button
