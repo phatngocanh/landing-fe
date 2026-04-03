@@ -1,14 +1,29 @@
 "use client";
 
-import { Search, ShoppingCart, User, Phone, X } from "lucide-react";
+import { Search, ShoppingCart, Phone, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 const SiteHeader = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const mobileSearchRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (q) {
+      router.push(`/products?q=${encodeURIComponent(q)}`);
+      setSearchQuery("");
+      searchRef.current?.blur();
+      setMobileSearchOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -65,7 +80,7 @@ const SiteHeader = () => {
             <span className="font-bold text-secondary text-lg group-hover:underline">0286.271.3214</span>
           </a>
           {/* Search — hidden on small mobile, shown from sm+ */}
-          <div className={`hidden sm:flex bg-muted rounded-full px-4 md:px-5 py-2 md:py-2.5 border transition-all duration-300 ${searchFocused ? "border-primary ring-2 ring-primary/10 w-56 md:w-80" : "border-border w-44 md:w-64 lg:w-72"}`}>
+          <form onSubmit={handleSearchSubmit} className={`hidden sm:flex bg-muted rounded-full px-4 md:px-5 py-2 md:py-2.5 border transition-all duration-300 ${searchFocused ? "border-primary ring-2 ring-primary/10 w-56 md:w-80" : "border-border w-44 md:w-64 lg:w-72"}`}>
             <input
               ref={searchRef}
               className="bg-transparent border-none focus:outline-none text-sm flex-1 min-w-0"
@@ -77,30 +92,56 @@ const SiteHeader = () => {
               onBlur={() => setSearchFocused(false)}
             />
             {searchQuery ? (
-              <button aria-label="Xóa tìm kiếm" className="text-muted-foreground hover:text-foreground transition-colors" onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}>
+              <button type="button" aria-label="Xóa tìm kiếm" className="text-muted-foreground hover:text-foreground transition-colors" onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}>
                 <X className="w-4 h-4" />
               </button>
             ) : (
-              <button aria-label="Tìm kiếm" className="text-muted-foreground hover:text-primary transition-colors">
+              <button type="submit" aria-label="Tìm kiếm" className="text-muted-foreground hover:text-primary transition-colors">
                 <Search className="w-5 h-5" />
               </button>
             )}
-          </div>
+          </form>
           {/* Mobile search icon */}
-          <button aria-label="Mở tìm kiếm" className="sm:hidden p-2 text-muted-foreground hover:text-primary rounded-full transition-colors">
+          <button
+            aria-label="Mở tìm kiếm"
+            className="sm:hidden p-2 text-muted-foreground hover:text-primary rounded-full transition-colors"
+            onClick={() => {
+              setMobileSearchOpen((v) => !v);
+              setTimeout(() => mobileSearchRef.current?.focus(), 100);
+            }}
+          >
             <Search className="w-5 h-5" />
           </button>
-          <div className="flex items-center gap-1 md:gap-2">
-            <button aria-label="Giỏ hàng" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95 relative group">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute top-0.5 right-0.5 md:top-1 md:right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-card group-hover:scale-125 transition-transform" />
-            </button>
-            <button aria-label="Tài khoản người dùng" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
-              <User className="w-5 h-5" />
-            </button>
-          </div>
+          <Link href="/products" aria-label="Xem sản phẩm" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
+            <ShoppingCart className="w-5 h-5" />
+          </Link>
         </div>
       </div>
+
+      {/* Mobile search bar */}
+      {mobileSearchOpen && (
+        <div className="sm:hidden border-t border-border px-4 py-3">
+          <form onSubmit={handleSearchSubmit} className="flex bg-muted rounded-full px-4 py-2.5 border border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+            <input
+              ref={mobileSearchRef}
+              className="bg-transparent border-none focus:outline-none text-sm flex-1 min-w-0"
+              placeholder="Tìm kiếm sản phẩm..."
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery ? (
+              <button type="button" aria-label="Xóa" className="text-muted-foreground hover:text-foreground transition-colors" onClick={() => { setSearchQuery(""); mobileSearchRef.current?.focus(); }}>
+                <X className="w-4 h-4" />
+              </button>
+            ) : (
+              <button type="submit" aria-label="Tìm kiếm" className="text-muted-foreground hover:text-primary transition-colors">
+                <Search className="w-5 h-5" />
+              </button>
+            )}
+          </form>
+        </div>
+      )}
     </header>
   );
 };

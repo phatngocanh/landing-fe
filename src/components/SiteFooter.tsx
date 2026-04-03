@@ -124,7 +124,7 @@ const SiteFooter = () => {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-10 text-[10px] md:text-[11px] uppercase font-bold tracking-[0.15em] md:tracking-[0.25em] text-footer-foreground/60">
-          <p>© 2025 PHÁT NGỌC ANH</p>
+          <p>© {new Date().getFullYear()} PHÁT NGỌC ANH</p>
           <div className="flex gap-4 md:gap-10">
             <Link className="hover:text-white transition-colors" href="/">Trang chủ</Link>
             <Link className="hover:text-white transition-colors" href="/brands">Thương hiệu</Link>

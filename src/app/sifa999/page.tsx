@@ -89,7 +89,7 @@ export default function Sifa999Page() {
             Giải pháp hóa phẩm cao cấp được thiết kế đặc biệt cho sự an toàn của gia đình và trách nhiệm với môi trường.
           </p>
           <Link
-            href="/sifa999/products"
+            href="/products?brand=SIFA999"
             data-testid="link-sifa999-products"
             className="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm hover:brightness-110 transition-all shadow-xl"
           >
@@ -131,7 +131,7 @@ export default function Sifa999Page() {
               {categories.map((cat) => (
                 <Link
                   key={cat.name}
-                  href={`/sifa999/products?category=${encodeURIComponent(cat.name)}`}
+                  href={`/products?brand=SIFA999&category=${encodeURIComponent(cat.name)}`}
                   className="bg-card border border-border rounded-xl md:rounded-2xl p-4 md:p-6 hover:border-green-400 hover:shadow-md transition-all group"
                 >
                   <h3 className="text-sm md:text-base font-bold text-foreground group-hover:text-green-600 transition-colors mb-1">
@@ -150,7 +150,7 @@ export default function Sifa999Page() {
               <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-green-600">
                 Sản Phẩm Nổi Bật
               </h2>
-              <Link href="/sifa999/products" className="text-[13px] text-muted-foreground font-bold hover:text-green-600 transition-all flex items-center gap-1.5 group">
+              <Link href="/products?brand=SIFA999" className="text-[13px] text-muted-foreground font-bold hover:text-green-600 transition-all flex items-center gap-1.5 group">
                 Tất cả <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
@@ -241,7 +241,7 @@ export default function Sifa999Page() {
               <p className="text-sm text-muted-foreground mb-6">
                 Mua sản phẩm SIFA999 trực tuyến hoặc tại cửa hàng gần bạn. Giao hàng nhanh, an toàn.
               </p>
-              <Link href="/sifa999/products" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all">
+              <Link href="/products?brand=SIFA999" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all">
                 Mua ngay <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -251,7 +251,7 @@ export default function Sifa999Page() {
               <p className="text-sm text-muted-foreground mb-6">
                 Quan tâm đến việc phân phối SIFA999? Chính sách chiết khấu hấp dẫn và hỗ trợ marketing.
               </p>
-              <Link href="/sifa999/contact" className="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 px-6 py-3 rounded-full font-bold text-sm hover:bg-green-600 hover:text-white transition-all">
+              <Link href="/contact" className="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 px-6 py-3 rounded-full font-bold text-sm hover:bg-green-600 hover:text-white transition-all">
                 Trở thành đối tác <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

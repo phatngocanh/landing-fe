@@ -68,7 +68,7 @@ const ProductsSection = () => (
                 {group.products.map((product) => (
                   <Link
                     key={product.id}
-                    href={group.href}
+                    href={`/product/${product.id}`}
                     className="group/item flex flex-col rounded-xl border border-border/80 bg-card/50 p-2.5 transition-all hover:border-primary/25 hover:bg-card hover:shadow-sm sm:p-3"
                   >
                     <div className="relative aspect-square overflow-hidden rounded-lg bg-muted/60 p-2 sm:p-2.5">
@@ -81,10 +81,10 @@ const ProductsSection = () => (
                         className="h-full w-full object-contain transition-transform duration-300 group-hover/item:scale-[1.04]"
                       />
                     </div>
-                    <h3 className="mt-2 line-clamp-2 min-h-[2.5rem] text-[11px] font-bold leading-snug text-foreground sm:text-xs sm:min-h-[2.75rem]">
+                    <h3 className="mt-2 line-clamp-2 min-h-[2.5rem] text-xs font-bold leading-snug text-foreground sm:text-[13px] sm:min-h-[2.75rem]">
                       {product.name}
                     </h3>
-                    <p className={`mt-1 text-[11px] font-black sm:text-xs ${group.accent}`}>{product.price}</p>
+                    <p className={`mt-1 text-xs font-black sm:text-[13px] ${group.accent}`}>{product.price}</p>
                   </Link>
                 ))}
               </div>

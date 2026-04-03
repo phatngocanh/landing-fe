@@ -21,7 +21,7 @@ const brands = [
     colorBorder: "border-blue-200",
     hoverBorder: "hover:border-blue-400",
     href: "/zifat999",
-    productsHref: "/zifat999/products",
+    productsHref: "/products?brand=ZIFAT999",
     points: [
       "Công thức đậm đặc, hiệu quả vượt trội",
       "Chuyên dụng cho công nghiệp nặng",
@@ -46,7 +46,7 @@ const brands = [
     colorBorder: "border-green-200",
     hoverBorder: "hover:border-green-400",
     href: "/sifa999",
-    productsHref: "/sifa999/products",
+    productsHref: "/products?brand=SIFA999",
     points: [
       "Kiểm nghiệm da liễu, an toàn tuyệt đối",
       "100% phân hủy sinh học",

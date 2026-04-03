@@ -68,7 +68,7 @@ export default function Zifat999Page() {
             Hiệu suất chuyên nghiệp cho mọi nhu cầu vệ sinh công nghiệp. Được tin dùng bởi hàng ngàn doanh nghiệp trên toàn quốc.
           </p>
           <Link
-            href="/zifat999/products"
+            href="/products?brand=ZIFAT999"
             data-testid="link-zifat999-products"
             className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm hover:brightness-110 transition-all shadow-xl"
           >
@@ -106,7 +106,7 @@ export default function Zifat999Page() {
               {categories.map((cat) => (
                 <Link
                   key={cat.name}
-                  href={`/zifat999/products?category=${encodeURIComponent(cat.name)}`}
+                  href={`/products?brand=ZIFAT999&category=${encodeURIComponent(cat.name)}`}
                   className="bg-card border border-border rounded-xl md:rounded-2xl p-4 md:p-6 hover:border-blue-400 hover:shadow-md transition-all group"
                 >
                   <h3 className="text-sm md:text-base font-bold text-foreground group-hover:text-blue-600 transition-colors mb-1">
@@ -125,7 +125,7 @@ export default function Zifat999Page() {
               <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-blue-600">
                 Sản Phẩm Nổi Bật
               </h2>
-              <Link href="/zifat999/products" className="text-[13px] text-muted-foreground font-bold hover:text-blue-600 transition-all flex items-center gap-1.5 group">
+              <Link href="/products?brand=ZIFAT999" className="text-[13px] text-muted-foreground font-bold hover:text-blue-600 transition-all flex items-center gap-1.5 group">
                 Tất cả <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
@@ -185,7 +185,7 @@ export default function Zifat999Page() {
               </p>
             </div>
             <div className="flex gap-3">
-              <Link href="/zifat999/contact" className="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
+              <Link href="/contact" className="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
                 Liên hệ ngay
               </Link>
               <a href="tel:02862713214" className="flex items-center gap-2 border border-blue-400 text-blue-200 px-6 py-3 rounded-full font-bold text-sm hover:bg-blue-800 transition-all">

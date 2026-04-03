@@ -435,13 +435,13 @@ function ProductsContent() {
                     }`}
                   >
                     {p.badge && gridCols !== "list" && (
-                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[9px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                         {p.badge}
                       </div>
                     )}
                     {gridCols !== "list" && (
                       <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
-                        <span className={`text-[7px] sm:text-[9px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
+                        <span className={`text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
                           {p.brand === "ZIFAT999" ? "ZIFAT" : "SIFA"}
                         </span>
                       </div>
@@ -467,14 +467,14 @@ function ProductsContent() {
                     </div>
                     <div className={gridCols === "list" ? "flex flex-col justify-center gap-1 min-w-0" : ""}>
                       <div className="flex items-center gap-1.5 mb-1">
-                        <span className={`text-[7px] sm:text-[9px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
+                        <span className={`text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
                           {p.brand}
                         </span>
                         <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary">
                           {p.category}
                         </p>
                       </div>
-                      <h3 className="text-[11px] sm:text-[13px] font-bold text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                      <h3 className="text-xs sm:text-[13px] font-bold text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
                         {p.name}
                       </h3>
                       <div className="mt-2 sm:mt-3 flex items-baseline gap-2 flex-wrap">

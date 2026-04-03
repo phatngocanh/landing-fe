@@ -35,18 +35,18 @@ const NewsSection = () => (
           <Newspaper className="w-4 h-4 md:w-5 md:h-5 text-primary" /> Tin Tức Mới Nhất
         </div>
         <div className="space-y-4 md:space-y-7">
-          <div className="flex gap-4 md:gap-5 group cursor-pointer items-start">
+          <Link href="/news" className="flex gap-4 md:gap-5 group items-start">
             <Image className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg md:rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product1} placeholder="blur" alt="Bí kíp chọn nước lau sàn" width={64} height={64} />
             <p className="text-[13px] md:text-[14px] leading-snug font-bold text-foreground/80 group-hover:text-primary transition-colors line-clamp-3">
               7 bí kíp lựa chọn nước lau sàn an toàn cho trẻ nhỏ trong nhà.
             </p>
-          </div>
-          <div className="flex gap-4 md:gap-5 group cursor-pointer items-start">
+          </Link>
+          <Link href="/news" className="flex gap-4 md:gap-5 group items-start">
             <Image className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg md:rounded-xl shadow-sm border border-border shrink-0 group-hover:shadow-md transition-shadow" src={product2} placeholder="blur" alt="Giải pháp tẩy rửa công nghiệp" width={64} height={64} />
             <p className="text-[13px] md:text-[14px] leading-snug font-bold text-muted-foreground group-hover:text-primary transition-colors line-clamp-3">
               Giải pháp tẩy rửa công nghiệp quy mô lớn tối ưu chi phí.
             </p>
-          </div>
+          </Link>
         </div>
       </div>
 
@@ -57,9 +57,15 @@ const NewsSection = () => (
         <div className="bg-muted border border-border rounded-xl md:rounded-2xl p-5 md:p-8 text-center">
           <p className="text-[14px] md:text-[15px] font-bold mb-1 text-foreground">Công Ty TNHH Phát Ngọc Anh</p>
           <p className="text-xs text-muted-foreground mb-5 md:mb-8">7.2k người theo dõi trang</p>
-          <button className="bg-card text-foreground px-6 md:px-8 py-3 md:py-3.5 text-[11px] font-black rounded-full flex items-center gap-2 mx-auto border border-border shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all active:scale-95" aria-label="Theo dõi trang Facebook">
+          <a
+            href="https://www.facebook.com/phatngocanh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-card text-foreground px-6 md:px-8 py-3 md:py-3.5 text-[11px] font-black rounded-full inline-flex items-center gap-2 mx-auto border border-border shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all active:scale-95"
+            aria-label="Theo dõi trang Facebook"
+          >
             <ThumbsUp className="w-4 h-4" /> Theo dõi ngay
-          </button>
+          </a>
         </div>
       </div>
     </div>

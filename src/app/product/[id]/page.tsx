@@ -79,7 +79,9 @@ export default function ProductDetailPage() {
         <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-6 md:mb-10 flex-wrap">
           <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-          <Link href={`/products?category=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors font-medium">{product.category}</Link>
+          <Link href={`/products?brand=${encodeURIComponent(product.brand)}`} className="hover:text-primary transition-colors font-medium">{product.brand}</Link>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <Link href={`/products?brand=${encodeURIComponent(product.brand)}&category=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors font-medium">{product.category}</Link>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
           <span className="text-foreground font-semibold line-clamp-1">{product.name}</span>
         </nav>

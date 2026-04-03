@@ -229,7 +229,7 @@ export default function MobileDrawer() {
               </Link>
 
               <Link
-                href="/zifat999/products"
+                href="/products?brand=ZIFAT999"
                 onClick={close}
                 className="flex items-center w-full text-left py-3 px-5 pl-14 border-b border-primary-foreground/10 text-[12px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors text-primary-foreground/80"
                 data-testid="link-mobile-zifat999-products"
@@ -251,7 +251,7 @@ export default function MobileDrawer() {
               </Link>
 
               <Link
-                href="/sifa999/products"
+                href="/products?brand=SIFA999"
                 onClick={close}
                 className="flex items-center w-full text-left py-3 px-5 pl-14 border-b border-primary-foreground/10 text-[12px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors text-primary-foreground/80"
                 data-testid="link-mobile-sifa999-products"

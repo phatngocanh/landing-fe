@@ -17,7 +17,9 @@ const FloatingActions = () => {
       {/* Zalo */}
       <a
         className="w-12 h-12 md:w-14 md:h-14 bg-[hsl(210,100%,50%)] text-primary-foreground rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform"
-        href="#"
+        href="https://zalo.me/02862713214"
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Chat Zalo"
         title="Chat Zalo"
       >
