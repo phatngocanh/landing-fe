@@ -67,6 +67,12 @@ export default function RootLayout({
           <MobileMenuProvider>
             <MobileDrawer />
             <div id="page-wrap" className="relative min-h-dvh">
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-2 focus:left-2 focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-bold"
+              >
+                Chuyển đến nội dung chính
+              </a>
               {children}
             </div>
           </MobileMenuProvider>

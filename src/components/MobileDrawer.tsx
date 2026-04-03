@@ -1,28 +1,12 @@
 "use client";
 
-import { ChevronRight, ChevronLeft, Phone, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, Phone, X, Handshake } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
-import { CATEGORIES } from "@/data/products";
 import BrandLogo from "./BrandLogo";
-
-const HOME_LINKS = [
-  { label: "Trang Chủ",  anchor: "#hero"   },
-  { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Tin Tức",    anchor: "#news"   },
-  { label: "Liên Hệ",   anchor: "#footer" },
-];
-
-const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"        },
-  { label: "Giới Thiệu", href: "/about"   },
-  { label: "Tin Tức",    href: "/news"    },
-  { label: "Liên Hệ",   href: "/contact" },
-];
-
-const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
+import { NAV_LINKS, PRODUCT_CATEGORIES } from "@/data/navigation";
 
 const DRAWER_WIDTH = 280;
 
@@ -33,8 +17,6 @@ export default function MobileDrawer() {
   const isHome = pathname === "/";
   const isProducts = pathname.startsWith("/products") || pathname.startsWith("/product");
   const isBrands = pathname.startsWith("/brands") || pathname.startsWith("/zifat999") || pathname.startsWith("/sifa999");
-
-  const allLinks = isHome ? HOME_LINKS : PAGE_LINKS;
 
   useEffect(() => {
     const wrap = document.getElementById("page-wrap");
@@ -83,10 +65,7 @@ export default function MobileDrawer() {
 
   const isPageActive = (href: string) => {
     if (href === "/") return !isProducts && !isBrands && pathname === "/";
-    if (href === "/about") return pathname === "/about";
-    if (href === "/news") return pathname === "/news";
-    if (href === "/contact") return pathname === "/contact";
-    return false;
+    return pathname === href;
   };
 
   return (
@@ -106,6 +85,9 @@ export default function MobileDrawer() {
           transform: mobileOpen ? "translateX(0)" : `translateX(-${DRAWER_WIDTH}px)`,
           transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
         }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu điều hướng"
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-primary-foreground/15 flex-shrink-0">
           <span className="text-sm font-black uppercase tracking-widest text-primary-foreground/80">Menu</span>
@@ -125,19 +107,32 @@ export default function MobileDrawer() {
             className="absolute inset-0 flex flex-col overflow-y-auto overscroll-contain transition-transform duration-300 ease-in-out"
             style={{ transform: panel === "main" ? "translateX(0)" : `translateX(-${DRAWER_WIDTH}px)` }}
           >
+            {/* Phone CTA — top of drawer for conversion */}
+            <div className="px-4 pt-4 pb-2">
+              <a
+                href="tel:02862713214"
+                className="flex items-center justify-center gap-3 w-full py-3.5 px-5 rounded-2xl bg-primary-foreground/15 hover:bg-primary-foreground/20 transition-colors border border-primary-foreground/10"
+                data-testid="link-mobile-phone"
+              >
+                <Phone className="w-4 h-4 text-yellow-300" />
+                <span className="font-bold text-sm tracking-wide">0286.271.3214</span>
+              </a>
+            </div>
+
             <nav className="flex-1 pt-2 pb-4">
-              {allLinks.map((l) => {
-                const active = isHome
+              {NAV_LINKS.map((l) => {
+                const useAnchor = isHome && l.anchor !== null;
+                const active = useAnchor
                   ? false
-                  : isPageActive((l as typeof PAGE_LINKS[number]).href);
+                  : isPageActive(l.href);
                 const cls = `flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[14px] font-bold uppercase tracking-wider transition-colors ${
                   active ? "text-yellow-300 bg-primary-foreground/10" : "hover:bg-primary-foreground/10"
                 }`;
 
-                return isHome ? (
+                return useAnchor ? (
                   <button
                     key={l.label}
-                    onClick={() => smoothScroll((l as typeof HOME_LINKS[number]).anchor)}
+                    onClick={() => smoothScroll(l.anchor!)}
                     className={cls}
                     data-testid={`link-mobile-${l.label.toLowerCase().replace(/\s/g, "-")}`}
                   >
@@ -146,7 +141,7 @@ export default function MobileDrawer() {
                 ) : (
                   <Link
                     key={l.label}
-                    href={(l as typeof PAGE_LINKS[number]).href}
+                    href={l.href}
                     onClick={close}
                     className={cls}
                     data-testid={`link-mobile-${l.label.toLowerCase().replace(/\s/g, "-")}`}
@@ -163,7 +158,7 @@ export default function MobileDrawer() {
                 }`}
                 data-testid="button-mobile-brands"
               >
-                <span>Thương Hiệu</span>
+                <span>THƯƠNG HIỆU</span>
                 <ChevronRight className="w-4 h-4 text-primary-foreground/60 flex-shrink-0" />
               </button>
 
@@ -174,21 +169,21 @@ export default function MobileDrawer() {
                 }`}
                 data-testid="button-mobile-products"
               >
-                <span>Sản Phẩm</span>
+                <span>SẢN PHẨM</span>
                 <ChevronRight className="w-4 h-4 text-primary-foreground/60 flex-shrink-0" />
               </button>
-            </nav>
 
-            <div className="px-4 pb-6 pt-2">
-              <a
-                href="tel:02862713214"
-                className="flex items-center justify-center gap-3 w-full py-3.5 px-5 rounded-2xl bg-primary-foreground/15 hover:bg-primary-foreground/20 transition-colors border border-primary-foreground/10"
-                data-testid="link-mobile-phone"
+              {/* Partnership CTA */}
+              <Link
+                href="/contact?subject=partnership"
+                onClick={close}
+                className="flex items-center gap-3 mx-4 mt-4 py-3.5 px-5 rounded-2xl bg-yellow-300/15 border border-yellow-300/30 text-yellow-300 text-[14px] font-bold uppercase tracking-wider hover:bg-yellow-300/25 transition-colors"
+                data-testid="link-mobile-partnership"
               >
-                <Phone className="w-4 h-4 text-yellow-300" />
-                <span className="font-bold text-sm tracking-wide">0286.271.3214</span>
-              </a>
-            </div>
+                <Handshake className="w-5 h-5 flex-shrink-0" />
+                <span>HỢP TÁC ĐẠI LÝ</span>
+              </Link>
+            </nav>
           </div>
 
           {/* Brands sub-panel */}
@@ -202,7 +197,7 @@ export default function MobileDrawer() {
               data-testid="button-mobile-brands-back"
             >
               <ChevronLeft className="w-5 h-5 text-primary-foreground/70" />
-              <span>Thương Hiệu</span>
+              <span>THƯƠNG HIỆU</span>
             </button>
 
             <nav className="pt-1 pb-4">
@@ -218,12 +213,12 @@ export default function MobileDrawer() {
               <Link
                 href="/zifat999"
                 onClick={close}
-                className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
+                className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors border-l-2 border-l-blue-400"
                 data-testid="link-mobile-zifat999"
               >
                 <BrandLogo brand="ZIFAT999" size="sm" />
                 <div>
-                  <p className="font-bold">ZIFAT999</p>
+                  <p className="font-bold text-blue-300">ZIFAT999</p>
                   <p className="text-[11px] text-primary-foreground/60">Tẩy rửa công nghiệp</p>
                 </div>
               </Link>
@@ -240,12 +235,12 @@ export default function MobileDrawer() {
               <Link
                 href="/sifa999"
                 onClick={close}
-                className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
+                className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors border-l-2 border-l-green-400"
                 data-testid="link-mobile-sifa999"
               >
                 <BrandLogo brand="SIFA999" size="sm" />
                 <div>
-                  <p className="font-bold">SIFA999</p>
+                  <p className="font-bold text-green-300">SIFA999</p>
                   <p className="text-[11px] text-primary-foreground/60">Chăm sóc gia đình</p>
                 </div>
               </Link>
@@ -272,7 +267,7 @@ export default function MobileDrawer() {
               data-testid="button-mobile-products-back"
             >
               <ChevronLeft className="w-5 h-5 text-primary-foreground/70" />
-              <span>Sản Phẩm</span>
+              <span>SẢN PHẨM</span>
             </button>
 
             <nav className="pt-1 pb-4">
@@ -285,7 +280,7 @@ export default function MobileDrawer() {
                 <span>Tất Cả Sản Phẩm</span>
               </Link>
 
-              {productCategories.map((cat) => (
+              {PRODUCT_CATEGORIES.map((cat) => (
                 <Link
                   key={cat}
                   href={`/products?category=${encodeURIComponent(cat)}`}

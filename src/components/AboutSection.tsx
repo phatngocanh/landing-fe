@@ -38,7 +38,7 @@ const AboutSection = () => (
           <div className="p-6 md:p-8 flex flex-col items-center text-center justify-between h-full gap-5">
             <div>
               <h3 className="text-lg md:text-xl font-black text-foreground uppercase leading-tight tracking-tight mb-3">
-                CÔNG TY TNHH HÓA PHẨM<br /><span className="text-primary">PHÁT NGỌC ANH</span>
+                Công Ty TNHH Hóa Phẩm<br /><span className="text-primary">Phát Ngọc Anh</span>
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Phát Ngọc Anh tự hào sở hữu hai thương hiệu hóa phẩm hàng đầu: <strong className="text-blue-600">ZIFAT999</strong> cho giải pháp công nghiệp và <strong className="text-green-600">SIFA999</strong> cho chăm sóc gia đình. Đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012.

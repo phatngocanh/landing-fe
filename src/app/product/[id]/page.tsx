@@ -74,7 +74,7 @@ export default function ProductDetailPage() {
       <SiteHeader />
       <SiteNav />
 
-      <main className="container py-6 md:py-12">
+      <main id="main-content" className="container py-6 md:py-12">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-6 md:mb-10 flex-wrap">
           <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>

@@ -81,8 +81,13 @@ const SiteFooter = () => {
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/brands">Tất cả thương hiệu</Link></li>
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/zifat999">ZIFAT999 — Công nghiệp</Link></li>
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/sifa999">SIFA999 — Gia đình</Link></li>
+            </ul>
+
+            <h4 className="text-[11px] md:text-[12px] font-black uppercase tracking-[0.2em] text-emerald-400 !mt-6 md:!mt-8">Khám Phá</h4>
+            <ul className="space-y-3 md:space-y-4 text-[13px] md:text-[14px] text-footer-foreground/80">
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/products">Tất cả sản phẩm</Link></li>
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/about">Về chúng tôi</Link></li>
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/contact?subject=partnership">Hợp tác đại lý</Link></li>
             </ul>
           </div>
 
@@ -140,11 +145,11 @@ const SiteFooter = () => {
             </form>
           </div>
 
-          <div className="hidden md:block space-y-10">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-emerald-400">Khách Hàng Nói Gì</h4>
-            <div className="space-y-6">
+          <div className="space-y-6 md:space-y-10 col-span-2 md:col-span-1">
+            <h4 className="text-[11px] md:text-[12px] font-black uppercase tracking-[0.2em] text-emerald-400">Khách Hàng Nói Gì</h4>
+            <div className="flex md:flex-col gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-2 md:pb-0 snap-x snap-mandatory -mx-2 px-2 md:mx-0 md:px-0">
               {testimonials.map((t) => (
-                <div key={t.name} className="bg-footer-foreground/10 rounded-2xl p-5 border border-footer-foreground/10">
+                <div key={t.name} className="bg-footer-foreground/10 rounded-2xl p-4 md:p-5 border border-footer-foreground/10 min-w-[260px] md:min-w-0 snap-start flex-shrink-0 md:flex-shrink">
                   <div className="flex gap-0.5 mb-2">
                     {[1, 2, 3, 4, 5].map((s) => (
                       <Star key={s} className="w-3 h-3 text-yellow-400 fill-yellow-400" />
@@ -161,11 +166,11 @@ const SiteFooter = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-10 text-[11px] uppercase font-bold tracking-[0.15em] md:tracking-[0.25em] text-footer-foreground/60">
           <p>© {new Date().getFullYear()} PHÁT NGỌC ANH</p>
           <div className="flex gap-4 md:gap-10">
-            <Link className="hover:text-white transition-colors" href="/">Trang chủ</Link>
-            <Link className="hover:text-white transition-colors" href="/brands">Thương hiệu</Link>
-            <Link className="hover:text-white transition-colors" href="/products">Sản phẩm</Link>
-            <Link className="hover:text-white transition-colors" href="/about">Giới thiệu</Link>
-            <Link className="hover:text-white transition-colors" href="/contact">Liên hệ</Link>
+            <Link className="hover:text-white transition-colors" href="/">Trang Chủ</Link>
+            <Link className="hover:text-white transition-colors" href="/brands">Thương Hiệu</Link>
+            <Link className="hover:text-white transition-colors" href="/products">Sản Phẩm</Link>
+            <Link className="hover:text-white transition-colors" href="/about">Giới Thiệu</Link>
+            <Link className="hover:text-white transition-colors" href="/contact">Liên Hệ</Link>
           </div>
         </div>
       </div>

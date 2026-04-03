@@ -135,7 +135,7 @@ export default function AboutPage() {
           <nav className="flex items-center gap-1.5 text-xs text-primary-foreground/60">
             <Link href="/" className="hover:text-primary-foreground transition-colors font-medium">Trang chủ</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-primary-foreground/80 font-semibold">Giới Thiệu</span>
+            <span className="text-primary-foreground/80 font-semibold">Giới thiệu</span>
           </nav>
         </div>
 
@@ -211,7 +211,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <main className="container py-14 md:py-24 space-y-20 md:space-y-32">
+      <main id="main-content" className="container py-14 md:py-24 space-y-20 md:space-y-32">
 
         {/* ── WELCOME MESSAGE ── */}
         <ScrollReveal>
@@ -456,7 +456,7 @@ export default function AboutPage() {
                   </div>
                   <div className="space-y-4">
                     {[
-                      { label: "Tên công ty", value: "CÔNG TY TNHH HÓA PHẨM PHÁT NGỌC ANH" },
+                      { label: "Tên công ty", value: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh" },
                       { label: "Mã số thuế", value: "0313155516" },
                       { label: "Thương hiệu", value: "ZIFAT999 & SIFA999" },
                       { label: "Năm thành lập", value: "2010" },

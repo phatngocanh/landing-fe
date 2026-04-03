@@ -1,4 +1,5 @@
-import { Building2, Store, GraduationCap, Hotel, Factory, Car } from "lucide-react";
+import { Building2, Store, GraduationCap, Hotel, Factory, Car, Handshake, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import ScrollReveal from "./ScrollReveal";
 
 const partnerTypes = [
@@ -38,6 +39,22 @@ const PartnersSection = () => (
             </span>
           </div>
         ))}
+      </div>
+    </ScrollReveal>
+
+    <ScrollReveal>
+      <div className="text-center mt-8 md:mt-12">
+        <Link
+          href="/contact?subject=partnership"
+          className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-6 md:px-8 py-3.5 md:py-4 rounded-full font-bold text-sm md:text-base hover:brightness-110 transition-all active:scale-95 shadow-lg group"
+        >
+          <Handshake className="w-5 h-5" />
+          <span>Trở Thành Đại Lý / Đối Tác</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
+        <p className="text-xs text-muted-foreground mt-3">
+          Liên hệ ngay để nhận báo giá sỉ và chính sách đại lý hấp dẫn
+        </p>
       </div>
     </ScrollReveal>
   </section>

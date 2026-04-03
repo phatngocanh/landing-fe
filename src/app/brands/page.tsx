@@ -87,7 +87,7 @@ export default function BrandsPage() {
         </div>
       </div>
 
-      <main className="container py-10 md:py-16">
+      <main id="main-content" className="container py-10 md:py-16">
         {/* Page Header */}
         <div className="text-center mb-10 md:mb-16">
           <h1 className="text-2xl md:text-4xl font-black text-foreground mb-4" data-testid="text-brands-title">

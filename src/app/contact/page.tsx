@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Phone, MapPin, Mail, Clock, MessageCircle,
   Send, CheckCircle, ChevronRight,
@@ -50,10 +51,17 @@ const INFO_CARDS = [
   },
 ];
 
-export default function ContactPage() {
+function ContactContent() {
+  const searchParams = useSearchParams();
   const [form, setForm] = useState({ name: "", phone: "", email: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("subject") === "partnership") {
+      setForm((prev) => ({ ...prev, subject: "Hợp tác kinh doanh" }));
+    }
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -281,5 +289,13 @@ export default function ContactPage() {
       <SiteFooter />
       <FloatingActions />
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense>
+      <ContactContent />
+    </Suspense>
   );
 }

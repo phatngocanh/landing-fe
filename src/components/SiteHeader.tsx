@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, ShoppingCart, Phone, X } from "lucide-react";
+import { Search, Package, Phone, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -115,7 +115,7 @@ const SiteHeader = () => {
             <Search className="w-5 h-5" />
           </button>
           <Link href="/products" aria-label="Xem sản phẩm" className="p-2 md:p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-full transition-all active:scale-95">
-            <ShoppingCart className="w-5 h-5" />
+            <Package className="w-5 h-5" />
           </Link>
         </div>
       </div>

@@ -99,7 +99,7 @@ export default function Sifa999Content() {
         </div>
       </section>
 
-      <main className="container py-10 md:py-20">
+      <main id="main-content" className="container py-10 md:py-20">
         <ScrollReveal>
           <div className="text-center mb-12 md:mb-16">
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">

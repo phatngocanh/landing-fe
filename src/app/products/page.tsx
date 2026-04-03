@@ -155,7 +155,7 @@ function ProductsContent() {
         </div>
       </div>
 
-      <main className="container py-6 md:py-12">
+      <main id="main-content" className="container py-6 md:py-12">
         <div className="mb-6 md:mb-10">
           <h1 className="text-xl md:text-3xl font-black text-foreground">
             {categoryLabel}

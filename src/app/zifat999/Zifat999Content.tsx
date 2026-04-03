@@ -78,7 +78,7 @@ export default function Zifat999Content() {
         </div>
       </section>
 
-      <main className="container py-10 md:py-20">
+      <main id="main-content" className="container py-10 md:py-20">
         <ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-24">
             {[
