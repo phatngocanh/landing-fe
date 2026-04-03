@@ -126,8 +126,15 @@ export default function ProductDetailPage() {
 
           {/* Product info */}
           <div className="flex flex-col gap-4 md:gap-6">
-              {/* Category + SKU */}
-              <div className="flex items-center gap-3">
+              {/* Brand + Category + SKU */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <Link
+                  href={product.brand === "ZIFAT999" ? "/zifat999" : "/sifa999"}
+                  className={`text-[10px] md:text-xs font-black px-3 py-1 rounded-full text-white ${product.brand === "ZIFAT999" ? "bg-blue-600 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"} transition-colors`}
+                  data-testid="link-product-brand"
+                >
+                  {product.brand}
+                </Link>
                 <span className="text-[11px] md:text-xs font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
                   {product.category}
                 </span>
@@ -376,18 +383,66 @@ export default function ProductDetailPage() {
               </div>
 
               {/* Specs sidebar */}
-              <div>
-                <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary mb-5 md:mb-8">
-                  Thông số kỹ thuật
-                </h2>
-                <div className="bg-card border border-border rounded-2xl overflow-hidden divide-y divide-border">
-                  {product.specs.map((spec) => (
-                    <div key={spec.label} className="flex items-start px-4 md:px-5 py-3 md:py-3.5 gap-3">
-                      <span className="text-xs md:text-sm text-muted-foreground font-medium w-28 shrink-0 pt-0.5">{spec.label}</span>
-                      <span className="text-xs md:text-sm font-bold text-foreground flex-1">{spec.value}</span>
-                    </div>
-                  ))}
+              <div className="space-y-8">
+                <div>
+                  <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary mb-5 md:mb-8">
+                    Thông số kỹ thuật
+                  </h2>
+                  <div className="bg-card border border-border rounded-2xl overflow-hidden divide-y divide-border">
+                    {product.specs.map((spec) => (
+                      <div key={spec.label} className="flex items-start px-4 md:px-5 py-3 md:py-3.5 gap-3">
+                        <span className="text-xs md:text-sm text-muted-foreground font-medium w-28 shrink-0 pt-0.5">{spec.label}</span>
+                        <span className="text-xs md:text-sm font-bold text-foreground flex-1">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                {product.isBulkAvailable && product.bulkPriceTiers.length > 0 && (
+                  <div>
+                    <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary mb-5 md:mb-8">
+                      Bảng Giá Sỉ / B2B
+                    </h2>
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden">
+                      <div className="grid grid-cols-3 bg-muted px-4 py-2.5 text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground">
+                        <span>Số lượng</span>
+                        <span className="text-center">Đơn giá</span>
+                        <span className="text-right">Tiết kiệm</span>
+                      </div>
+                      <div className="divide-y divide-border">
+                        {product.bulkPriceTiers.map((tier, i) => {
+                          const retailPrice = parseInt(product.price.replace(/[^\d]/g, ""));
+                          const savings = retailPrice > 0 ? Math.round((1 - tier.price / retailPrice) * 100) : 0;
+                          return (
+                            <div key={i} className="grid grid-cols-3 px-4 py-3 items-center text-sm">
+                              <span className="font-bold text-foreground">{tier.label}</span>
+                              <span className="text-center font-black text-secondary">{tier.price.toLocaleString("vi-VN")}đ</span>
+                              <span className="text-right">
+                                {savings > 0 && (
+                                  <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">-{savings}%</span>
+                                )}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {product.moq && (
+                      <p className="text-xs text-muted-foreground mt-3 flex items-center gap-1.5">
+                        <Package className="w-3.5 h-3.5 text-primary" />
+                        Đặt hàng tối thiểu: <b className="text-foreground">{product.moq} sản phẩm</b>
+                      </p>
+                    )}
+                    <a
+                      href="tel:02862713214"
+                      className="flex items-center justify-center gap-2 w-full mt-4 py-3 rounded-xl bg-primary/10 text-primary font-bold text-xs hover:bg-primary/20 transition-all"
+                      data-testid="link-bulk-pricing-call"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      Liên hệ báo giá sỉ
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

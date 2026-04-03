@@ -6,7 +6,8 @@ import ScrollReveal from "./ScrollReveal";
 const stats = [
   { value: "2012", label: "Thành lập" },
   { value: "10+", label: "Năm kinh nghiệm" },
-  { value: "HVNCLC", label: "Chứng nhận chất lượng" },
+  { value: "2", label: "Thương hiệu" },
+  { value: "HVNCLC", label: "Chứng nhận" },
 ];
 
 const AboutSection = () => (
@@ -20,7 +21,6 @@ const AboutSection = () => (
 
     <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
       <div className="flex flex-col md:flex-row">
-        {/* Image column */}
         <ScrollReveal animation="fade-in-left" className="md:w-72 shrink-0">
           <div className="h-52 md:h-full w-full overflow-hidden relative">
             <Image
@@ -34,19 +34,17 @@ const AboutSection = () => (
           </div>
         </ScrollReveal>
 
-        {/* Content column */}
         <ScrollReveal animation="fade-in-right" className="flex-1">
           <div className="p-6 md:p-8 flex flex-col items-center text-center justify-between h-full gap-5">
             <div>
               <h3 className="text-lg md:text-xl font-black text-foreground uppercase leading-tight tracking-tight mb-3">
-                PHÁT NGỌC ANH CO.,LTD — <span className="text-primary">ZIFAT 999</span>
+                CÔNG TY TNHH HÓA PHẨM<br /><span className="text-primary">PHÁT NGỌC ANH</span>
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Thương hiệu Zifat 999 đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012. Quy trình sản xuất tiên tiến mang đến giải pháp tẩy rửa an toàn, hiệu quả cho mọi gia đình Việt.
+                Phát Ngọc Anh tự hào sở hữu hai thương hiệu hóa phẩm hàng đầu: <strong className="text-blue-600">ZIFAT999</strong> cho giải pháp công nghiệp và <strong className="text-green-600">SIFA999</strong> cho chăm sóc gia đình. Đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012.
               </p>
             </div>
 
-            {/* Stats */}
             <div className="flex gap-4 border-t border-border pt-4 w-full">
               {stats.map((s) => (
                 <div key={s.label} className="flex-1 text-center">

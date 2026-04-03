@@ -5,7 +5,7 @@ import ScrollReveal from "./ScrollReveal";
 
 const testimonials = [
   { name: "Chị Hương", loc: "Q.7, TP.HCM", text: "Dùng Zifat 999 hơn 5 năm rồi, chất lượng rất ổn định. Nước lau sàn thơm mà không gây kích ứng da." },
-  { name: "Anh Minh", loc: "Bình Dương", text: "Mua combo thông cống giá rẻ mà hiệu quả bất ngờ. Giao hàng nhanh, đóng gói cẩn thận." },
+  { name: "Anh Minh", loc: "Bình Dương", text: "Sản phẩm SIFA999 dịu nhẹ, an toàn cho con nhỏ mà vẫn tẩy sạch hiệu quả. Rất yên tâm." },
 ];
 
 const SiteFooter = () => {
@@ -14,7 +14,6 @@ const SiteFooter = () => {
   return (
     <footer className="bg-footer-bg pt-12 md:pt-24 pb-8 md:pb-12 text-footer-foreground scroll-mt-28" id="footer">
       <div className="container">
-        {/* Support banner — stacked on mobile */}
         <ScrollReveal>
           <div className="bg-footer-foreground/5 rounded-2xl md:rounded-3xl p-6 md:p-10 mb-10 md:mb-20 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 border border-footer-foreground/10">
             <div className="flex items-center gap-4 md:gap-8">
@@ -45,11 +44,10 @@ const SiteFooter = () => {
           </div>
         </ScrollReveal>
 
-        {/* Footer grid — 2 cols on mobile, 4 on desktop */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mb-10 md:mb-20 border-b border-footer-foreground/5 pb-10 md:pb-20">
           <div className="space-y-6 md:space-y-10 col-span-2 md:col-span-1">
             <h4 className="text-xl md:text-2xl font-black uppercase tracking-tighter leading-tight text-white">
-              Phát Ngọc Anh <span className="text-emerald-400">Zifat 999</span>
+              Phát Ngọc Anh
             </h4>
             <ul className="space-y-3 md:space-y-5 text-[13px] md:text-[14px] text-footer-foreground/80">
               <li className="flex items-start gap-3 md:gap-4">
@@ -75,13 +73,13 @@ const SiteFooter = () => {
           </div>
 
           <div className="space-y-6 md:space-y-10">
-            <h4 className="text-[11px] md:text-[12px] font-black uppercase tracking-[0.2em] text-emerald-400">Liên Kết Nhanh</h4>
+            <h4 className="text-[11px] md:text-[12px] font-black uppercase tracking-[0.2em] text-emerald-400">Thương Hiệu</h4>
             <ul className="space-y-3 md:space-y-4 text-[13px] md:text-[14px] text-footer-foreground/80">
-              {["Về thương hiệu", "Chính sách bảo mật", "Đổi trả hàng", "Hướng dẫn mua"].map((l) => (
-                <li key={l}>
-                  <a className="hover:text-white hover:translate-x-1 inline-block transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none" href="#">{l}</a>
-                </li>
-              ))}
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/brands">Tất cả thương hiệu</Link></li>
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/zifat999">ZIFAT999 — Công nghiệp</Link></li>
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/sifa999">SIFA999 — Gia đình</Link></li>
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/products">Tất cả sản phẩm</Link></li>
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/about">Về chúng tôi</Link></li>
             </ul>
           </div>
 
@@ -105,7 +103,6 @@ const SiteFooter = () => {
             </div>
           </div>
 
-          {/* Testimonials — hidden on mobile to save space, shown on md+ */}
           <div className="hidden md:block space-y-10">
             <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-emerald-400">Khách Hàng Nói Gì</h4>
             <div className="space-y-6">
@@ -127,11 +124,11 @@ const SiteFooter = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-10 text-[10px] md:text-[11px] uppercase font-bold tracking-[0.15em] md:tracking-[0.25em] text-footer-foreground/60">
           <p>© 2025 PHÁT NGỌC ANH</p>
           <div className="flex gap-4 md:gap-10">
-            <a className="hover:text-white transition-colors" href="/">Trang chủ</a>
-            <a className="hover:text-white transition-colors" href="/products">Sản phẩm</a>
-            <a className="hover:text-white transition-colors" href="/about">Giới thiệu</a>
-            <a className="hover:text-white transition-colors" href="/news">Tin tức</a>
-            <a className="hover:text-white transition-colors" href="/contact">Liên hệ</a>
+            <Link className="hover:text-white transition-colors" href="/">Trang chủ</Link>
+            <Link className="hover:text-white transition-colors" href="/brands">Thương hiệu</Link>
+            <Link className="hover:text-white transition-colors" href="/products">Sản phẩm</Link>
+            <Link className="hover:text-white transition-colors" href="/about">Giới thiệu</Link>
+            <Link className="hover:text-white transition-colors" href="/contact">Liên hệ</Link>
           </div>
         </div>
       </div>

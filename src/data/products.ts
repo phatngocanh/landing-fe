@@ -7,6 +7,14 @@ import combo1 from "@/assets/combo1.jpg";
 import combo2 from "@/assets/combo2.jpg";
 import combo3 from "@/assets/combo3.jpg";
 
+export type Brand = "ZIFAT999" | "SIFA999";
+
+export interface BulkPriceTier {
+  minQuantity: number;
+  price: number;
+  label: string;
+}
+
 export interface Product {
   id: string;
   img: StaticImageData;
@@ -25,6 +33,10 @@ export interface Product {
   volumes: string[];
   specs: { label: string; value: string }[];
   inStock: boolean;
+  brand: Brand;
+  moq: number;
+  bulkPriceTiers: BulkPriceTier[];
+  isBulkAvailable: boolean;
 }
 
 export const CATEGORIES = [
@@ -36,12 +48,20 @@ export const CATEGORIES = [
   "Chăm sóc xe",
   "Thông cống & WC",
   "Diệt côn trùng",
-  "Combo ưu đãi",
+  "Chăm sóc cá nhân",
+  "Chăm sóc em bé",
+  "Vệ sinh gia dụng",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
 
+export const BRANDS: Brand[] = ["ZIFAT999", "SIFA999"];
+
 export const products: Product[] = [
+  // ══════════════════════════════════════════════════════════════════
+  // ═══ ZIFAT999 PRODUCTS ═══════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════════
+
   // ── Vệ sinh nhà cửa ──────────────────────────────────────────────
   {
     id: "nuoc-lau-san-khang-khuan",
@@ -72,6 +92,14 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh ánh nắng trực tiếp" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 38000, label: "10+ chai" },
+      { minQuantity: 50, price: 32000, label: "50+ chai" },
+      { minQuantity: 100, price: 28000, label: "100+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-tay-gach-men",
@@ -101,6 +129,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh trẻ em" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 32000, label: "10+ chai" },
+      { minQuantity: 50, price: 28000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "xit-phong-khu-khuan",
@@ -130,6 +165,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Tránh nhiệt độ cao, xa tầm tay trẻ em" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 44000, label: "12+ chai" },
+      { minQuantity: 48, price: 39000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-tay-kinh",
@@ -159,6 +201,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 27000, label: "10+ chai" },
+      { minQuantity: 50, price: 24000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "javel-dam-dac",
@@ -190,6 +239,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Tránh ánh nắng, xa tầm tay trẻ em" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 24000, label: "10+ chai" },
+      { minQuantity: 50, price: 20000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
   // ── Tẩy rửa công nghiệp ──────────────────────────────────────────
@@ -221,6 +277,14 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh ánh nắng trực tiếp" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 52000, label: "6+ chai" },
+      { minQuantity: 24, price: 46000, label: "24+ chai" },
+      { minQuantity: 100, price: 40000, label: "100+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "chat-tay-dau-cong-nghiep",
@@ -250,6 +314,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh lửa" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 75000, label: "6+ chai" },
+      { minQuantity: 24, price: 68000, label: "24+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "chat-tay-ri-set",
@@ -279,6 +350,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Xa tầm tay trẻ em, tránh nhiệt độ cao" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 62000, label: "6+ chai" },
+      { minQuantity: 24, price: 55000, label: "24+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
   // ── Nước giặt & xả ───────────────────────────────────────────────
@@ -310,6 +388,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 47000, label: "10+ chai" },
+      { minQuantity: 50, price: 42000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-giat-trang-dau",
@@ -338,6 +423,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh ánh nắng" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 53000, label: "10+ chai" },
+      { minQuantity: 50, price: 48000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-xa-vai-huong-hoa",
@@ -367,6 +459,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 36000, label: "10+ chai" },
+      { minQuantity: 50, price: 32000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
   // ── Nước rửa chén ────────────────────────────────────────────────
@@ -398,6 +497,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 21000, label: "12+ chai" },
+      { minQuantity: 48, price: 19000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-rua-chen-thao-moc",
@@ -426,6 +532,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh ánh nắng" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 30000, label: "12+ chai" },
+      { minQuantity: 48, price: 27000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-rua-chen-cho-may",
@@ -455,6 +568,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: false,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 58000, label: "6+ chai" },
+      { minQuantity: 24, price: 52000, label: "24+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
   // ── Chăm sóc xe ──────────────────────────────────────────────────
@@ -486,6 +606,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát, tránh ánh nắng trực tiếp" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 85000, label: "6+ chai" },
+      { minQuantity: 24, price: 75000, label: "24+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-rua-xe-dam-dac",
@@ -516,6 +643,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 66000, label: "6+ chai" },
+      { minQuantity: 24, price: 58000, label: "24+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "dung-dich-rua-kinh-xe",
@@ -544,6 +678,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Tránh đóng băng và nhiệt cao" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 40000, label: "10+ chai" },
+      { minQuantity: 50, price: 36000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
   // ── Thông cống & WC ───────────────────────────────────────────────
@@ -575,6 +716,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Xa tầm tay trẻ em, tránh tiếp xúc da" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 40000, label: "10+ chai" },
+      { minQuantity: 50, price: 36000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "bot-vi-sinh-khu-mui",
@@ -604,6 +752,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi khô ráo, thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 47000, label: "10+ gói" },
+      { minQuantity: 50, price: 42000, label: "50+ gói" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "nuoc-khu-mui-wc",
@@ -633,6 +788,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Xa tầm tay trẻ em" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 30000, label: "12+ chai" },
+      { minQuantity: 48, price: 27000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
   // ── Diệt côn trùng ───────────────────────────────────────────────
@@ -664,6 +826,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Xa thực phẩm, xa tầm tay trẻ em" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 55000, label: "10+ chai" },
+      { minQuantity: 50, price: 48000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "thuoc-diet-moi",
@@ -693,6 +862,13 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Nơi khô ráo, thoáng mát" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 6,
+    bulkPriceTiers: [
+      { minQuantity: 6, price: 105000, label: "6+ chai" },
+      { minQuantity: 24, price: 95000, label: "24+ chai" },
+    ],
+    isBulkAvailable: true,
   },
   {
     id: "xit-con-trung-tu-nhien",
@@ -722,158 +898,322 @@ export const products: Product[] = [
       { label: "Bảo quản", value: "Tránh nhiệt độ cao, tránh lửa" },
     ],
     inStock: true,
+    brand: "ZIFAT999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 47000, label: "12+ chai" },
+      { minQuantity: 48, price: 42000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 
-  // ── Combo ưu đãi ─────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════════
+  // ═══ SIFA999 PRODUCTS ════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════════
+
+  // ── Chăm sóc em bé ────────────────────────────────────────────────
   {
-    id: "combo-thong-cong",
-    img: combo1,
-    images: [combo1, combo2, combo3],
-    name: "Combo Thông Cống Triệt Để + Bột Vi Sinh Khử Mùi",
-    price: "99.000đ",
-    priceRaw: 99000,
-    oldPrice: "110.000đ",
-    oldPriceRaw: 110000,
-    discount: "-10%",
+    id: "sifa-sua-tam-em-be",
+    img: product1,
+    images: [product1, product2, product3],
+    name: "SIFA999 Sữa Tắm Em Bé - Dịu Nhẹ & An Toàn",
+    price: "45.000đ",
+    priceRaw: 45000,
     badge: "Bán chạy",
-    category: "Combo ưu đãi",
-    sku: "ZF-C001",
+    category: "Chăm sóc em bé",
+    sku: "SF-001",
     description:
-      "Bộ combo tiết kiệm gồm Nước Thông Cống Triệt Để ZIFAT 999 và Bột Vi Sinh Khử Mùi, mang đến giải pháp toàn diện cho đường ống tắc nghẽn và mùi hôi khó chịu trong nhà. Tiết kiệm 10% so với mua lẻ.",
+      "Sữa Tắm Em Bé SIFA999 được nghiên cứu đặc biệt cho làn da nhạy cảm của trẻ sơ sinh và trẻ nhỏ. Công thức 0% hóa chất gây hại, đã được kiểm nghiệm da liễu, an toàn từ ngày đầu đời.",
     uses: [
-      "Thông cống bồn rửa chén, nhà tắm bị tắc",
-      "Khử mùi hôi trong đường ống thoát nước",
-      "Tiêu diệt vi khuẩn trong đường ống",
-      "Ngăn ngừa tắc cống tái phát",
+      "Tắm sạch nhẹ nhàng cho trẻ sơ sinh",
+      "Dưỡng ẩm da bé suốt cả ngày",
+      "Không gây kích ứng da nhạy cảm",
+      "Được hơn 200.000 gia đình tin dùng",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["250ml", "500ml", "1 lít"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước thông cống 500ml + Bột vi sinh 200g" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "pH", value: "5.5 (trung tính với da)" },
+      { label: "Thành phần", value: "Chiết xuất thực vật, lô hội" },
+      { label: "Kiểm nghiệm", value: "Đã kiểm nghiệm da liễu" },
       { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "SIFA999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 38000, label: "12+ chai" },
+      { minQuantity: 48, price: 35000, label: "48+ chai" },
+      { minQuantity: 100, price: 32000, label: "100+ chai" },
+    ],
+    isBulkAvailable: true,
   },
+
+  // ── Chăm sóc cá nhân ──────────────────────────────────────────────
   {
-    id: "combo-lau-san-xit-phong",
-    img: combo2,
-    images: [combo2, combo1, combo3],
-    name: "Combo Nước Lau Sàn Hương Hoa + Xịt Phòng Kháng Khuẩn",
-    price: "120.000đ",
-    priceRaw: 120000,
-    oldPrice: "135.000đ",
-    oldPriceRaw: 135000,
-    discount: "-11%",
+    id: "sifa-nuoc-rua-tay-khang-khuan",
+    img: product2,
+    images: [product2, product3, product4],
+    name: "SIFA999 Nước Rửa Tay Kháng Khuẩn Cao Cấp",
+    price: "35.000đ",
+    priceRaw: 35000,
     badge: "Mới",
-    category: "Combo ưu đãi",
-    sku: "ZF-C002",
+    category: "Chăm sóc cá nhân",
+    sku: "SF-002",
     description:
-      "Combo tiết kiệm gồm Nước Lau Sàn Hương Hoa ZIFAT 999 và Xịt Phòng Kháng Khuẩn. Bộ đôi hoàn hảo giúp không gian sống luôn sạch sẽ, thơm tho và được bảo vệ tối ưu khỏi vi khuẩn gây hại.",
+      "Nước Rửa Tay Kháng Khuẩn SIFA999 với 75% cồn đạt tiêu chuẩn WHO, kết hợp lô hội dưỡng ẩm. Công thức khô nhanh, diệt 99,9% vi khuẩn, lý tưởng cho gia đình luôn di chuyển.",
     uses: [
-      "Lau sàn sạch bóng với hương hoa dịu nhẹ",
-      "Xịt phòng khử khuẩn không khí trong nhà",
-      "Khử mùi ẩm mốc trong phòng kín",
-      "Phù hợp cho gia đình có trẻ nhỏ",
+      "Diệt 99,9% vi khuẩn trên tay",
+      "Dưỡng ẩm với lô hội tự nhiên",
+      "Khô nhanh, không cần rửa lại",
+      "Tiện lợi mang theo mọi nơi",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["100ml", "250ml", "500ml"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước lau sàn 1L + Xịt phòng 300ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Nồng độ cồn", value: "75% (tiêu chuẩn WHO)" },
+      { label: "Thành phần", value: "Ethanol, lô hội, glycerin" },
+      { label: "Hiệu quả", value: "Diệt 99,9% vi khuẩn" },
       { label: "Hạn sử dụng", value: "24 tháng" },
     ],
     inStock: true,
+    brand: "SIFA999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 30000, label: "12+ chai" },
+      { minQuantity: 48, price: 27000, label: "48+ chai" },
+      { minQuantity: 100, price: 24000, label: "100+ chai" },
+    ],
+    isBulkAvailable: true,
   },
+
+  // ── Nước giặt & xả (SIFA999) ──────────────────────────────────────
   {
-    id: "combo-javel-nuoc-giat",
-    img: combo3,
-    images: [combo3, combo1, combo2],
-    name: "Combo Javel Đậm Đặc + Nước Giặt Hương Nắng",
-    price: "85.000đ",
-    priceRaw: 85000,
-    oldPrice: "90.000đ",
-    oldPriceRaw: 90000,
-    discount: "-6%",
+    id: "sifa-nuoc-giat-sinh-hoc",
+    img: product3,
+    images: [product3, product1, product4],
+    name: "SIFA999 Nước Giặt Sinh Học Eco - Mạnh Mẽ, Thân Thiện",
+    price: "55.000đ",
+    priceRaw: 55000,
+    badge: "Eco",
+    category: "Nước giặt & xả",
+    sku: "SF-003",
+    description:
+      "Nước Giặt Sinh Học Eco SIFA999 với công thức phân hủy sinh học 100%, hoạt động hiệu quả ở nhiệt độ nước lạnh, giúp tiết kiệm điện và bảo vệ môi trường. Mạnh với vết bẩn, nhẹ với vải.",
+    uses: [
+      "Giặt sạch vết bẩn cứng đầu tự nhiên",
+      "Hoạt động ở nước lạnh 20°C+",
+      "100% phân hủy sinh học",
+      "Hương sả chanh tự nhiên",
+    ],
+    volumes: ["500ml", "1 lít", "2 lít"],
+    specs: [
+      { label: "Thương hiệu", value: "SIFA 999" },
+      { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Phân hủy sinh học", value: "100%" },
+      { label: "Nhiệt độ nước", value: "Hoạt động từ 20°C" },
+      { label: "Hương thơm", value: "Sả chanh tự nhiên" },
+      { label: "Hạn sử dụng", value: "24 tháng" },
+    ],
+    inStock: true,
+    brand: "SIFA999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 47000, label: "10+ chai" },
+      { minQuantity: 50, price: 42000, label: "50+ chai" },
+      { minQuantity: 100, price: 38000, label: "100+ chai" },
+    ],
+    isBulkAvailable: true,
+  },
+
+  // ── Vệ sinh gia dụng (SIFA999) ────────────────────────────────────
+  {
+    id: "sifa-lau-san-da-nang",
+    img: product4,
+    images: [product4, product2, product1],
+    name: "SIFA999 Nước Lau Sàn Đa Năng - Sạch & An Toàn",
+    price: "38.000đ",
+    priceRaw: 38000,
+    badge: "Gia đình",
+    category: "Vệ sinh gia dụng",
+    sku: "SF-004",
+    description:
+      "Nước Lau Sàn Đa Năng SIFA999 với công thức thực vật, an toàn cho gia đình có trẻ nhỏ và thú cưng. Hiệu quả tẩy rửa vượt trội mà không để lại hóa chất độc hại trên bề mặt.",
+    uses: [
+      "An toàn cho gia đình và thú cưng",
+      "Công thức không độc hại, thực vật",
+      "Tẩy dầu mỡ, bụi bẩn hiệu quả",
+      "Không để lại vết ố trên sàn",
+    ],
+    volumes: ["500ml", "1 lít", "1.5 lít"],
+    specs: [
+      { label: "Thương hiệu", value: "SIFA 999" },
+      { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Hoạt chất", value: "Chiết xuất thực vật" },
+      { label: "Bề mặt phù hợp", value: "Kính, gạch, gỗ, nhựa" },
+      { label: "An toàn", value: "Không độc hại, phân hủy sinh học" },
+      { label: "Hương thơm", value: "Bạch đàn / Trung tính" },
+      { label: "Hạn sử dụng", value: "24 tháng" },
+    ],
+    inStock: true,
+    brand: "SIFA999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 32000, label: "10+ chai" },
+      { minQuantity: 50, price: 28000, label: "50+ chai" },
+      { minQuantity: 100, price: 25000, label: "100+ chai" },
+    ],
+    isBulkAvailable: true,
+  },
+
+  // ── Nước rửa chén (SIFA999) ───────────────────────────────────────
+  {
+    id: "sifa-rua-chen-an-toan",
+    img: product2,
+    images: [product2, product3, product1],
+    name: "SIFA999 Nước Rửa Chén An Toàn - Sạch Dầu Mỡ",
+    price: "28.000đ",
+    priceRaw: 28000,
     badge: null,
-    category: "Combo ưu đãi",
-    sku: "ZF-C003",
+    category: "Nước rửa chén",
+    sku: "SF-005",
     description:
-      "Combo tiết kiệm gồm Javel Đậm Đặc ZIFAT 999 và Nước Giặt Hương Nắng. Bộ đôi giúp quần áo trắng sáng, thơm tho và sạch khuẩn ngay từ lần giặt đầu tiên.",
+      "Nước Rửa Chén An Toàn SIFA999 tẩy dầu mỡ hiệu quả nhưng vẫn dịu nhẹ với da tay. Chiết xuất lô hội dưỡng ẩm, phù hợp cho người rửa chén nhiều lần trong ngày.",
     uses: [
-      "Tẩy trắng quần áo bị ố vàng",
-      "Giặt sạch vết bẩn cứng đầu",
-      "Khử mùi hôi trên quần áo",
-      "An toàn cho vải cotton, polyester",
+      "Tẩy dầu mỡ mạnh, an toàn cho tay",
+      "Dưỡng ẩm da tay với lô hội",
+      "Rửa sạch trái cây, rau củ",
+      "Phân hủy sinh học, thân thiện môi trường",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["400ml", "800ml", "1.5 lít"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Javel 1L + Nước giặt 750ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Thành phần", value: "Chiết xuất lô hội, chất hoạt động bề mặt sinh học" },
       { label: "Hạn sử dụng", value: "24 tháng" },
+      { label: "Bảo quản", value: "Nơi thoáng mát" },
     ],
     inStock: true,
+    brand: "SIFA999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 24000, label: "12+ chai" },
+      { minQuantity: 48, price: 21000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
+
+  // ── Vệ sinh nhà cửa (SIFA999) ─────────────────────────────────────
   {
-    id: "combo-nuoc-rua-chen-tay-bep",
-    img: combo1,
-    images: [combo1, combo3, combo2],
-    name: "Combo Nước Rửa Chén + Tẩy Nhà Bếp Đa Năng",
-    price: "75.000đ",
-    priceRaw: 75000,
-    oldPrice: "88.000đ",
-    oldPriceRaw: 88000,
-    discount: "-15%",
-    badge: "Hot",
-    category: "Combo ưu đãi",
-    sku: "ZF-C004",
+    id: "sifa-xit-kinh-sinh-hoc",
+    img: product1,
+    images: [product1, product4, product2],
+    name: "SIFA999 Xịt Kính Sinh Học - Trong Vắt Không Vệt",
+    price: "30.000đ",
+    priceRaw: 30000,
+    badge: null,
+    category: "Vệ sinh nhà cửa",
+    sku: "SF-006",
     description:
-      "Combo tiết kiệm nhất gồm Nước Rửa Chén và Tẩy Nhà Bếp Đa Năng ZIFAT 999. Bộ đôi không thể thiếu trong mỗi căn bếp, giúp làm sạch bát đĩa, bếp nấu và mặt bếp hiệu quả.",
+      "Xịt Kính Sinh Học SIFA999 với công thức thực vật, không chứa ammonia hay hóa chất gây hại. Làm sạch kính, gương trong vắt không vệt ố, an toàn khi sử dụng trong phòng kín.",
     uses: [
-      "Rửa sạch bát đĩa, nồi chảo dầu mỡ",
-      "Tẩy sạch mặt bếp, bếp từ, bếp gas",
-      "Khử mùi tanh, hôi trong bếp",
-      "An toàn cho da tay",
+      "Lau kính cửa sổ, gương sáng bóng",
+      "Không chứa ammonia gây hại",
+      "An toàn cho phòng kín có trẻ em",
+      "Chống bám bụi lên đến 48 giờ",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
+    volumes: ["300ml", "500ml"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước rửa chén 500ml + Tẩy bếp 400ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Dạng sản phẩm", value: "Dạng xịt" },
+      { label: "Thành phần", value: "Thực vật, không ammonia" },
       { label: "Hạn sử dụng", value: "24 tháng" },
     ],
     inStock: true,
+    brand: "SIFA999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 25000, label: "12+ chai" },
+      { minQuantity: 48, price: 22000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
+
+  // ── Chăm sóc cá nhân (SIFA999 thêm) ───────────────────────────────
   {
-    id: "combo-cham-soc-xe-toan-dien",
-    img: combo2,
-    images: [combo2, combo3, combo1],
-    name: "Combo Chăm Sóc Xe Toàn Diện 4 Món",
-    price: "199.000đ",
-    priceRaw: 199000,
-    oldPrice: "240.000đ",
-    oldPriceRaw: 240000,
-    discount: "-17%",
-    badge: "Hot",
-    category: "Combo ưu đãi",
-    sku: "ZF-C005",
+    id: "sifa-sua-tam-gia-dinh",
+    img: product3,
+    images: [product3, product2, product4],
+    name: "SIFA999 Sữa Tắm Gia Đình - Dưỡng Ẩm Tự Nhiên",
+    price: "42.000đ",
+    priceRaw: 42000,
+    badge: null,
+    category: "Chăm sóc cá nhân",
+    sku: "SF-007",
     description:
-      "Bộ combo chăm sóc xe toàn diện 4 món gồm Nước Rửa Xe Bọt Tuyết, Bóng Vỏ Xe, Dung Dịch Rửa Kính và Nước Lau Nội Thất ZIFAT 999. Tiết kiệm 17% so với mua lẻ.",
+      "Sữa Tắm Gia Đình SIFA999 với công thức dưỡng ẩm từ bơ hạt mỡ và vitamin E. Phù hợp cho mọi loại da, từ người lớn đến trẻ em. Hương hoa nhẹ nhàng, thư giãn.",
     uses: [
-      "Rửa xe sạch bóng từ ngoài đến trong",
-      "Bảo vệ sơn xe khỏi tia UV và oxy hóa",
-      "Làm sạch và tạo độ bóng nội thất",
-      "Đầy đủ dụng cụ chăm sóc xe tại nhà",
+      "Dưỡng ẩm sâu với bơ hạt mỡ",
+      "Phù hợp mọi loại da, kể cả nhạy cảm",
+      "Hương hoa nhẹ nhàng, thư giãn",
+      "An toàn cho trẻ em trên 3 tuổi",
     ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ cao cấp"],
+    volumes: ["500ml", "1 lít"],
     specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước rửa xe 500ml + Bóng vỏ 250ml + Rửa kính 300ml + Lau nội thất 250ml" },
+      { label: "Thương hiệu", value: "SIFA 999" },
       { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Thành phần", value: "Bơ hạt mỡ, vitamin E, chiết xuất hoa" },
+      { label: "pH", value: "5.5 (cân bằng da)" },
       { label: "Hạn sử dụng", value: "24 tháng" },
     ],
     inStock: true,
+    brand: "SIFA999",
+    moq: 10,
+    bulkPriceTiers: [
+      { minQuantity: 10, price: 36000, label: "10+ chai" },
+      { minQuantity: 50, price: 32000, label: "50+ chai" },
+    ],
+    isBulkAvailable: true,
+  },
+
+  {
+    id: "sifa-nuoc-ve-sinh-wc",
+    img: product4,
+    images: [product4, product1, product3],
+    name: "SIFA999 Nước Vệ Sinh WC - An Toàn Gia Đình",
+    price: "32.000đ",
+    priceRaw: 32000,
+    badge: "Mới",
+    category: "Thông cống & WC",
+    sku: "SF-008",
+    description:
+      "Nước Vệ Sinh WC SIFA999 với công thức diệt khuẩn nhẹ nhàng, khử mùi hôi bồn cầu mà không chứa hóa chất ăn mòn mạnh. An toàn cho hệ thống ống nước và bể phốt.",
+    uses: [
+      "Diệt khuẩn nhẹ nhàng, không ăn mòn",
+      "Khử mùi hôi bồn cầu hiệu quả",
+      "An toàn cho bể phốt và đường ống",
+      "Hương thơm dịu nhẹ kéo dài",
+    ],
+    volumes: ["300ml", "500ml"],
+    specs: [
+      { label: "Thương hiệu", value: "SIFA 999" },
+      { label: "Xuất xứ", value: "Việt Nam" },
+      { label: "Dạng sản phẩm", value: "Dạng gel" },
+      { label: "An toàn", value: "Không ăn mòn, thân thiện bể phốt" },
+      { label: "Hạn sử dụng", value: "24 tháng" },
+    ],
+    inStock: true,
+    brand: "SIFA999",
+    moq: 12,
+    bulkPriceTiers: [
+      { minQuantity: 12, price: 27000, label: "12+ chai" },
+      { minQuantity: 48, price: 24000, label: "48+ chai" },
+    ],
+    isBulkAvailable: true,
   },
 ];
 
@@ -882,3 +1222,9 @@ export const getProductById = (id: string): Product | undefined =>
 
 export const getRelatedProducts = (id: string, limit = 4): Product[] =>
   products.filter((p) => p.id !== id).slice(0, limit);
+
+export const getProductsByBrand = (brand: Brand): Product[] =>
+  products.filter((p) => p.brand === brand);
+
+export const getFeaturedProducts = (limit = 6): Product[] =>
+  products.filter((p) => p.badge).slice(0, limit);

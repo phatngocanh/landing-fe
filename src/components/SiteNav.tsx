@@ -9,17 +9,15 @@ import { useMobileMenu } from "@/context/MobileMenuContext";
 const HOME_LINKS = [
   { label: "Trang Chủ",  anchor: "#hero"   },
   { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Ưu Đãi",     anchor: "#combo"  },
   { label: "Tin Tức",    anchor: "#news"   },
   { label: "Liên Hệ",   anchor: "#footer" },
 ];
 
 const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"                                               },
-  { label: "Giới Thiệu", href: "/about"                                          },
-  { label: "Ưu Đãi",     href: "/products?category=Combo+%C6%B0u+%C4%91%C3%A3i" },
-  { label: "Tin Tức",    href: "/news"                                           },
-  { label: "Liên Hệ",   href: "/contact"                                        },
+  { label: "Trang Chủ",  href: "/"       },
+  { label: "Giới Thiệu", href: "/about"  },
+  { label: "Tin Tức",    href: "/news"   },
+  { label: "Liên Hệ",   href: "/contact" },
 ];
 
 import { CATEGORIES } from "@/data/products";
@@ -32,12 +30,13 @@ const SiteNav = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isProducts = pathname.startsWith("/products") || pathname.startsWith("/product");
+  const isBrands = pathname.startsWith("/brands") || pathname.startsWith("/zifat999") || pathname.startsWith("/sifa999");
 
   useEffect(() => {
     if (!isHome) return;
     const onScroll = () => {
       setScrolled(window.scrollY > 10);
-      for (const id of ["footer", "news", "combo", "about", "hero"]) {
+      for (const id of ["footer", "news", "brands", "about", "hero"]) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 120) {
           setActiveAnchor(`#${id}`);
@@ -59,9 +58,8 @@ const SiteNav = () => {
   }, []);
 
   const isPageLinkActive = (href: string) => {
-    if (href === "/") return !isProducts && pathname === "/";
+    if (href === "/") return !isProducts && !isBrands && pathname === "/";
     if (href === "/about") return pathname === "/about";
-    if (href.startsWith("/products?category=Combo")) return isProducts && typeof window !== "undefined" && window.location.search.includes("Combo");
     if (href === "/news") return pathname === "/news";
     if (href === "/contact") return pathname === "/contact";
     return false;
@@ -83,7 +81,6 @@ const SiteNav = () => {
       <div className="container relative">
         <div className="flex items-center justify-between md:justify-start py-4 gap-8 text-[13px] font-bold uppercase tracking-widest">
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden p-1"
             onClick={toggleMobile}
@@ -96,7 +93,6 @@ const SiteNav = () => {
             </div>
           </button>
 
-          {/* ===== Desktop nav ===== */}
           <div className="hidden md:flex items-center gap-8 overflow-visible">
 
             {leftLinks.map((l) => {
@@ -124,7 +120,48 @@ const SiteNav = () => {
               );
             })}
 
-            {/* Sản Phẩm dropdown */}
+            <div className="group relative py-4 -my-4 cursor-pointer">
+              <Link
+                href="/brands"
+                className={`flex items-center gap-1 transition-colors whitespace-nowrap ${
+                  isBrands ? "text-yellow-300" : "hover:text-yellow-300"
+                }`}
+              >
+                <span>Thương Hiệu</span>
+                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+                {isBrands && (
+                  <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
+                )}
+              </Link>
+              <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-6 w-[360px] z-50 normal-case font-medium">
+                <div className="space-y-1 mb-4">
+                  <Link href="/zifat999" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-sm group/item">
+                    <span className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-[10px] font-black shrink-0">Z</span>
+                    <div>
+                      <p className="font-bold text-foreground group-hover/item:text-blue-600 transition-colors">ZIFAT999</p>
+                      <p className="text-xs text-muted-foreground">Tẩy rửa công nghiệp</p>
+                    </div>
+                  </Link>
+                  <Link href="/sifa999" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-green-50 transition-colors text-sm group/item">
+                    <span className="w-8 h-8 bg-green-600 text-white rounded-lg flex items-center justify-center text-[10px] font-black shrink-0">S</span>
+                    <div>
+                      <p className="font-bold text-foreground group-hover/item:text-green-600 transition-colors">SIFA999</p>
+                      <p className="text-xs text-muted-foreground">Chăm sóc gia đình</p>
+                    </div>
+                  </Link>
+                </div>
+                <div className="border-t border-border pt-3">
+                  <Link
+                    href="/brands"
+                    className="flex items-center gap-2 font-bold text-primary text-sm hover:gap-3 transition-all px-3"
+                  >
+                    <span>Tất cả thương hiệu</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             <div className="group relative py-4 -my-4 cursor-pointer">
               <Link
                 href="/products"

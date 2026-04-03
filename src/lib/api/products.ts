@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { products, type Product, type Category } from "@/data/products";
+import { products, type Product, type Category, type Brand } from "@/data/products";
 
 export interface ProductsParams {
   category?: Category | "Tất cả";
@@ -7,6 +7,7 @@ export interface ProductsParams {
   sort?: "default" | "price-asc" | "price-desc" | "name";
   page?: number;
   pageSize?: number;
+  brand?: Brand | "all";
 }
 
 export interface ProductsResponse {
@@ -17,7 +18,6 @@ export interface ProductsResponse {
   totalPages: number;
 }
 
-// Simulates network delay just like a real API call
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -31,9 +31,14 @@ async function fetchProducts(params: ProductsParams): Promise<ProductsResponse> 
     sort = "default",
     page = 1,
     pageSize = 12,
+    brand = "all",
   } = params;
 
   let filtered = [...products];
+
+  if (brand && brand !== "all") {
+    filtered = filtered.filter((p) => p.brand === brand);
+  }
 
   if (category && category !== "Tất cả") {
     filtered = filtered.filter((p) => p.category === category);
@@ -70,8 +75,6 @@ async function fetchProductById(id: string): Promise<Product | null> {
   await delay(200);
   return products.find((p) => p.id === id) ?? null;
 }
-
-// ── React Query hooks ────────────────────────────────────────────────
 
 export function useProducts(params: ProductsParams) {
   return useQuery({

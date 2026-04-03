@@ -1,17 +1,17 @@
-import { ShoppingCart, Eye } from "lucide-react";
+import { Eye, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { products } from "@/data/products";
+import { getFeaturedProducts } from "@/data/products";
 
 import ScrollReveal from "./ScrollReveal";
 
-const displayProducts = products.filter(p => p.category !== "Combo ưu đãi").slice(0, 4);
+const displayProducts = getFeaturedProducts(4);
 
 const ProductsSection = () => (
   <section className="scroll-mt-28" id="products">
     <ScrollReveal>
       <div className="flex items-center justify-between border-b border-border pb-4 md:pb-5 mb-5 md:mb-10">
-        <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary">Danh Mục ZIFAT 999</h2>
+        <h2 className="section-header-line text-xs md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.25em] text-primary">Sản Phẩm Nổi Bật</h2>
         <Link className="text-[12px] md:text-[13px] text-muted-foreground font-bold hover:text-primary transition-all flex items-center gap-1.5 group" href="/products">
           Tất cả <span className="group-hover:translate-x-1 transition-transform">→</span>
         </Link>
@@ -24,9 +24,13 @@ const ProductsSection = () => (
             {p.badge && (
               <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">{p.badge}</div>
             )}
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10">
+              <span className={`text-[7px] sm:text-[9px] font-black px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
+                {p.brand === "ZIFAT999" ? "ZIFAT" : "SIFA"}
+              </span>
+            </div>
             <div className="aspect-square mb-3 sm:mb-6 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-6 flex items-center justify-center overflow-hidden relative">
               <Image className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" src={p.img} alt={p.name} placeholder="blur" width={512} height={512} />
-              {/* Hover actions — desktop only */}
               <div className="absolute inset-0 hidden sm:flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <button className="w-10 h-10 rounded-full bg-card shadow-md flex items-center justify-center text-foreground hover:text-primary hover:scale-110 transition-all translate-y-3 group-hover:translate-y-0 duration-300" aria-label={`Xem nhanh: ${p.name}`}>
                   <Eye className="w-4 h-4" />
@@ -38,24 +42,22 @@ const ProductsSection = () => (
             </div>
             <h3 className="text-[11px] sm:text-[14px] font-bold text-foreground h-8 sm:h-11 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">{p.name}</h3>
             <p className="text-secondary font-black text-sm sm:text-lg mt-2 sm:mt-3">{p.price}</p>
+            {p.isBulkAvailable && p.bulkPriceTiers[0] && (
+              <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1">
+                Sỉ từ {p.bulkPriceTiers[0].minQuantity}+: {p.bulkPriceTiers[0].price.toLocaleString("vi-VN")}đ
+              </p>
+            )}
           </Link>
         </ScrollReveal>
       ))}
     </div>
-    <div className="flex justify-center mt-8 md:mt-16 gap-2 md:gap-3">
-      {[1, 2, 3].map((n) => (
-        <button
-          key={n}
-          aria-label={`Trang ${n}`}
-          className={`w-9 h-9 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-xs md:text-sm transition-all hover:-translate-y-1 ${
-            n === 1
-              ? "border-2 border-primary bg-primary text-primary-foreground shadow-lg"
-              : "border border-border text-muted-foreground bg-card hover:border-primary hover:text-primary"
-          }`}
-        >
-          {n}
-        </button>
-      ))}
+    <div className="flex justify-center mt-8 md:mt-16">
+      <Link
+        href="/brands"
+        className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:brightness-110 hover:-translate-y-0.5 transition-all shadow-lg active:scale-95"
+      >
+        Xem tất cả thương hiệu →
+      </Link>
     </div>
   </section>
 );

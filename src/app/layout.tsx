@@ -12,20 +12,21 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const SITE_NAME = "Phát Ngọc Anh – ZIFAT 999";
+const SITE_NAME = "Phát Ngọc Anh — ZIFAT999 & SIFA999";
 const BASE_URL = "https://phatngocanh.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999 | Chất Lượng Việt Cho Người Việt",
+    default: "Hóa Phẩm Phát Ngọc Anh — ZIFAT999 & SIFA999 | Chất Lượng Việt Cho Người Việt",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh – thương hiệu ZIFAT 999. Hơn 50 sản phẩm tẩy rửa, vệ sinh nhà cửa, chăm sóc xe chất lượng cao, giá cạnh tranh, phân phối toàn quốc.",
+    "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh — sở hữu hai thương hiệu ZIFAT999 (tẩy rửa công nghiệp) và SIFA999 (chăm sóc gia đình). Hơn 50 sản phẩm chất lượng cao, phân phối toàn quốc.",
   keywords: [
     "hóa phẩm",
-    "ZIFAT 999",
+    "ZIFAT999",
+    "SIFA999",
     "nước tẩy rửa",
     "nước rửa chén",
     "nước lau sàn",
@@ -33,6 +34,8 @@ export const metadata: Metadata = {
     "Phát Ngọc Anh",
     "hóa phẩm Việt Nam",
     "chăm sóc xe",
+    "chăm sóc gia đình",
+    "tẩy rửa công nghiệp",
   ],
   robots: { index: true, follow: true },
   openGraph: {
@@ -40,16 +43,16 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: BASE_URL,
     siteName: SITE_NAME,
-    title: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999 | Chất Lượng Việt Cho Người Việt",
+    title: "Hóa Phẩm Phát Ngọc Anh — ZIFAT999 & SIFA999 | Chất Lượng Việt Cho Người Việt",
     description:
-      "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh – thương hiệu ZIFAT 999. Hơn 50 sản phẩm tẩy rửa chất lượng cao, phân phối 64 tỉnh thành.",
+      "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh — sở hữu ZIFAT999 và SIFA999. Hơn 50 sản phẩm tẩy rửa và chăm sóc gia đình, phân phối 64 tỉnh thành.",
     images: [{ url: "/phatngocanhlogo.jpg", width: 800, height: 800, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999",
+    title: "Hóa Phẩm Phát Ngọc Anh — ZIFAT999 & SIFA999",
     description:
-      "Hơn 50 sản phẩm tẩy rửa chất lượng cao thương hiệu ZIFAT 999, phân phối toàn quốc.",
+      "Hơn 50 sản phẩm tẩy rửa và chăm sóc gia đình chất lượng cao, phân phối toàn quốc.",
     images: ["/phatngocanhlogo.jpg"],
   },
 };
@@ -75,11 +78,11 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh",
-              alternateName: "ZIFAT 999",
+              alternateName: ["ZIFAT999", "SIFA999"],
               url: BASE_URL,
               logo: `${BASE_URL}/phatngocanhlogo.jpg`,
               description:
-                "Thương hiệu ZIFAT 999 – sản phẩm tẩy rửa chất lượng cao cho gia đình Việt",
+                "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh — sở hữu thương hiệu ZIFAT999 (tẩy rửa công nghiệp) và SIFA999 (chăm sóc gia đình)",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "430/33 Đường TA 28, Khu phố 2, P. Thới An",

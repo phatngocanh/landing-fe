@@ -7,19 +7,19 @@ import Image from "next/image";
 import {
   Search,
   SlidersHorizontal,
-  ShoppingCart,
-  Eye,
   ChevronRight,
   X,
   ArrowUpDown,
   LayoutGrid,
   LayoutList,
+  Phone,
+  Handshake,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
 import { useProducts } from "@/lib/api/products";
-import { CATEGORIES, type Category } from "@/data/products";
+import { CATEGORIES, BRANDS, type Category, type Brand } from "@/data/products";
 
 const SiteFooter = dynamic(() => import("@/components/SiteFooter"), { ssr: false });
 const FloatingActions = dynamic(() => import("@/components/FloatingActions"), { ssr: false });
@@ -51,6 +51,9 @@ function ProductsContent() {
   const [category, setCategory] = useState<Category | "Tất cả">(
     (searchParams.get("category") as Category) ?? "Tất cả"
   );
+  const [brand, setBrand] = useState<Brand | "all">(
+    (searchParams.get("brand") as Brand) ?? "all"
+  );
   const [search, setSearch] = useState(searchParams.get("q") ?? "");
   const [searchInput, setSearchInput] = useState(searchParams.get("q") ?? "");
   const [sort, setSort] = useState<SortValue>("default");
@@ -64,13 +67,15 @@ function ProductsContent() {
     sort,
     page,
     pageSize: PAGE_SIZE,
+    brand,
   });
 
   const syncUrl = useCallback(
-    (cat: string, q: string) => {
+    (cat: string, q: string, b: string) => {
       const params = new URLSearchParams();
       if (cat && cat !== "Tất cả") params.set("category", cat);
       if (q) params.set("q", q);
+      if (b && b !== "all") params.set("brand", b);
       const qs = params.toString();
       router.replace(qs ? `/products?${qs}` : "/products", { scroll: false });
     },
@@ -81,21 +86,27 @@ function ProductsContent() {
     setCategory(cat);
     setPage(1);
     setFiltersOpen(false);
-    syncUrl(cat, search);
+    syncUrl(cat, search, brand);
+  };
+
+  const handleBrandChange = (b: Brand | "all") => {
+    setBrand(b);
+    setPage(1);
+    syncUrl(category, search, b);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSearch(searchInput);
     setPage(1);
-    syncUrl(category, searchInput);
+    syncUrl(category, searchInput, brand);
   };
 
   const handleClearSearch = () => {
     setSearchInput("");
     setSearch("");
     setPage(1);
-    syncUrl(category, "");
+    syncUrl(category, "", brand);
   };
 
   const handleSortChange = (val: SortValue) => {
@@ -103,10 +114,10 @@ function ProductsContent() {
     setPage(1);
   };
 
-  // Sync category/search state when URL search params change (e.g. mobile nav links)
   useEffect(() => {
     const urlCategory = (searchParams.get("category") as Category) ?? "Tất cả";
     const urlSearch = searchParams.get("q") ?? "";
+    const urlBrand = (searchParams.get("brand") as Brand) ?? "all";
     if (urlCategory !== category) {
       setCategory(urlCategory as Category | "Tất cả");
       setPage(1);
@@ -116,7 +127,11 @@ function ProductsContent() {
       setSearchInput(urlSearch);
       setPage(1);
     }
-  }, [searchParams, category, search]);
+    if (urlBrand !== brand) {
+      setBrand(urlBrand as Brand | "all");
+      setPage(1);
+    }
+  }, [searchParams, category, search, brand]);
 
   const categoryLabel = category === "Tất cả" ? "Tất cả sản phẩm" : category;
   const showingProducts = data?.data ?? [];
@@ -128,7 +143,6 @@ function ProductsContent() {
       <SiteHeader />
       <SiteNav />
 
-      {/* Page header strip */}
       <div className="bg-muted/50 border-b border-border">
         <div className="container py-3 md:py-4">
           <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground flex-wrap">
@@ -142,7 +156,6 @@ function ProductsContent() {
       </div>
 
       <main className="container py-6 md:py-12">
-        {/* Page title */}
         <div className="mb-6 md:mb-10">
           <h1 className="text-xl md:text-3xl font-black text-foreground">
             {categoryLabel}
@@ -150,15 +163,14 @@ function ProductsContent() {
           {!isLoading && (
             <p className="text-sm text-muted-foreground mt-1">
               {total} sản phẩm
+              {brand !== "all" ? ` — ${brand}` : ""}
               {search ? ` cho "${search}"` : ""}
             </p>
           )}
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
-          {/* ── Sidebar filters (desktop) / Drawer (mobile) ── */}
           <>
-            {/* Mobile overlay */}
             {filtersOpen && (
               <div
                 className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
@@ -176,7 +188,6 @@ function ProductsContent() {
                 flex flex-col
               `}
             >
-              {/* Mobile header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-border lg:hidden">
                 <span className="font-black text-sm uppercase tracking-widest">Bộ lọc</span>
                 <button
@@ -189,7 +200,45 @@ function ProductsContent() {
               </div>
 
               <div className="overflow-y-auto flex-1 p-5 lg:p-0 space-y-8">
-                {/* Categories */}
+                <div>
+                  <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground mb-3">
+                    Thương hiệu
+                  </p>
+                  <ul className="space-y-0.5">
+                    <li>
+                      <button
+                        data-testid="filter-brand-all"
+                        onClick={() => handleBrandChange("all")}
+                        className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                          brand === "all"
+                            ? "bg-primary/10 text-primary font-bold"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        }`}
+                      >
+                        Tất cả
+                      </button>
+                    </li>
+                    {BRANDS.map((b) => (
+                      <li key={b}>
+                        <button
+                          data-testid={`filter-brand-${b}`}
+                          onClick={() => handleBrandChange(b)}
+                          className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
+                            brand === b
+                              ? "bg-primary/10 text-primary font-bold"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          }`}
+                        >
+                          <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[8px] font-black text-white ${b === "ZIFAT999" ? "bg-blue-600" : "bg-green-600"}`}>
+                            {b === "ZIFAT999" ? "Z" : "S"}
+                          </span>
+                          {b}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
                 <div>
                   <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground mb-3">
                     Danh mục
@@ -216,11 +265,8 @@ function ProductsContent() {
             </aside>
           </>
 
-          {/* ── Main content ── */}
           <div className="flex-1 min-w-0">
-            {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-3 mb-6">
-              {/* Search */}
               <form onSubmit={handleSearchSubmit} className="flex-1 min-w-[180px]">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -244,7 +290,6 @@ function ProductsContent() {
                 </div>
               </form>
 
-              {/* Mobile filter toggle */}
               <button
                 data-testid="button-open-filters"
                 onClick={() => setFiltersOpen(true)}
@@ -252,12 +297,11 @@ function ProductsContent() {
               >
                 <SlidersHorizontal className="w-4 h-4" />
                 Bộ lọc
-                {category !== "Tất cả" && (
+                {(category !== "Tất cả" || brand !== "all") && (
                   <span className="w-2 h-2 bg-primary rounded-full" />
                 )}
               </button>
 
-              {/* Sort */}
               <div className="relative">
                 <div className="flex items-center gap-2 border border-border rounded-xl px-3 py-2.5 text-sm font-semibold hover:border-primary cursor-pointer transition-colors">
                   <ArrowUpDown className="w-4 h-4 text-muted-foreground" />
@@ -276,7 +320,6 @@ function ProductsContent() {
                 </div>
               </div>
 
-              {/* Grid / List toggle — desktop only */}
               <div className="hidden sm:flex items-center gap-1 border border-border rounded-xl p-1">
                 <button
                   data-testid="button-grid-view"
@@ -305,9 +348,16 @@ function ProductsContent() {
               </div>
             </div>
 
-            {/* Active filters chips */}
-            {(category !== "Tất cả" || search) && (
+            {(category !== "Tất cả" || search || brand !== "all") && (
               <div className="flex flex-wrap gap-2 mb-4">
+                {brand !== "all" && (
+                  <span className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full ${brand === "ZIFAT999" ? "bg-blue-50 text-blue-600" : "bg-green-50 text-green-600"}`}>
+                    {brand}
+                    <button onClick={() => handleBrandChange("all")} className="hover:opacity-60 transition-opacity">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </span>
+                )}
                 {category !== "Tất cả" && (
                   <span className="flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-bold px-3 py-1.5 rounded-full">
                     {category}
@@ -321,7 +371,7 @@ function ProductsContent() {
                 )}
                 {search && (
                   <span className="flex items-center gap-1.5 bg-muted text-muted-foreground text-xs font-bold px-3 py-1.5 rounded-full">
-                    "{search}"
+                    &quot;{search}&quot;
                     <button onClick={handleClearSearch} className="hover:text-foreground transition-colors">
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -330,7 +380,6 @@ function ProductsContent() {
               </div>
             )}
 
-            {/* Loading overlay indicator */}
             {isFetching && !isLoading && (
               <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
@@ -338,7 +387,6 @@ function ProductsContent() {
               </div>
             )}
 
-            {/* Product grid */}
             {isLoading ? (
               <div
                 className={`grid gap-2.5 sm:gap-5 ${
@@ -363,6 +411,7 @@ function ProductsContent() {
                 <button
                   onClick={() => {
                     handleCategoryChange("Tất cả");
+                    handleBrandChange("all");
                     handleClearSearch();
                   }}
                   className="px-6 py-2.5 bg-primary text-primary-foreground rounded-full font-bold text-sm hover:brightness-110 transition-all"
@@ -370,75 +419,43 @@ function ProductsContent() {
                   Xem tất cả sản phẩm
                 </button>
               </div>
-            ) : gridCols === "list" ? (
-              <div className="space-y-3">
-                {showingProducts.map((p) => (
-                  <Link
-                    key={p.id}
-                    href={`/product/${p.id}`}
-                    data-testid={`product-card-${p.id}`}
-                    className="flex gap-4 sm:gap-6 bg-card border border-border rounded-xl sm:rounded-2xl p-3 sm:p-5 group hover:border-primary/40 hover:shadow-md transition-all"
-                  >
-                    <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 bg-muted rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden relative">
-                      {p.badge && (
-                        <span className="absolute top-1.5 left-1.5 bg-primary text-primary-foreground text-[8px] font-black px-1.5 py-0.5 rounded-full z-10">
-                          {p.badge}
-                        </span>
-                      )}
-                      <Image
-                        src={p.img}
-                        alt={p.name}
-                        width={128}
-                        height={128}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                        placeholder="blur"
-                      />
-                    </div>
-                    <div className="flex flex-col justify-center gap-1 min-w-0">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit">
-                        {p.category}
-                      </span>
-                      <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                        {p.name}
-                      </h3>
-                      <div className="flex items-baseline gap-2 mt-1">
-                        <span className="text-secondary font-black text-base sm:text-lg">{p.price}</span>
-                        {p.oldPrice && (
-                          <span className="text-xs text-muted-foreground line-through">{p.oldPrice}</span>
-                        )}
-                        {p.discount && (
-                          <span className="text-xs font-black text-secondary bg-secondary/10 px-1.5 py-0.5 rounded-full">
-                            {p.discount}
-                          </span>
-                        )}
-                      </div>
-                      {!p.inStock && (
-                        <span className="text-xs font-bold text-muted-foreground">Hết hàng</span>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5">
+              <div className={`grid gap-2.5 sm:gap-5 ${
+                gridCols === "list"
+                  ? "grid-cols-1"
+                  : "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4"
+              }`}>
                 {showingProducts.map((p) => (
                   <Link
                     key={p.id}
                     href={`/product/${p.id}`}
                     data-testid={`product-card-${p.id}`}
-                    className="bg-card border border-border p-3 sm:p-5 rounded-xl sm:rounded-3xl text-center group cursor-pointer h-full relative block hover:border-primary/40 hover:shadow-md transition-all"
+                    className={`bg-card border border-border p-3 sm:p-5 rounded-xl sm:rounded-3xl text-center group cursor-pointer h-full relative block hover:border-primary/40 hover:shadow-md transition-all ${
+                      gridCols === "list" ? "flex gap-4 sm:gap-6 text-left" : ""
+                    }`}
                   >
-                    {p.badge && (
+                    {p.badge && gridCols !== "list" && (
                       <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                         {p.badge}
                       </div>
                     )}
-                    {p.discount && (
-                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-secondary text-secondary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
-                        {p.discount}
+                    {gridCols !== "list" && (
+                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
+                        <span className={`text-[7px] sm:text-[9px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
+                          {p.brand === "ZIFAT999" ? "ZIFAT" : "SIFA"}
+                        </span>
                       </div>
                     )}
-                    <div className="aspect-square mb-3 sm:mb-5 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-5 flex items-center justify-center overflow-hidden relative">
+                    <div className={`${
+                      gridCols === "list"
+                        ? "w-24 h-24 sm:w-32 sm:h-32 shrink-0"
+                        : "aspect-square mb-3 sm:mb-5"
+                    } bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-5 flex items-center justify-center overflow-hidden relative`}>
+                      {gridCols === "list" && p.badge && (
+                        <span className="absolute top-1.5 left-1.5 bg-primary text-primary-foreground text-[8px] font-black px-1.5 py-0.5 rounded-full z-10">
+                          {p.badge}
+                        </span>
+                      )}
                       <Image
                         src={p.img}
                         alt={p.name}
@@ -447,39 +464,41 @@ function ProductsContent() {
                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
                         placeholder="blur"
                       />
-                      {/* Hover actions — desktop only */}
-                      <div className="absolute inset-0 hidden sm:flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <span className="w-9 h-9 rounded-full bg-card shadow-md flex items-center justify-center text-foreground hover:text-primary translate-y-3 group-hover:translate-y-0 duration-300">
-                          <Eye className="w-4 h-4" />
-                        </span>
-                        <span className="w-9 h-9 rounded-full bg-primary shadow-md flex items-center justify-center text-primary-foreground translate-y-3 group-hover:translate-y-0 duration-500">
-                          <ShoppingCart className="w-4 h-4" />
-                        </span>
-                      </div>
                     </div>
-                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary mb-1">
-                      {p.category}
-                    </p>
-                    <h3 className="text-[11px] sm:text-[13px] font-bold text-foreground h-8 sm:h-10 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                      {p.name}
-                    </h3>
-                    <div className="mt-2 sm:mt-3 flex items-baseline justify-center gap-2 flex-wrap">
-                      <span className="text-secondary font-black text-sm sm:text-base">{p.price}</span>
-                      {p.oldPrice && (
-                        <span className="text-[10px] text-muted-foreground line-through">{p.oldPrice}</span>
+                    <div className={gridCols === "list" ? "flex flex-col justify-center gap-1 min-w-0" : ""}>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className={`text-[7px] sm:text-[9px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
+                          {p.brand}
+                        </span>
+                        <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary">
+                          {p.category}
+                        </p>
+                      </div>
+                      <h3 className="text-[11px] sm:text-[13px] font-bold text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                        {p.name}
+                      </h3>
+                      <div className="mt-2 sm:mt-3 flex items-baseline gap-2 flex-wrap">
+                        <span className="text-secondary font-black text-sm sm:text-base">{p.price}</span>
+                        {p.oldPrice && (
+                          <span className="text-[10px] text-muted-foreground line-through">{p.oldPrice}</span>
+                        )}
+                      </div>
+                      {p.isBulkAvailable && p.bulkPriceTiers[0] && (
+                        <p className="text-[10px] text-muted-foreground mt-1">
+                          Sỉ ({p.bulkPriceTiers[0].label}): {p.bulkPriceTiers[0].price.toLocaleString("vi-VN")}đ
+                        </p>
+                      )}
+                      {!p.inStock && (
+                        <span className="inline-block mt-1 text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                          Hết hàng
+                        </span>
                       )}
                     </div>
-                    {!p.inStock && (
-                      <span className="inline-block mt-1 text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                        Hết hàng
-                      </span>
-                    )}
                   </Link>
                 ))}
               </div>
             )}
 
-            {/* Pagination */}
             {!isLoading && totalPages > 1 && (
               <div className="flex justify-center items-center mt-10 md:mt-16 gap-2">
                 <button
@@ -515,6 +534,23 @@ function ProductsContent() {
               </div>
             )}
           </div>
+
+          <aside className="hidden xl:block w-64 shrink-0 space-y-6">
+            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6">
+              <h3 className="font-black text-foreground text-sm mb-2">Báo Giá Sỉ / B2B</h3>
+              <p className="text-xs text-muted-foreground mb-4">Liên hệ đội ngũ bán hàng để nhận báo giá tốt nhất cho đơn hàng lớn.</p>
+              <a href="tel:02862713214" className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground py-2.5 rounded-xl font-bold text-xs hover:brightness-110 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Gọi ngay
+              </a>
+            </div>
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <h3 className="font-black text-foreground text-sm mb-2">Trở Thành Đối Tác</h3>
+              <p className="text-xs text-muted-foreground mb-4">Tham gia mạng lưới phân phối Phát Ngọc Anh với chính sách chiết khấu hấp dẫn.</p>
+              <Link href="/contact" className="flex items-center justify-center gap-2 w-full border border-border text-foreground py-2.5 rounded-xl font-bold text-xs hover:border-primary hover:text-primary transition-all">
+                <Handshake className="w-3.5 h-3.5" /> Tìm hiểu
+              </Link>
+            </div>
+          </aside>
         </div>
       </main>
 
