@@ -9,33 +9,35 @@ const brands = [
   {
     name: "ZIFAT999",
     tagline: "Sức Mạnh Công Nghiệp",
-    description: "Tẩy rửa chuyên nghiệp cho nhà máy, xưởng sản xuất và doanh nghiệp B2B.",
-    color: "bg-blue-600",
-    colorLight: "bg-blue-50",
+    description: "Tẩy rửa chuyên nghiệp cho nhà máy, xưởng sản xuất và doanh nghiệp.",
     colorText: "text-blue-600",
+    colorBg: "bg-blue-50",
     colorBorder: "border-blue-200",
+    topBorder: "border-t-blue-600",
     hoverBorder: "hover:border-blue-400",
+    ctaBg: "bg-blue-600 hover:bg-blue-700",
     href: "/zifat999",
     usps: [
-      { icon: Factory, text: "Công nghiệp" },
-      { icon: Shield, text: "Đậm đặc" },
-      { icon: Sparkles, text: "Tiết kiệm" },
+      { icon: Factory, text: "Công nghiệp chuyên dụng" },
+      { icon: Shield, text: "Đậm đặc, hiệu quả" },
+      { icon: Sparkles, text: "Tiết kiệm chi phí" },
     ],
   },
   {
     name: "SIFA999",
     tagline: "An Toàn Cho Gia Đình",
     description: "Chăm sóc gia đình dịu nhẹ, kiểm nghiệm da liễu, thân thiện môi trường.",
-    color: "bg-green-600",
-    colorLight: "bg-green-50",
     colorText: "text-green-600",
+    colorBg: "bg-green-50",
     colorBorder: "border-green-200",
+    topBorder: "border-t-green-600",
     hoverBorder: "hover:border-green-400",
+    ctaBg: "bg-green-600 hover:bg-green-700",
     href: "/sifa999",
     usps: [
-      { icon: Heart, text: "An toàn" },
-      { icon: Leaf, text: "Sinh học" },
-      { icon: Users, text: "Gia đình" },
+      { icon: Heart, text: "An toàn cho trẻ em" },
+      { icon: Leaf, text: "Phân hủy sinh học" },
+      { icon: Users, text: "Gia đình tin dùng" },
     ],
   },
 ];
@@ -58,44 +60,41 @@ const BrandHighlightSection = () => (
 
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
       {brands.map((brand, i) => (
-        <ScrollReveal key={brand.name} delay={`${i * 120}ms`}>
+        <ScrollReveal key={brand.name} delay={`${i * 120}ms`} className="h-full">
           <Link
             href={brand.href}
             data-testid={`brand-card-${brand.name.toLowerCase()}`}
-            className={`group relative block rounded-2xl border-2 ${brand.colorBorder} ${brand.hoverBorder} bg-card p-5 transition-all duration-300 hover:shadow-lg md:rounded-3xl md:p-7`}
+            className={`group relative flex h-full flex-col rounded-2xl border border-t-4 ${brand.colorBorder} ${brand.topBorder} ${brand.hoverBorder} bg-card shadow-sm transition-all duration-300 hover:shadow-lg md:rounded-3xl`}
           >
-            {/* Header: logo + name + tagline */}
-            <div className="mb-4 flex items-center gap-3.5">
-              <BrandLogo brand={brand.name} size="md" />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2.5">
-                  <span className={`${brand.color} rounded-full px-3 py-1 text-xs font-black text-white`}>
-                    {brand.name}
-                  </span>
-                  <span className={`text-sm font-bold ${brand.colorText}`}>
-                    {brand.tagline}
-                  </span>
+            <div className="flex flex-1 flex-col p-5 md:p-7">
+              {/* Header: logo + brand info */}
+              <div className="mb-4 flex items-center gap-3.5">
+                <BrandLogo brand={brand.name} size="md" />
+                <div className="min-w-0 flex-1">
+                  <p className={`text-lg font-black tracking-tight ${brand.colorText} md:text-xl`}>
+                    {brand.name} — {brand.tagline}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+                    {brand.description}
+                  </p>
                 </div>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  {brand.description}
-                </p>
               </div>
-            </div>
 
-            {/* USPs row */}
-            <div className="mb-4 flex gap-2">
-              {brand.usps.map(({ icon: Icon, text }) => (
-                <div key={text} className={`flex flex-1 items-center gap-2 rounded-xl ${brand.colorLight} px-3 py-2.5`}>
-                  <Icon className={`h-4 w-4 shrink-0 ${brand.colorText}`} />
-                  <span className="text-xs font-bold text-foreground">{text}</span>
-                </div>
-              ))}
-            </div>
+              {/* USPs — vertical list with brand-colored icons */}
+              <div className={`mb-5 flex-1 space-y-2.5 rounded-xl ${brand.colorBg} p-4`}>
+                {brand.usps.map(({ icon: Icon, text }) => (
+                  <div key={text} className="flex items-center gap-3">
+                    <Icon className={`h-4 w-4 shrink-0 ${brand.colorText}`} />
+                    <span className="text-sm font-semibold text-foreground">{text}</span>
+                  </div>
+                ))}
+              </div>
 
-            {/* CTA */}
-            <div className={`flex items-center justify-between rounded-xl ${brand.color} px-4 py-3 text-white`}>
-              <span className="text-sm font-bold">Khám phá {brand.name}</span>
-              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              {/* CTA */}
+              <div className={`flex items-center justify-center gap-2 rounded-xl ${brand.ctaBg} px-5 py-3 text-sm font-bold text-white transition-all duration-200 group-hover:gap-3`}>
+                Khám phá {brand.name}
+                <ArrowRight className="h-4 w-4" />
+              </div>
             </div>
           </Link>
         </ScrollReveal>

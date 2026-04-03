@@ -4,7 +4,7 @@ import Zifat999Content from "./Zifat999Content";
 export const metadata: Metadata = {
   title: "ZIFAT999 — Giải Pháp Tẩy Rửa Công Nghiệp Hàng Đầu",
   description:
-    "ZIFAT999 — thương hiệu tẩy rửa công nghiệp đậm đặc, mạnh mẽ của Phát Ngọc Anh. Chuyên dụng cho nhà máy, xưởng sản xuất, doanh nghiệp B2B. Đạt chuẩn ISO 9001 & HVNCLC.",
+    "ZIFAT999 — thương hiệu tẩy rửa công nghiệp đậm đặc, mạnh mẽ của Phát Ngọc Anh. Chuyên dụng cho nhà máy, xưởng sản xuất, doanh nghiệp. Đạt chuẩn ISO 9001 & HVNCLC.",
   alternates: {
     canonical: "/zifat999",
   },

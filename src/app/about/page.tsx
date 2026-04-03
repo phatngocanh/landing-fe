@@ -67,7 +67,7 @@ const MISSIONS = [
   {
     icon: Target,
     title: "Sứ mệnh",
-    text: "Tạo ra lợi nhuận thực tế cho các đối tác kinh doanh xứng đáng với thương hiệu hàng Việt Nam chất lượng cao ZIFAT 999.",
+    text: "Tạo ra lợi nhuận thực tế cho các đối tác kinh doanh xứng đáng với thương hiệu hàng Việt Nam chất lượng cao ZIFAT999 và SIFA999.",
   },
   {
     icon: Heart,
@@ -152,7 +152,7 @@ export default function AboutPage() {
               <span className="text-yellow-300">Phát Ngọc Anh</span>
             </h1>
             <p className="text-primary-foreground/80 text-base md:text-lg leading-relaxed max-w-md">
-              Hơn 10 năm đồng hành cùng gia đình Việt với thương hiệu <strong className="text-yellow-300">ZIFAT 999</strong> — giải pháp vệ sinh an toàn, hiệu quả, giá cả phải chăng.
+              Hơn 10 năm đồng hành cùng gia đình và doanh nghiệp Việt với hai thương hiệu <strong className="text-yellow-300">ZIFAT999</strong> (tẩy rửa công nghiệp) và <strong className="text-yellow-300">SIFA999</strong> (chăm sóc gia đình) — giải pháp vệ sinh an toàn, hiệu quả, giá cả phải chăng.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -458,7 +458,7 @@ export default function AboutPage() {
                     {[
                       { label: "Tên công ty", value: "CÔNG TY TNHH HÓA PHẨM PHÁT NGỌC ANH" },
                       { label: "Mã số thuế", value: "0313155516" },
-                      { label: "Thương hiệu", value: "ZIFAT 999" },
+                      { label: "Thương hiệu", value: "ZIFAT999 & SIFA999" },
                       { label: "Năm thành lập", value: "2010" },
                     ].map((item) => (
                       <div key={item.label} className="border-b border-white/10 pb-4">
@@ -471,7 +471,7 @@ export default function AboutPage() {
                 <div className="mt-8 p-4 bg-white/10 rounded-2xl border border-white/10 text-center">
                   <p className="text-xs text-primary-foreground/60 font-medium leading-relaxed">
                     "Chất Lượng Việt — Cho Người Việt"<br />
-                    <strong className="text-yellow-300 text-base font-black">ZIFAT 999</strong>
+                    <strong className="text-yellow-300 text-base font-black">ZIFAT999 & SIFA999</strong>
                   </p>
                 </div>
               </div>

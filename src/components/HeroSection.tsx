@@ -20,7 +20,7 @@ const slides = [
   {
     img: combo1,
     title: <>ZIFAT999<br />Sức Mạnh Công Nghiệp</>,
-    desc: "Giải pháp tẩy rửa đậm đặc, chuyên nghiệp cho nhà máy, xưởng sản xuất và doanh nghiệp B2B.",
+    desc: "Giải pháp tẩy rửa đậm đặc, chuyên nghiệp cho nhà máy, xưởng sản xuất và doanh nghiệp.",
     cta: "Xem ZIFAT999",
     href: "/zifat999",
   },

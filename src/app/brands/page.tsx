@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { ArrowRight, Shield, Leaf, Factory, Heart, Sparkles, Users, ChevronRight, CheckCircle } from "lucide-react";
+import { ArrowRight, Shield, Leaf, Factory, Heart, Sparkles, Users, ChevronRight, CheckCircle, Award, Handshake, Phone } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
 import BrandLogo from "@/components/BrandLogo";
 
 const SiteFooter = dynamic(() => import("@/components/SiteFooter"), { ssr: false });
 const FloatingActions = dynamic(() => import("@/components/FloatingActions"), { ssr: false });
+
+import dynamic from "next/dynamic";
 
 const brands = [
   {
@@ -63,6 +64,13 @@ const brands = [
   },
 ];
 
+const trustBadges = [
+  { icon: Award, label: "ISO 9001" },
+  { icon: Shield, label: "HVNCLC" },
+  { icon: CheckCircle, label: "Kiểm nghiệm da liễu" },
+  { icon: Leaf, label: "Phân hủy sinh học" },
+];
+
 export default function BrandsPage() {
   return (
     <div className="scroll-smooth">
@@ -71,15 +79,16 @@ export default function BrandsPage() {
 
       <div className="bg-muted/50 border-b border-border">
         <div className="container py-3 md:py-4">
-          <nav className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground">
             <Link href="/" className="hover:text-primary transition-colors font-medium">Trang chủ</Link>
-            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-            <span className="text-foreground font-semibold">Thương hiệu</span>
+            <ChevronRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+            <span className="text-foreground font-semibold" aria-current="page">Thương hiệu</span>
           </nav>
         </div>
       </div>
 
       <main className="container py-10 md:py-16">
+        {/* Page Header */}
         <div className="text-center mb-10 md:mb-16">
           <h1 className="text-2xl md:text-4xl font-black text-foreground mb-4" data-testid="text-brands-title">
             Chọn Thương Hiệu Phù Hợp
@@ -89,9 +98,20 @@ export default function BrandsPage() {
           </p>
         </div>
 
+        {/* Trust Badges */}
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-10 md:mb-16">
+          {trustBadges.map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-2 bg-muted/80 rounded-full px-4 py-2 text-sm font-semibold text-foreground">
+              <Icon className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
+              {label}
+            </div>
+          ))}
+        </div>
+
+        {/* Brand Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-12 md:mb-20">
           {brands.map((brand) => (
-            <div
+            <article
               key={brand.name}
               className={`bg-card border-2 ${brand.colorBorder} ${brand.hoverBorder} rounded-2xl md:rounded-3xl p-6 md:p-10 transition-all duration-300 hover:shadow-2xl group`}
             >
@@ -111,19 +131,19 @@ export default function BrandsPage() {
                 {brand.description}
               </p>
 
-              <div className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6" aria-label={`Ưu điểm ${brand.name}`}>
                 {brand.points.map((point) => (
-                  <div key={point} className="flex items-start gap-2.5">
-                    <CheckCircle className={`w-5 h-5 ${brand.colorText} shrink-0 mt-0.5`} />
+                  <li key={point} className="flex items-start gap-2.5">
+                    <CheckCircle className={`w-5 h-5 ${brand.colorText} shrink-0 mt-0.5`} aria-hidden="true" />
                     <span className="text-sm font-medium text-foreground">{point}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
               <div className="grid grid-cols-3 gap-3 mb-8">
                 {brand.usps.map(({ icon: Icon, text }) => (
                   <div key={text} className={`${brand.colorLight} rounded-xl p-3 text-center`}>
-                    <Icon className={`w-5 h-5 ${brand.colorText} mx-auto mb-1.5`} />
+                    <Icon className={`w-5 h-5 ${brand.colorText} mx-auto mb-1.5`} aria-hidden="true" />
                     <span className="text-[11px] md:text-xs font-bold text-foreground">{text}</span>
                   </div>
                 ))}
@@ -132,26 +152,28 @@ export default function BrandsPage() {
               <Link
                 href={brand.productsHref}
                 data-testid={`link-explore-${brand.name.toLowerCase()}`}
+                aria-label={`Khám phá sản phẩm ${brand.name} — ${brand.tagline}`}
                 className={`flex items-center justify-center gap-2 w-full ${brand.color} text-white py-3.5 md:py-4 rounded-2xl font-bold text-sm uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all shadow-lg`}
               >
                 Khám phá sản phẩm {brand.name}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </Link>
-            </div>
+            </article>
           ))}
         </div>
 
+        {/* Comparison Table */}
         <div className="bg-muted rounded-2xl md:rounded-3xl p-6 md:p-10 mb-10 md:mb-16">
           <h3 className="text-lg md:text-xl font-black text-foreground text-center mb-6 md:mb-8">
             So Sánh Hai Thương Hiệu
           </h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-2">
+            <table className="w-full text-sm" role="table">
               <thead>
                 <tr className="border-b-2 border-border">
-                  <th className="py-3 px-4 text-left font-black text-foreground"></th>
-                  <th className="py-3 px-4 text-center font-black text-blue-600">ZIFAT999</th>
-                  <th className="py-3 px-4 text-center font-black text-green-600">SIFA999</th>
+                  <th className="py-3 px-4 text-left font-black text-foreground" scope="col">Tiêu chí</th>
+                  <th className="py-3 px-4 text-center font-black text-blue-600" scope="col">ZIFAT999</th>
+                  <th className="py-3 px-4 text-center font-black text-green-600" scope="col">SIFA999</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -173,6 +195,34 @@ export default function BrandsPage() {
           </div>
         </div>
 
+        {/* Distributor / Partnership CTA */}
+        <div className="bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border-2 border-primary/20 rounded-2xl md:rounded-3xl p-6 md:p-10 mb-10 md:mb-16 text-center">
+          <Handshake className="w-10 h-10 md:w-12 md:h-12 text-primary mx-auto mb-4" aria-hidden="true" />
+          <h3 className="text-lg md:text-2xl font-black text-foreground mb-3">
+            Trở Thành Nhà Phân Phối
+          </h3>
+          <p className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto mb-6 leading-relaxed">
+            Bạn là nhà phân phối, đại lý hoặc doanh nghiệp muốn hợp tác? Phát Ngọc Anh luôn sẵn sàng đồng hành cùng bạn với chính sách giá tốt, hỗ trợ marketing và giao hàng toàn quốc.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all shadow-lg"
+            >
+              <Handshake className="w-4 h-4" aria-hidden="true" />
+              Liên hệ hợp tác
+            </Link>
+            <a
+              href="tel:+842862713214"
+              className="inline-flex items-center gap-2 border-2 border-primary text-primary px-8 py-3.5 rounded-full font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-all"
+            >
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              028 6271 3214
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Navigation */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/products"
