@@ -1,3 +1,5 @@
+"use client";
+
 import { Phone, MapPin, Mail, MessageCircle, Star, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";

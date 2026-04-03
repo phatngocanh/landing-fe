@@ -7,6 +7,7 @@ import { ArrowRight, ChevronRight, Heart, Leaf, Users, Shield, Star, ShoppingBag
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
 import ScrollReveal from "@/components/ScrollReveal";
+import BrandLogo from "@/components/BrandLogo";
 import { getProductsByBrand } from "@/data/products";
 import heroBanner from "@/assets/hero-banner.jpg";
 
@@ -75,9 +76,12 @@ export default function Sifa999Page() {
           <Image src={heroBanner} alt="SIFA999" fill className="object-cover opacity-20" />
         </div>
         <div className="relative container py-16 md:py-24">
-          <span className="inline-block mb-4 px-4 py-1.5 rounded-full bg-green-600 text-white text-[11px] font-black uppercase tracking-widest">
-            SIFA999
-          </span>
+          <div className="mb-5 flex items-center gap-4">
+            <BrandLogo brand="SIFA999" size="lg" className="border-green-200/70 bg-white/95 ring-green-200" />
+            <span className="inline-block px-4 py-1.5 rounded-full bg-green-600 text-white text-[11px] font-black uppercase tracking-widest">
+              SIFA999
+            </span>
+          </div>
           <h1 className="text-3xl md:text-5xl font-black mb-4 leading-tight" data-testid="text-sifa999-title">
             An Toàn, Tin Cậy<br />Cho Mọi Gia Đình
           </h1>

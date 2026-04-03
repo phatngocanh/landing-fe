@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 import { CATEGORIES } from "@/data/products";
+import BrandLogo from "./BrandLogo";
 
 const HOME_LINKS = [
   { label: "Trang Chủ",  anchor: "#hero"   },
@@ -220,7 +221,7 @@ export default function MobileDrawer() {
                 className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
                 data-testid="link-mobile-zifat999"
               >
-                <span className="w-6 h-6 bg-blue-600 text-white rounded-md flex items-center justify-center text-[9px] font-black shrink-0">Z</span>
+                <BrandLogo brand="ZIFAT999" size="sm" />
                 <div>
                   <p className="font-bold">ZIFAT999</p>
                   <p className="text-[10px] text-primary-foreground/60">Tẩy rửa công nghiệp</p>
@@ -242,7 +243,7 @@ export default function MobileDrawer() {
                 className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
                 data-testid="link-mobile-sifa999"
               >
-                <span className="w-6 h-6 bg-green-600 text-white rounded-md flex items-center justify-center text-[9px] font-black shrink-0">S</span>
+                <BrandLogo brand="SIFA999" size="sm" />
                 <div>
                   <p className="font-bold">SIFA999</p>
                   <p className="text-[10px] text-primary-foreground/60">Chăm sóc gia đình</p>

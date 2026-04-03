@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
+import BrandLogo from "./BrandLogo";
 
 const HOME_LINKS = [
   { label: "Trang Chủ",  anchor: "#hero"   },
@@ -136,14 +137,14 @@ const SiteNav = () => {
               <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-6 w-[360px] z-50 normal-case font-medium">
                 <div className="space-y-1 mb-4">
                   <Link href="/zifat999" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-sm group/item">
-                    <span className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-[10px] font-black shrink-0">Z</span>
+                    <BrandLogo brand="ZIFAT999" size="sm" />
                     <div>
                       <p className="font-bold text-foreground group-hover/item:text-blue-600 transition-colors">ZIFAT999</p>
                       <p className="text-xs text-muted-foreground">Tẩy rửa công nghiệp</p>
                     </div>
                   </Link>
                   <Link href="/sifa999" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-green-50 transition-colors text-sm group/item">
-                    <span className="w-8 h-8 bg-green-600 text-white rounded-lg flex items-center justify-center text-[10px] font-black shrink-0">S</span>
+                    <BrandLogo brand="SIFA999" size="sm" />
                     <div>
                       <p className="font-bold text-foreground group-hover/item:text-green-600 transition-colors">SIFA999</p>
                       <p className="text-xs text-muted-foreground">Chăm sóc gia đình</p>

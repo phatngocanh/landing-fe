@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -158,9 +160,9 @@ const HeroSection = () => {
           <span className="hidden sm:inline-block mb-3 md:mb-4 px-3 py-1 rounded-xl md:rounded-full bg-primary/90 text-primary-foreground text-[10px] md:text-[11px] font-black uppercase tracking-[0.08em] md:tracking-[0.2em] leading-relaxed whitespace-nowrap">
             PHÁT NGỌC ANH — ZIFAT999 & SIFA999
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight tracking-tight italic text-emerald-400 drop-shadow-lg">
+          <h1 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight tracking-tight italic text-emerald-400 drop-shadow-lg">
             {slides[current].title}
-          </h2>
+          </h1>
           <p className="text-sm sm:text-base md:text-lg text-white/90 font-medium mb-4 sm:mb-6 md:mb-8 line-clamp-2 sm:line-clamp-none drop-shadow">
             {slides[current].desc}
           </p>

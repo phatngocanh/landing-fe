@@ -1,3 +1,5 @@
+"use client";
+
 import { Search, ShoppingCart, User, Phone, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
@@ -37,12 +39,12 @@ const SiteHeader = () => {
             priority
           />
           <div className="hidden sm:block">
-            <h1 className="text-base md:text-xl font-extrabold text-foreground tracking-tight leading-none uppercase">
+            <p className="text-base md:text-xl font-extrabold text-foreground tracking-tight leading-none uppercase">
               Công Ty TNHH Hóa Phẩm
-            </h1>
-            <h2 className="text-2xl md:text-4xl font-black text-primary tracking-tighter uppercase">
+            </p>
+            <p className="text-2xl md:text-4xl font-black text-primary tracking-tighter uppercase">
               Phát Ngọc Anh
-            </h2>
+            </p>
             <p className="text-xs text-muted-foreground font-medium mt-1 hidden md:block">
               430/33 Đường TA 28, P. Thới An, Quận 12, TP.HCM
             </p>

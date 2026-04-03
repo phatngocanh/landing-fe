@@ -7,6 +7,7 @@ import { ArrowRight, ChevronRight, Shield, Factory, Award, Star, Phone, Handshak
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
 import ScrollReveal from "@/components/ScrollReveal";
+import BrandLogo from "@/components/BrandLogo";
 import { getProductsByBrand } from "@/data/products";
 import heroBanner from "@/assets/hero-banner.jpg";
 
@@ -54,9 +55,12 @@ export default function Zifat999Page() {
           <Image src={heroBanner} alt="ZIFAT999" fill className="object-cover opacity-30" />
         </div>
         <div className="relative container py-16 md:py-24">
-          <span className="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-600 text-white text-[11px] font-black uppercase tracking-widest">
-            ZIFAT999
-          </span>
+          <div className="mb-5 flex items-center gap-4">
+            <BrandLogo brand="ZIFAT999" size="lg" className="border-blue-200/70 bg-white/95 ring-blue-200" />
+            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-600 text-white text-[11px] font-black uppercase tracking-widest">
+              ZIFAT999
+            </span>
+          </div>
           <h1 className="text-3xl md:text-5xl font-black mb-4 leading-tight" data-testid="text-zifat999-title">
             Giải Pháp Tẩy Rửa<br />Công Nghiệp Hàng Đầu
           </h1>

@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { ArrowRight, Shield, Leaf, Factory, Heart, Sparkles, Users, ChevronRight, CheckCircle } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
+import BrandLogo from "@/components/BrandLogo";
 
 const SiteFooter = dynamic(() => import("@/components/SiteFooter"), { ssr: false });
 const FloatingActions = dynamic(() => import("@/components/FloatingActions"), { ssr: false });
@@ -94,15 +95,17 @@ export default function BrandsPage() {
               key={brand.name}
               className={`bg-card border-2 ${brand.colorBorder} ${brand.hoverBorder} rounded-2xl md:rounded-3xl p-6 md:p-10 transition-all duration-300 hover:shadow-2xl group`}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className={`${brand.color} text-white text-sm md:text-base font-black px-4 py-2 rounded-full`}>
-                  {brand.name}
-                </span>
+              <div className="mb-5 flex items-center gap-4">
+                <BrandLogo brand={brand.name} size="lg" />
+                <div>
+                  <span className={`${brand.color} inline-flex text-white text-sm md:text-base font-black px-4 py-2 rounded-full mb-2`}>
+                    {brand.name}
+                  </span>
+                  <h2 className={`text-xl md:text-2xl font-black ${brand.colorText}`}>
+                    {brand.tagline}
+                  </h2>
+                </div>
               </div>
-
-              <h2 className={`text-xl md:text-2xl font-black ${brand.colorText} mb-2`}>
-                {brand.tagline}
-              </h2>
 
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
                 {brand.description}
