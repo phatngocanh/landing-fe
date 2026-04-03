@@ -61,12 +61,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="vi" className={inter.variable} style={{ overflowX: "hidden" }}>
-      <body className={inter.className} style={{ overflowX: "hidden" }}>
+    <html lang="vi" className={inter.variable}>
+      <body className={`${inter.className} overflow-x-clip`}>
         <Providers>
           <MobileMenuProvider>
             <MobileDrawer />
-            <div id="page-wrap" style={{ position: "relative", minHeight: "100vh" }}>
+            <div id="page-wrap" className="relative min-h-dvh">
               {children}
             </div>
           </MobileMenuProvider>

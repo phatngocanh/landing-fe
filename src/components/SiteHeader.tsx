@@ -81,11 +81,13 @@ const SiteHeader = () => {
           </a>
           {/* Search — hidden on small mobile, shown from sm+ */}
           <form onSubmit={handleSearchSubmit} className={`hidden sm:flex bg-muted rounded-full px-4 md:px-5 py-2 md:py-2.5 border transition-all duration-300 ${searchFocused ? "border-primary ring-2 ring-primary/10 w-56 md:w-80" : "border-border w-44 md:w-64 lg:w-72"}`}>
+            <label htmlFor="desktop-search" className="sr-only">Tìm kiếm sản phẩm</label>
             <input
+              id="desktop-search"
               ref={searchRef}
               className="bg-transparent border-none focus:outline-none text-sm flex-1 min-w-0"
               placeholder="Tìm kiếm... (/)"
-              type="text"
+              type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setSearchFocused(true)}
@@ -122,11 +124,13 @@ const SiteHeader = () => {
       {mobileSearchOpen && (
         <div className="sm:hidden border-t border-border px-4 py-3">
           <form onSubmit={handleSearchSubmit} className="flex bg-muted rounded-full px-4 py-2.5 border border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+            <label htmlFor="mobile-search" className="sr-only">Tìm kiếm sản phẩm</label>
             <input
+              id="mobile-search"
               ref={mobileSearchRef}
               className="bg-transparent border-none focus:outline-none text-sm flex-1 min-w-0"
               placeholder="Tìm kiếm sản phẩm..."
-              type="text"
+              type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

@@ -18,8 +18,8 @@ const TrustBadges = () => (
               <b.icon className="w-4 h-4 text-primary" />
             </div>
             <div>
-              <h3 className="font-bold text-foreground text-[10px] tracking-wider uppercase leading-tight">{b.title}</h3>
-              <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">{b.desc}</p>
+              <h3 className="font-bold text-foreground text-[11px] tracking-wider uppercase leading-tight">{b.title}</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{b.desc}</p>
             </div>
           </div>
 

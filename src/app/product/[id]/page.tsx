@@ -92,19 +92,19 @@ export default function ProductDetailPage() {
           <div className="flex flex-col gap-3 md:gap-4">
               <div className="bg-card border border-border rounded-2xl md:rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-6 md:p-12 relative group">
                 {product.badge && (
-                  <span className="absolute top-4 left-4 z-10 bg-primary text-primary-foreground text-[10px] font-black px-3 py-1 rounded-full shadow">
+                  <span className="absolute top-4 left-4 z-10 bg-primary text-primary-foreground text-[11px] font-black px-3 py-1 rounded-full shadow">
                     {product.badge}
                   </span>
                 )}
                 {product.discount && (
-                  <span className="absolute top-4 right-4 z-10 bg-secondary text-secondary-foreground text-[10px] font-black px-3 py-1 rounded-full shadow">
+                  <span className="absolute top-4 right-4 z-10 bg-secondary text-secondary-foreground text-[11px] font-black px-3 py-1 rounded-full shadow">
                     {product.discount}
                   </span>
                 )}
                 <img
                   src={mainGalleryImage.src}
                   alt={product.name}
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               {/* Thumbnails */}
@@ -132,7 +132,7 @@ export default function ProductDetailPage() {
               <div className="flex items-center gap-2 flex-wrap">
                 <Link
                   href={product.brand === "ZIFAT999" ? "/zifat999" : "/sifa999"}
-                  className={`text-[10px] md:text-xs font-black px-3 py-1 rounded-full text-white ${product.brand === "ZIFAT999" ? "bg-blue-600 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"} transition-colors`}
+                  className={`text-[11px] md:text-xs font-black px-3 py-1 rounded-full text-white ${product.brand === "ZIFAT999" ? "bg-blue-600 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"} transition-colors`}
                   data-testid="link-product-brand"
                 >
                   {product.brand}
@@ -281,7 +281,7 @@ export default function ProductDetailPage() {
                     className="flex flex-col items-center gap-1.5 bg-muted rounded-xl md:rounded-2xl py-3 px-2 text-center"
                   >
                     <Icon className="w-5 h-5 text-primary" />
-                    <span className="text-[10px] md:text-xs font-bold text-foreground leading-tight">{label}</span>
+                    <span className="text-[11px] md:text-xs font-bold text-foreground leading-tight">{label}</span>
                   </div>
                 ))}
               </div>
@@ -406,7 +406,7 @@ export default function ProductDetailPage() {
                       Bảng Giá Sỉ / B2B
                     </h2>
                     <div className="bg-card border border-border rounded-2xl overflow-hidden">
-                      <div className="grid grid-cols-3 bg-muted px-4 py-2.5 text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground">
+                      <div className="grid grid-cols-3 bg-muted px-4 py-2.5 text-[11px] md:text-xs font-black uppercase tracking-widest text-muted-foreground">
                         <span>Số lượng</span>
                         <span className="text-center">Đơn giá</span>
                         <span className="text-right">Tiết kiệm</span>
@@ -473,18 +473,18 @@ export default function ProductDetailPage() {
                     className="bg-card border border-border p-3 sm:p-6 rounded-xl sm:rounded-3xl text-center product-card group cursor-pointer h-full relative block"
                   >
                     {p.badge && (
-                      <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">
+                      <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 bg-primary text-primary-foreground text-[11px] sm:text-xs font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">
                         {p.badge}
                       </div>
                     )}
                     {p.discount && (
-                      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 bg-secondary text-secondary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">
+                      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 bg-secondary text-secondary-foreground text-[11px] sm:text-xs font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">
                         {p.discount}
                       </div>
                     )}
                     <div className="aspect-square mb-3 sm:mb-6 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-6 flex items-center justify-center overflow-hidden relative">
                       <img
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         src={p.img.src}
                         alt={p.name}
                         loading="lazy"

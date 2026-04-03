@@ -128,7 +128,7 @@ const HeroSection = () => {
         {slides.map((slide, i) => (
           <div
             key={i}
-            className="absolute inset-0 transition-all duration-700 ease-in-out"
+            className="absolute inset-0 transition-all duration-500 ease-in-out"
             style={{
               opacity: i === current ? 1 : 0,
               transform: i === current ? "scale(1)" : "scale(1.05)",
@@ -136,7 +136,7 @@ const HeroSection = () => {
             }}
           >
             <Image
-              alt={`Slide ${i + 1}`}
+              alt={i === 0 ? "Nhà máy sản xuất Phát Ngọc Anh — hóa phẩm chất lượng cao" : i === 1 ? "ZIFAT999 — giải pháp tẩy rửa công nghiệp đậm đặc" : "SIFA999 — sản phẩm chăm sóc gia đình an toàn"}
               className="w-full h-full object-cover"
               src={slide.img}
               placeholder="blur"
@@ -157,7 +157,7 @@ const HeroSection = () => {
           key={current}
           style={{ animation: "heroTextIn 0.6s ease-out forwards" }}
         >
-          <span className="hidden sm:inline-block mb-3 md:mb-4 px-3 py-1 rounded-xl md:rounded-full bg-primary/90 text-primary-foreground text-[10px] md:text-[11px] font-black uppercase tracking-[0.08em] md:tracking-[0.2em] leading-relaxed whitespace-nowrap">
+          <span className="hidden sm:inline-block mb-3 md:mb-4 px-3 py-1 rounded-xl md:rounded-full bg-primary/90 text-primary-foreground text-[11px] md:text-xs font-black uppercase tracking-[0.08em] md:tracking-[0.2em] leading-relaxed whitespace-nowrap">
             PHÁT NGỌC ANH — ZIFAT999 & SIFA999
           </span>
           <h1 className="text-2xl sm:text-3xl md:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight tracking-tight text-white drop-shadow-lg">
@@ -177,15 +177,15 @@ const HeroSection = () => {
 
         <button
           onClick={prev}
-          className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 z-[4] w-10 h-10 md:w-12 md:h-12 rounded-full bg-card/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground opacity-0 group-hover:opacity-100 transition-all hover:bg-card/40 active:scale-90"
-          aria-label="Previous slide"
+          className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 z-[4] w-11 h-11 md:w-12 md:h-12 rounded-full bg-card/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-card/40 active:scale-90"
+          aria-label="Slide trước"
         >
           <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
         </button>
         <button
           onClick={() => goTo((current + 1) % slides.length)}
-          className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-[4] w-10 h-10 md:w-12 md:h-12 rounded-full bg-card/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground opacity-0 group-hover:opacity-100 transition-all hover:bg-card/40 active:scale-90"
-          aria-label="Next slide"
+          className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-[4] w-11 h-11 md:w-12 md:h-12 rounded-full bg-card/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-card/40 active:scale-90"
+          aria-label="Slide tiếp theo"
         >
           <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
         </button>

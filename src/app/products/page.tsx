@@ -269,10 +269,12 @@ function ProductsContent() {
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <form onSubmit={handleSearchSubmit} className="flex-1 min-w-[180px]">
                 <div className="relative">
+                  <label htmlFor="products-search" className="sr-only">Tìm kiếm sản phẩm</label>
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="products-search"
                     data-testid="input-search"
-                    type="text"
+                    type="search"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     placeholder="Tìm kiếm sản phẩm..."
@@ -435,13 +437,13 @@ function ProductsContent() {
                     }`}
                   >
                     {p.badge && gridCols !== "list" && (
-                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[9px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[11px] sm:text-xs font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                         {p.badge}
                       </div>
                     )}
                     {gridCols !== "list" && (
                       <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
-                        <span className={`text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
+                        <span className={`text-[11px] sm:text-[11px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
                           {p.brand === "ZIFAT999" ? "ZIFAT" : "SIFA"}
                         </span>
                       </div>
@@ -461,16 +463,16 @@ function ProductsContent() {
                         alt={p.name}
                         width={300}
                         height={300}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         placeholder="blur"
                       />
                     </div>
                     <div className={gridCols === "list" ? "flex flex-col justify-center gap-1 min-w-0" : ""}>
                       <div className="flex items-center gap-1.5 mb-1">
-                        <span className={`text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
+                        <span className={`text-[11px] sm:text-[11px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
                           {p.brand}
                         </span>
-                        <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary">
+                        <p className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary">
                           {p.category}
                         </p>
                       </div>
@@ -480,11 +482,11 @@ function ProductsContent() {
                       <div className="mt-2 sm:mt-3 flex items-baseline gap-2 flex-wrap">
                         <span className="text-secondary font-black text-sm sm:text-base">{p.price}</span>
                         {p.oldPrice && (
-                          <span className="text-[10px] text-muted-foreground line-through">{p.oldPrice}</span>
+                          <span className="text-[11px] text-muted-foreground line-through">{p.oldPrice}</span>
                         )}
                       </div>
                       {p.isBulkAvailable && p.bulkPriceTiers[0] && (
-                        <p className="text-[10px] text-muted-foreground mt-1">
+                        <p className="text-[11px] text-muted-foreground mt-1">
                           Sỉ ({p.bulkPriceTiers[0].label}): {p.bulkPriceTiers[0].price.toLocaleString("vi-VN")}đ
                         </p>
                       )}
@@ -505,7 +507,8 @@ function ProductsContent() {
                   data-testid="button-prev-page"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Trang trước"
                 >
                   ‹
                 </button>
@@ -514,7 +517,9 @@ function ProductsContent() {
                     key={n}
                     data-testid={`button-page-${n}`}
                     onClick={() => setPage(n)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition-all hover:-translate-y-0.5 ${
+                    aria-label={`Trang ${n}`}
+                    aria-current={n === page ? "page" : undefined}
+                    className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all hover:-translate-y-0.5 ${
                       n === page
                         ? "border-2 border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                         : "border border-border text-muted-foreground bg-card hover:border-primary hover:text-primary"
@@ -527,7 +532,8 @@ function ProductsContent() {
                   data-testid="button-next-page"
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Trang tiếp"
                 >
                   ›
                 </button>

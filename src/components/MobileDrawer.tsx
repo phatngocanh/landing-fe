@@ -224,7 +224,7 @@ export default function MobileDrawer() {
                 <BrandLogo brand="ZIFAT999" size="sm" />
                 <div>
                   <p className="font-bold">ZIFAT999</p>
-                  <p className="text-[10px] text-primary-foreground/60">Tẩy rửa công nghiệp</p>
+                  <p className="text-[11px] text-primary-foreground/60">Tẩy rửa công nghiệp</p>
                 </div>
               </Link>
 
@@ -246,7 +246,7 @@ export default function MobileDrawer() {
                 <BrandLogo brand="SIFA999" size="sm" />
                 <div>
                   <p className="font-bold">SIFA999</p>
-                  <p className="text-[10px] text-primary-foreground/60">Chăm sóc gia đình</p>
+                  <p className="text-[11px] text-primary-foreground/60">Chăm sóc gia đình</p>
                 </div>
               </Link>
 

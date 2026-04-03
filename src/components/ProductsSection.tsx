@@ -78,7 +78,7 @@ const ProductsSection = () => (
                         width={200}
                         height={200}
                         placeholder="blur"
-                        className="h-full w-full object-contain transition-transform duration-300 group-hover/item:scale-[1.04]"
+                        className="h-full w-full object-contain transition-transform duration-300 group-hover/item:scale-105"
                       />
                     </div>
                     <h3 className="mt-2 line-clamp-2 min-h-[2.5rem] text-xs font-bold leading-snug text-foreground sm:text-[13px] sm:min-h-[2.75rem]">

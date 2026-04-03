@@ -63,9 +63,6 @@ const BrandHighlightSection = () => (
           <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-primary">
             Thương Hiệu Của Chúng Tôi
           </h2>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Hai định hướng rõ ràng để khách hàng chọn nhanh hơn: mạnh mẽ cho công nghiệp và dịu nhẹ cho gia đình.
-          </p>
         </div>
         <Link
           className="hidden items-center gap-1.5 text-[13px] font-bold text-muted-foreground transition-all hover:text-primary md:flex"

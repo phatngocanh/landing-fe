@@ -124,7 +124,7 @@ export default function BrandsPage() {
                 {brand.usps.map(({ icon: Icon, text }) => (
                   <div key={text} className={`${brand.colorLight} rounded-xl p-3 text-center`}>
                     <Icon className={`w-5 h-5 ${brand.colorText} mx-auto mb-1.5`} />
-                    <span className="text-[10px] md:text-xs font-bold text-foreground">{text}</span>
+                    <span className="text-[11px] md:text-xs font-bold text-foreground">{text}</span>
                   </div>
                 ))}
               </div>
