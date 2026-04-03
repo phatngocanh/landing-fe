@@ -9,6 +9,7 @@ import BrandHighlightSection from "@/components/BrandHighlightSection";
 import ProductsSection from "@/components/ProductsSection";
 import NewsSection from "@/components/NewsSection";
 import PartnersSection from "@/components/PartnersSection";
+import ProcessSection from "@/components/ProcessSection";
 import SiteFooter from "@/components/SiteFooter";
 import FloatingActions from "@/components/FloatingActions";
 
@@ -65,6 +66,7 @@ const Index = () => {
       <main id="main-content" className="container py-12 md:py-20">
         <div className="space-y-16 md:space-y-28">
           <AboutSection />
+          <ProcessSection />
           <BrandHighlightSection />
           <ProductsSection />
           <NewsSection />
