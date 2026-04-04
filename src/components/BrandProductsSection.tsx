@@ -81,17 +81,30 @@ const BrandProductsSection = () => (
           >
             {/* Brand header */}
             <div className="p-5 pb-0 md:p-7 md:pb-0">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3.5">
-                  <BrandLogo brand={group.brand} size="md" />
-                  <div className="min-w-0">
-                    <p className={`text-lg font-black tracking-tight ${group.accent} md:text-xl`}>
-                      {group.brand} — {group.tagline}
-                    </p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
-                      {group.description}
-                    </p>
+              <div className="sm:flex sm:items-center sm:justify-between sm:gap-4">
+                {/* Mobile: logo + brand inline, tagline + desc below */}
+                <div className="min-w-0">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <BrandLogo brand={group.brand} size="md" />
+                      <p className={`text-lg font-black tracking-tight ${group.accent} md:text-xl`}>
+                        {group.brand}
+                      </p>
+                    </div>
+                    <Link
+                      href={group.brandHref}
+                      className={`inline-flex shrink-0 items-center gap-1 text-xs font-bold transition-all sm:hidden ${group.accent}`}
+                    >
+                      Khám phá
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
                   </div>
+                  <p className={`mt-2 text-sm font-bold ${group.accent} sm:mt-1`}>
+                    {group.tagline}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+                    {group.description}
+                  </p>
                 </div>
                 <Link
                   href={group.brandHref}
@@ -103,11 +116,11 @@ const BrandProductsSection = () => (
               </div>
 
               {/* USP pills */}
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
                 {group.usps.map(({ icon: Icon, text }) => (
                   <span
                     key={text}
-                    className={`inline-flex items-center gap-2 rounded-full ${group.accentBg} px-3.5 py-1.5 text-xs font-semibold text-foreground sm:text-sm`}
+                    className={`inline-flex items-center gap-1.5 rounded-full ${group.accentBg} px-3 py-1 text-xs font-semibold text-foreground sm:gap-2 sm:px-3.5 sm:py-1.5 sm:text-sm`}
                   >
                     <Icon className={`h-3.5 w-3.5 shrink-0 ${group.accent}`} />
                     {text}
@@ -152,21 +165,14 @@ const BrandProductsSection = () => (
                 ))}
               </div>
 
-              {/* Footer CTAs */}
-              <div className="mt-5 flex items-center justify-between md:mt-6">
+              {/* Footer CTA */}
+              <div className="mt-5 md:mt-6">
                 <Link
                   href={group.productsHref}
-                  className={`group/cta inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95 sm:px-6 sm:text-sm ${group.accentSolid}`}
+                  className={`group/cta inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95 sm:justify-start sm:px-6 sm:text-sm ${group.accentSolid}`}
                 >
-                  Xem tất cả sản phẩm {group.brand}
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/cta:translate-x-0.5 sm:h-4 sm:w-4" />
-                </Link>
-                <Link
-                  href={group.brandHref}
-                  className={`inline-flex items-center gap-1.5 text-[13px] font-bold transition-all sm:hidden ${group.accent}`}
-                >
-                  Khám phá {group.brand}
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  Xem tất cả sản phẩm
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform group-hover/cta:translate-x-0.5 sm:h-4 sm:w-4" />
                 </Link>
               </div>
             </div>

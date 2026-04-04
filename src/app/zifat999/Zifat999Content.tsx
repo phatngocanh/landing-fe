@@ -78,41 +78,41 @@ export default function Zifat999Content() {
         </div>
       </section>
 
-      <main id="main-content" className="container py-10 md:py-20">
+      <main id="main-content" className="container py-8 md:py-16">
         <ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-24">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-10 md:mb-16">
             {[
-              { icon: Factory, title: "Công Nghiệp Chuyên Dụng", desc: "Công thức đậm đặc dành riêng cho nhà máy, xưởng sản xuất và doanh nghiệp lớn." },
-              { icon: Shield, title: "Chất Lượng Đảm Bảo", desc: "Đạt chứng nhận HVNCLC và ISO 9001:2015. Quy trình sản xuất nghiêm ngặt." },
-              { icon: Award, title: "12+ Năm Kinh Nghiệm", desc: "Thương hiệu uy tín với hơn 12 năm phục vụ thị trường Việt Nam." },
+              { icon: Factory, title: "Công Nghiệp Chuyên Dụng", desc: "Đậm đặc, dành cho nhà máy & doanh nghiệp" },
+              { icon: Shield, title: "Chất Lượng Đảm Bảo", desc: "Chứng nhận HVNCLC & ISO 9001:2015" },
+              { icon: Award, title: "12+ Năm Kinh Nghiệm", desc: "Uy tín, phủ sóng 64 tỉnh thành" },
             ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-card border border-border rounded-2xl p-6 md:p-8 text-center">
-                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-7 h-7 text-blue-600" />
+              <div key={title} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 md:p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50">
+                  <Icon className="h-5 w-5 text-blue-600" />
                 </div>
-                <h2 className="font-black text-foreground mb-2">{title}</h2>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <div className="min-w-0">
+                  <h2 className="text-sm font-bold text-foreground">{title}</h2>
+                  <p className="mt-0.5 text-xs text-muted-foreground leading-snug">{desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-16 md:mb-24">
-            <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-blue-600 mb-8">
+          <div className="mb-10 md:mb-16">
+            <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-blue-600 mb-5 md:mb-6">
               Danh Mục Sản Phẩm
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+            <div className="flex flex-wrap gap-2 md:gap-3">
               {categories.map((cat) => (
                 <Link
                   key={cat.name}
                   href={`/products?brand=ZIFAT999&category=${encodeURIComponent(cat.name)}`}
-                  className="bg-card border border-border rounded-xl md:rounded-2xl p-4 md:p-6 hover:border-blue-400 hover:shadow-md transition-all group"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-blue-400 hover:text-blue-600 hover:shadow-sm active:scale-95 md:px-5 md:py-2.5"
                 >
-                  <h3 className="text-sm md:text-base font-bold text-foreground group-hover:text-blue-600 transition-colors mb-1">
-                    {cat.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground">{cat.desc}</p>
+                  {cat.name}
+                  <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
                 </Link>
               ))}
             </div>
@@ -120,12 +120,12 @@ export default function Zifat999Content() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-16 md:mb-24">
-            <div className="flex items-center justify-between border-b border-border pb-4 mb-8">
-              <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-blue-600">
+          <div className="mb-12 md:mb-20">
+            <div className="flex items-center justify-between border-b border-border pb-4 mb-6 md:mb-8">
+              <h2 className="text-sm font-black uppercase tracking-[0.25em] text-blue-600">
                 Sản Phẩm Nổi Bật
               </h2>
-              <Link href="/products?brand=ZIFAT999" className="text-[13px] text-muted-foreground font-bold hover:text-blue-600 transition-all flex items-center gap-1.5 group">
+              <Link href="/products?brand=ZIFAT999" className="shrink-0 text-[13px] text-muted-foreground font-bold hover:text-blue-600 transition-all flex items-center gap-1.5 group whitespace-nowrap">
                 Tất cả <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>

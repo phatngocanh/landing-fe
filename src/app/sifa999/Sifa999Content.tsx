@@ -24,9 +24,9 @@ const categories = [
 ];
 
 const safetyHighlights = [
-  { icon: Shield, title: "Kiểm Nghiệm Da Liễu", desc: "Mọi sản phẩm SIFA999 đều được kiểm nghiệm an toàn cho da, kể cả da nhạy cảm của trẻ em." },
-  { icon: Leaf, title: "Công Thức Sinh Học", desc: "Thành phần phân hủy sinh học, thân thiện với môi trường và an toàn cho hệ sinh thái." },
-  { icon: Users, title: "Gia Đình Tin Dùng", desc: "Được hơn 500.000 gia đình Việt tin dùng hàng ngày cho vệ sinh và chăm sóc cá nhân." },
+  { icon: Shield, title: "Kiểm Nghiệm Da Liễu", desc: "An toàn cho da nhạy cảm & trẻ em" },
+  { icon: Leaf, title: "Công Thức Sinh Học", desc: "Phân hủy sinh học, thân thiện môi trường" },
+  { icon: Users, title: "Gia Đình Tin Dùng", desc: "500.000+ gia đình Việt tin dùng" },
 ];
 
 const useCases = [
@@ -86,7 +86,7 @@ export default function Sifa999Content() {
             An Toàn, Tin Cậy<br />Cho Mọi Gia Đình
           </h1>
           <p className="text-base md:text-lg text-white/80 max-w-xl mb-8">
-            Giải pháp hóa phẩm cao cấp được thiết kế đặc biệt cho sự an toàn của gia đình và trách nhiệm với môi trường.
+            Sản phẩm chăm sóc gia đình vừa hiệu quả VỪA an toàn — công thức dịu nhẹ, đạt kết quả mà không ảnh hưởng đến sức khỏe hay môi trường.
           </p>
           <Link
             href="/products?brand=SIFA999"
@@ -99,45 +99,37 @@ export default function Sifa999Content() {
         </div>
       </section>
 
-      <main id="main-content" className="container py-10 md:py-20">
+      <main id="main-content" className="container py-8 md:py-16">
         <ScrollReveal>
-          <div className="text-center mb-12 md:mb-16">
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              SIFA999 ra đời từ niềm tin: sản phẩm chăm sóc gia đình phải vừa hiệu quả VỪA an toàn. Chúng tôi tập trung vào công thức dịu nhẹ, đạt kết quả mà không ảnh hưởng đến sức khỏe hay môi trường.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-24">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-10 md:mb-16">
             {safetyHighlights.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-card border border-border rounded-2xl p-6 md:p-8 text-center">
-                <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-7 h-7 text-green-600" />
+              <div key={title} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 md:p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-50">
+                  <Icon className="h-5 w-5 text-green-600" />
                 </div>
-                <h2 className="font-black text-foreground mb-2 text-base">{title}</h2>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <div className="min-w-0">
+                  <h2 className="text-sm font-bold text-foreground">{title}</h2>
+                  <p className="mt-0.5 text-xs text-muted-foreground leading-snug">{desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-16 md:mb-24">
-            <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-green-600 mb-8">
+          <div className="mb-10 md:mb-16">
+            <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-green-600 mb-5 md:mb-6">
               Danh Mục Sản Phẩm
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
+            <div className="flex flex-wrap gap-2 md:gap-3">
               {categories.map((cat) => (
                 <Link
                   key={cat.name}
                   href={`/products?brand=SIFA999&category=${encodeURIComponent(cat.name)}`}
-                  className="bg-card border border-border rounded-xl md:rounded-2xl p-4 md:p-6 hover:border-green-400 hover:shadow-md transition-all group"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-green-400 hover:text-green-600 hover:shadow-sm active:scale-95 md:px-5 md:py-2.5"
                 >
-                  <h3 className="text-sm md:text-base font-bold text-foreground group-hover:text-green-600 transition-colors mb-1">
-                    {cat.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground">{cat.desc}</p>
+                  {cat.name}
+                  <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
                 </Link>
               ))}
             </div>
@@ -145,12 +137,12 @@ export default function Sifa999Content() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-16 md:mb-24">
-            <div className="flex items-center justify-between border-b border-border pb-4 mb-8">
-              <h2 className="section-header-line text-sm font-black uppercase tracking-[0.25em] text-green-600">
+          <div className="mb-12 md:mb-20">
+            <div className="flex items-center justify-between border-b border-border pb-4 mb-6 md:mb-8">
+              <h2 className="text-sm font-black uppercase tracking-[0.25em] text-green-600">
                 Sản Phẩm Nổi Bật
               </h2>
-              <Link href="/products?brand=SIFA999" className="text-[13px] text-muted-foreground font-bold hover:text-green-600 transition-all flex items-center gap-1.5 group">
+              <Link href="/products?brand=SIFA999" className="shrink-0 text-[13px] text-muted-foreground font-bold hover:text-green-600 transition-all flex items-center gap-1.5 group whitespace-nowrap">
                 Tất cả <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
