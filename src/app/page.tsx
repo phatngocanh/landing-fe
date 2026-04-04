@@ -5,8 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import HeroSection from "@/components/HeroSection";
 import TrustBadges from "@/components/TrustBadges";
 import AboutSection from "@/components/AboutSection";
-import BrandHighlightSection from "@/components/BrandHighlightSection";
-import ProductsSection from "@/components/ProductsSection";
+import BrandProductsSection from "@/components/BrandProductsSection";
 import NewsSection from "@/components/NewsSection";
 import PartnersSection from "@/components/PartnersSection";
 import ProcessSection from "@/components/ProcessSection";
@@ -67,8 +66,7 @@ const Index = () => {
         <div className="space-y-16 md:space-y-28">
           <AboutSection />
           <ProcessSection />
-          <BrandHighlightSection />
-          <ProductsSection />
+          <BrandProductsSection />
           <NewsSection />
         </div>
       </main>
