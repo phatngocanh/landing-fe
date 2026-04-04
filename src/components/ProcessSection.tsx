@@ -55,9 +55,6 @@ const ProcessSection = () => (
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-primary/5 border-2 border-primary/20 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary/40 transition-all duration-300">
                   <step.icon className="w-7 h-7 md:w-8 md:h-8 text-primary" />
                 </div>
-                <span className="absolute -top-2 -right-2 w-7 h-7 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-black shadow-sm">
-                  {step.number}
-                </span>
               </div>
 
               <h4 className="text-xs md:text-sm font-bold text-foreground mb-1.5 uppercase tracking-wide">

@@ -123,7 +123,7 @@ const BrandProductsSection = () => (
                   <Link
                     key={product.id}
                     href={`/product/${product.id}`}
-                    className={`group/item flex flex-col rounded-2xl border border-border bg-background p-3 transition-all duration-200 ${group.productCardHover} hover:shadow-md sm:p-4`}
+                    className={`group/item flex flex-col rounded-2xl border border-border bg-background p-3 transition-all duration-200 ${group.productCardHover} hover:-translate-y-1 hover:shadow-lg sm:p-4`}
                   >
                     <div
                       className={`relative aspect-square overflow-hidden rounded-xl ${group.accentBg} p-3 sm:p-4`}
@@ -136,6 +136,9 @@ const BrandProductsSection = () => (
                         placeholder="blur"
                         className="h-full w-full object-contain transition-transform duration-300 group-hover/item:scale-105"
                       />
+                      <span className={`absolute bottom-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 opacity-0 shadow-sm transition-all duration-200 group-hover/item:opacity-100 sm:h-8 sm:w-8 ${group.accent}`}>
+                        <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </span>
                     </div>
                     <div className="mt-3 flex flex-1 flex-col sm:mt-4">
                       <h3 className="line-clamp-2 min-h-[2.5rem] text-[13px] font-bold leading-snug text-foreground sm:min-h-[2.75rem] sm:text-sm">
@@ -150,13 +153,13 @@ const BrandProductsSection = () => (
               </div>
 
               {/* Footer CTAs */}
-              <div className="mt-5 flex items-center justify-between">
+              <div className="mt-5 flex items-center justify-between md:mt-6">
                 <Link
                   href={group.productsHref}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold text-white transition-all ${group.accentSolid}`}
+                  className={`group/cta inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95 sm:px-6 sm:text-sm ${group.accentSolid}`}
                 >
-                  Xem tất cả sản phẩm
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  Xem tất cả sản phẩm {group.brand}
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/cta:translate-x-0.5 sm:h-4 sm:w-4" />
                 </Link>
                 <Link
                   href={group.brandHref}
@@ -173,20 +176,13 @@ const BrandProductsSection = () => (
     </div>
 
     <ScrollReveal>
-      <div className="mt-6 flex justify-center gap-4">
+      <div className="mt-8 flex justify-center md:mt-12">
         <Link
-          className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-bold text-muted-foreground transition-all hover:border-primary hover:text-primary"
+          className="group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl active:scale-95 md:px-10 md:py-4 md:text-base"
           href="/products"
         >
-          Tất cả sản phẩm
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-        <Link
-          className="hidden items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-bold text-muted-foreground transition-all hover:border-primary hover:text-primary md:hidden"
-          href="/brands"
-        >
-          So sánh thương hiệu
-          <ArrowRight className="h-4 w-4" />
+          Khám phá tất cả sản phẩm
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 md:h-5 md:w-5" />
         </Link>
       </div>
     </ScrollReveal>

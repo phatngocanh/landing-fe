@@ -13,13 +13,13 @@ const TrustBadges = () => (
       {badges.map((b, i) => (
         <ScrollReveal key={b.title} delay={`${i * 100}ms`} className="h-full">
           {/* Mobile card */}
-          <div className="md:hidden h-full flex flex-col items-center text-center gap-2 bg-card border border-border rounded-2xl px-2 py-4 shadow-sm">
-            <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-              <b.icon className="w-4 h-4 text-primary" />
+          <div className="md:hidden h-full flex flex-col items-center text-center gap-2.5 bg-card border border-border rounded-2xl px-3 py-5 shadow-sm">
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+              <b.icon className="w-5 h-5 text-primary" />
             </div>
             <div>
               <h3 className="font-bold text-foreground text-[11px] tracking-wider uppercase leading-tight">{b.title}</h3>
-              <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{b.desc}</p>
+              <p className="text-[11px] text-muted-foreground mt-1 leading-snug">{b.desc}</p>
             </div>
           </div>
 

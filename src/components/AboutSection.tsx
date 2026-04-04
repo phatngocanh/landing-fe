@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import aboutImage from "@/assets/about-image.jpg";
@@ -56,9 +57,10 @@ const AboutSection = () => (
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95"
+              className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95 md:px-7 md:py-3 md:text-sm"
             >
-              Tìm hiểu thêm →
+              Tìm hiểu thêm
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 md:h-4 md:w-4" />
             </Link>
           </div>
         </ScrollReveal>

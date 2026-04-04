@@ -16,14 +16,15 @@ const FloatingActions = () => {
     <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] flex flex-col gap-2 md:gap-3">
       {/* Zalo */}
       <a
-        className="w-12 h-12 md:w-14 md:h-14 bg-zalo text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
+        className="relative w-12 h-12 md:w-14 md:h-14 bg-zalo text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
         href="https://zalo.me/02862713214"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat Zalo"
         title="Chat Zalo"
       >
-        <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
+        <span className="absolute inset-0 rounded-full bg-zalo animate-ping opacity-30" />
+        <MessageCircle className="relative w-5 h-5 md:w-6 md:h-6" />
       </a>
       {/* Phone */}
       <a
