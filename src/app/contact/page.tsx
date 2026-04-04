@@ -28,8 +28,8 @@ const INFO_CARDS = [
     value: "430/33 TA 28, KP 2, P. Thới An, Q. 12, TP.HCM",
     sub: "Mở cửa Thứ 2 – Thứ 7",
     href: "https://maps.google.com/?q=430/33+TA+28+Thoi+An+Quan+12",
-    color: "bg-blue-50 text-blue-700",
-    iconBg: "bg-blue-100",
+    color: "bg-teal-50 text-teal-700",
+    iconBg: "bg-teal-100",
   },
   {
     icon: Mail,
@@ -253,7 +253,7 @@ function ContactContent() {
                 href="https://zalo.me/02862713214"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 w-full py-3.5 px-5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all active:scale-95"
+                className="flex items-center gap-3 w-full py-3.5 px-5 bg-zalo text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all active:scale-95"
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>Nhắn tin Zalo</span>

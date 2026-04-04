@@ -229,7 +229,7 @@ function ProductsContent() {
                               : "text-muted-foreground hover:bg-muted hover:text-foreground"
                           }`}
                         >
-                          <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[8px] font-black text-white ${b === "ZIFAT999" ? "bg-blue-600" : "bg-green-600"}`}>
+                          <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[8px] font-black text-white ${b === "ZIFAT999" ? "bg-teal-600" : "bg-green-600"}`}>
                             {b === "ZIFAT999" ? "Z" : "S"}
                           </span>
                           {b}
@@ -353,7 +353,7 @@ function ProductsContent() {
             {(category !== "Tất cả" || search || brand !== "all") && (
               <div className="flex flex-wrap gap-2 mb-4">
                 {brand !== "all" && (
-                  <span className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full ${brand === "ZIFAT999" ? "bg-blue-50 text-blue-600" : "bg-green-50 text-green-600"}`}>
+                  <span className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full ${brand === "ZIFAT999" ? "bg-teal-50 text-teal-600" : "bg-green-50 text-green-600"}`}>
                     {brand}
                     <button onClick={() => handleBrandChange("all")} className="hover:opacity-60 transition-opacity">
                       <X className="w-3.5 h-3.5" />
@@ -443,7 +443,7 @@ function ProductsContent() {
                     )}
                     {gridCols !== "list" && (
                       <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
-                        <span className={`text-[11px] sm:text-[11px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-600 text-white" : "bg-green-600 text-white"}`}>
+                        <span className={`text-[11px] sm:text-[11px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-teal-600 text-white" : "bg-green-600 text-white"}`}>
                           {p.brand === "ZIFAT999" ? "ZIFAT" : "SIFA"}
                         </span>
                       </div>
@@ -469,7 +469,7 @@ function ProductsContent() {
                     </div>
                     <div className={gridCols === "list" ? "flex flex-col justify-center gap-1 min-w-0" : ""}>
                       <div className="flex items-center gap-1.5 mb-1">
-                        <span className={`text-[11px] sm:text-[11px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
+                        <span className={`text-[11px] sm:text-[11px] font-black px-1.5 py-0.5 rounded-full ${p.brand === "ZIFAT999" ? "bg-teal-100 text-teal-600" : "bg-green-100 text-green-600"} ${gridCols !== "list" ? "hidden" : ""}`}>
                           {p.brand}
                         </span>
                         <p className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary">

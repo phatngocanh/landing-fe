@@ -82,7 +82,7 @@ const articles = [
 
 const categoryColors: Record<string, string> = {
   "Bí quyết vệ sinh": "bg-green-100 text-green-700",
-  "Kiến thức hóa phẩm": "bg-blue-100 text-blue-700",
+  "Kiến thức hóa phẩm": "bg-teal-100 text-teal-700",
   "Tin công ty": "bg-primary/10 text-primary",
   "Khuyến mãi": "bg-red-100 text-red-700",
 };

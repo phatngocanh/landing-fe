@@ -6,7 +6,7 @@ const brandLogoMap = {
 } as const;
 
 const accentMap = {
-  ZIFAT999: "ring-blue-100 bg-blue-50/80",
+  ZIFAT999: "ring-teal-100 bg-teal-50/80",
   SIFA999: "ring-green-100 bg-green-50/80",
 } as const;
 

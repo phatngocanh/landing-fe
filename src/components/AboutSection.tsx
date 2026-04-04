@@ -42,7 +42,7 @@ const AboutSection = () => (
                 Công Ty TNHH Hóa Phẩm<br /><span className="text-primary">Phát Ngọc Anh</span>
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Phát Ngọc Anh tự hào sở hữu hai thương hiệu hóa phẩm hàng đầu: <strong className="text-blue-600">ZIFAT999</strong> cho giải pháp công nghiệp và <strong className="text-green-600">SIFA999</strong> cho chăm sóc gia đình. Đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012.
+                Phát Ngọc Anh tự hào sở hữu hai thương hiệu hóa phẩm hàng đầu: <strong className="text-teal-600">ZIFAT999</strong> cho giải pháp công nghiệp và <strong className="text-green-600">SIFA999</strong> cho chăm sóc gia đình. Đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012.
               </p>
             </div>
 

@@ -213,12 +213,12 @@ export default function MobileDrawer() {
               <Link
                 href="/zifat999"
                 onClick={close}
-                className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors border-l-2 border-l-blue-400"
+                className="flex items-center gap-3 w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors border-l-2 border-l-teal-400"
                 data-testid="link-mobile-zifat999"
               >
                 <BrandLogo brand="ZIFAT999" size="sm" />
                 <div>
-                  <p className="font-bold text-blue-300">ZIFAT999</p>
+                  <p className="font-bold text-teal-300">ZIFAT999</p>
                   <p className="text-[11px] text-primary-foreground/60">Tẩy rửa công nghiệp</p>
                 </div>
               </Link>

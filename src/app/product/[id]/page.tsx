@@ -132,7 +132,7 @@ export default function ProductDetailPage() {
               <div className="flex items-center gap-2 flex-wrap">
                 <Link
                   href={product.brand === "ZIFAT999" ? "/zifat999" : "/sifa999"}
-                  className={`text-[11px] md:text-xs font-black px-3 py-1 rounded-full text-white ${product.brand === "ZIFAT999" ? "bg-blue-600 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"} transition-colors`}
+                  className={`text-[11px] md:text-xs font-black px-3 py-1 rounded-full text-white ${product.brand === "ZIFAT999" ? "bg-teal-600 hover:bg-teal-700" : "bg-green-600 hover:bg-green-700"} transition-colors`}
                   data-testid="link-product-brand"
                 >
                   {product.brand}

@@ -16,11 +16,11 @@ const brands = [
     name: "ZIFAT999",
     tagline: "Sức Mạnh Công Nghiệp",
     description: "Giải pháp tẩy rửa chuyên nghiệp, mạnh mẽ cho mọi công trình, nhà máy và doanh nghiệp. Được tin dùng bởi hàng ngàn đối tác B2B trên toàn quốc.",
-    color: "bg-blue-600",
-    colorLight: "bg-blue-50",
-    colorText: "text-blue-600",
-    colorBorder: "border-blue-200",
-    hoverBorder: "hover:border-blue-400",
+    color: "bg-teal-600",
+    colorLight: "bg-teal-50",
+    colorText: "text-teal-600",
+    colorBorder: "border-teal-200",
+    hoverBorder: "hover:border-teal-400",
     href: "/zifat999",
     productsHref: "/products?brand=ZIFAT999",
     points: [
@@ -172,7 +172,7 @@ export default function BrandsPage() {
               <thead>
                 <tr className="border-b-2 border-border">
                   <th className="py-3 px-4 text-left font-black text-foreground" scope="col">Tiêu chí</th>
-                  <th className="py-3 px-4 text-center font-black text-blue-600" scope="col">ZIFAT999</th>
+                  <th className="py-3 px-4 text-center font-black text-teal-600" scope="col">ZIFAT999</th>
                   <th className="py-3 px-4 text-center font-black text-green-600" scope="col">SIFA999</th>
                 </tr>
               </thead>

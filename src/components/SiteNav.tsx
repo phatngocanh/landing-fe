@@ -182,10 +182,10 @@ const SiteNav = () => {
                 role="menu"
               >
                 <div className="space-y-1 mb-4">
-                  <Link href="/zifat999" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-sm group/item border-l-2 border-transparent hover:border-blue-500" role="menuitem">
+                  <Link href="/zifat999" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-teal-50 transition-colors text-sm group/item border-l-2 border-transparent hover:border-teal-500" role="menuitem">
                     <BrandLogo brand="ZIFAT999" size="sm" />
                     <div>
-                      <p className="font-bold text-foreground group-hover/item:text-blue-600 transition-colors">ZIFAT999</p>
+                      <p className="font-bold text-foreground group-hover/item:text-teal-600 transition-colors">ZIFAT999</p>
                       <p className="text-xs text-muted-foreground">Tẩy rửa công nghiệp</p>
                     </div>
                   </Link>
