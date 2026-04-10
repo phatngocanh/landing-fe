@@ -9,17 +9,15 @@ import { useMobileMenu } from "@/context/MobileMenuContext";
 const HOME_LINKS = [
   { label: "Trang Chủ",  anchor: "#hero"   },
   { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Ưu Đãi",     anchor: "#combo"  },
   { label: "Tin Tức",    anchor: "#news"   },
   { label: "Liên Hệ",   anchor: "#footer" },
 ];
 
 const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"                                               },
-  { label: "Giới Thiệu", href: "/about"                                          },
-  { label: "Ưu Đãi",     href: "/products?category=Combo+%C6%B0u+%C4%91%C3%A3i" },
-  { label: "Tin Tức",    href: "/news"                                           },
-  { label: "Liên Hệ",   href: "/contact"                                        },
+  { label: "Trang Chủ",  href: "/"        },
+  { label: "Giới Thiệu", href: "/about"  },
+  { label: "Tin Tức",    href: "/news"   },
+  { label: "Liên Hệ",   href: "/contact"},
 ];
 
 import { CATEGORIES } from "@/data/products";
@@ -37,7 +35,7 @@ const SiteNav = () => {
     if (!isHome) return;
     const onScroll = () => {
       setScrolled(window.scrollY > 10);
-      for (const id of ["footer", "news", "combo", "about", "hero"]) {
+      for (const id of ["footer", "news", "about", "hero"]) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 120) {
           setActiveAnchor(`#${id}`);
@@ -61,7 +59,6 @@ const SiteNav = () => {
   const isPageLinkActive = (href: string) => {
     if (href === "/") return !isProducts && pathname === "/";
     if (href === "/about") return pathname === "/about";
-    if (href.startsWith("/products?category=Combo")) return isProducts && typeof window !== "undefined" && window.location.search.includes("Combo");
     if (href === "/news") return pathname === "/news";
     if (href === "/contact") return pathname === "/contact";
     return false;

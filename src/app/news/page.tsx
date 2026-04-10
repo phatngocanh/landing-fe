@@ -13,7 +13,6 @@ import product2 from "@/assets/product2.jpg";
 import product3 from "@/assets/product3.jpg";
 import product4 from "@/assets/product4.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
-import combo1 from "@/assets/combo1.jpg";
 
 const CATEGORIES = ["Tất cả", "Bí quyết vệ sinh", "Kiến thức hóa phẩm", "Tin công ty", "Khuyến mãi"];
 
@@ -50,12 +49,12 @@ const articles = [
   },
   {
     id: 4,
-    title: "Combo vệ sinh toàn diện – tiết kiệm đến 15% cho đơn hàng lớn",
-    excerpt: "Nhân dịp kỷ niệm 13 năm thành lập, Phát Ngọc Anh triển khai chương trình combo đặc biệt với mức giảm giá hấp dẫn cho khách hàng thân thiết.",
+    title: "Chương trình khuyến mãi đặc biệt – tiết kiệm đến 15% cho đơn hàng lớn",
+    excerpt: "Nhân dịp kỷ niệm 13 năm thành lập, Phát Ngọc Anh triển khai chương trình ưu đãi đặc biệt với mức giảm giá hấp dẫn cho khách hàng thân thiết.",
     category: "Khuyến mãi",
     date: "01/03/2026",
     readTime: "3 phút đọc",
-    img: combo1,
+    img: product3,
     featured: false,
   },
   {
@@ -253,7 +252,7 @@ export default function NewsPage() {
             <h2 className="text-sm md:text-base font-black uppercase tracking-widest text-foreground">Video Hoạt Động</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {[heroBanner, combo1, product1].map((img, i) => (
+            {[heroBanner, product3, product1].map((img, i) => (
               <div
                 key={i}
                 className="relative aspect-video rounded-xl overflow-hidden bg-foreground group cursor-pointer"

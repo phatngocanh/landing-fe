@@ -65,7 +65,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div>
+    <div id="main-content">
       <SiteHeader />
       <SiteNav />
 
@@ -245,7 +245,7 @@ export default function ContactPage() {
                 href="https://zalo.me/02862713214"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 w-full py-3.5 px-5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all active:scale-95"
+                className="flex items-center gap-3 w-full py-3.5 px-5 bg-zalo text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all active:scale-95"
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>Nhắn tin Zalo</span>

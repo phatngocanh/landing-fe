@@ -1,18 +1,23 @@
-"use client";
-
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
 import HeroSection from "@/components/HeroSection";
 import TrustBadges from "@/components/TrustBadges";
+import AboutSection from "@/components/AboutSection";
+import ProcessSection from "@/components/ProcessSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ProductsSection from "@/components/ProductsSection";
+import NewsSection from "@/components/NewsSection";
+import PartnersSection from "@/components/PartnersSection";
+import SiteFooter from "@/components/SiteFooter";
+import FloatingActions from "@/components/FloatingActions";
 
-const AboutSection = dynamic(() => import("@/components/AboutSection"), { ssr: false });
-const ComboSection = dynamic(() => import("@/components/ComboSection"), { ssr: false });
-const ProductsSection = dynamic(() => import("@/components/ProductsSection"), { ssr: false });
-const NewsSection = dynamic(() => import("@/components/NewsSection"), { ssr: false });
-const PartnersSection = dynamic(() => import("@/components/PartnersSection"), { ssr: false });
-const SiteFooter = dynamic(() => import("@/components/SiteFooter"), { ssr: false });
-const FloatingActions = dynamic(() => import("@/components/FloatingActions"), { ssr: false });
+export const metadata: Metadata = {
+  title: "Hóa Phẩm Phát Ngọc Anh – ZIFAT 999 | Trang Chủ",
+  description:
+    "Công Ty TNHH Hóa Phẩm Phát Ngọc Anh – thương hiệu ZIFAT 999. Hơn 50 sản phẩm tẩy rửa, vệ sinh nhà cửa, chăm sóc xe chất lượng cao.",
+  alternates: { canonical: "/" },
+};
 
 const Index = () => {
   return (
@@ -22,11 +27,12 @@ const Index = () => {
       <HeroSection />
       <TrustBadges />
 
-      <main className="container py-10 md:py-20">
-        <div className="space-y-12 md:space-y-24">
+      <main id="main-content" className="container py-12 md:py-20">
+        <div className="space-y-16 md:space-y-28">
           <AboutSection />
-          <ComboSection />
+          <ProcessSection />
           <ProductsSection />
+          <TestimonialsSection />
           <NewsSection />
         </div>
       </main>

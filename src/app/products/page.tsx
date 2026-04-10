@@ -141,7 +141,7 @@ function ProductsContent() {
         </div>
       </div>
 
-      <main className="container py-6 md:py-12">
+      <main id="main-content" className="container py-6 md:py-12">
         {/* Page title */}
         <div className="mb-6 md:mb-10">
           <h1 className="text-xl md:text-3xl font-black text-foreground">
@@ -223,10 +223,12 @@ function ProductsContent() {
               {/* Search */}
               <form onSubmit={handleSearchSubmit} className="flex-1 min-w-[180px]">
                 <div className="relative">
+                  <label htmlFor="products-search" className="sr-only">Tìm kiếm sản phẩm</label>
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="products-search"
                     data-testid="input-search"
-                    type="text"
+                    type="search"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     placeholder="Tìm kiếm sản phẩm..."
@@ -381,7 +383,7 @@ function ProductsContent() {
                   >
                     <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 bg-muted rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden relative">
                       {p.badge && (
-                        <span className="absolute top-1.5 left-1.5 bg-primary text-primary-foreground text-[8px] font-black px-1.5 py-0.5 rounded-full z-10">
+                        <span className="absolute top-1.5 left-1.5 bg-primary text-primary-foreground text-[11px] font-black px-1.5 py-0.5 rounded-full z-10">
                           {p.badge}
                         </span>
                       )}
@@ -390,12 +392,12 @@ function ProductsContent() {
                         alt={p.name}
                         width={128}
                         height={128}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         placeholder="blur"
                       />
                     </div>
                     <div className="flex flex-col justify-center gap-1 min-w-0">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit">
+                      <span className="text-[11px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit">
                         {p.category}
                       </span>
                       <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
@@ -429,12 +431,12 @@ function ProductsContent() {
                     className="bg-card border border-border p-3 sm:p-5 rounded-xl sm:rounded-3xl text-center group cursor-pointer h-full relative block hover:border-primary/40 hover:shadow-md transition-all"
                   >
                     {p.badge && (
-                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 bg-primary text-primary-foreground text-[11px] sm:text-xs font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                         {p.badge}
                       </div>
                     )}
                     {p.discount && (
-                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-secondary text-secondary-foreground text-[8px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-secondary text-secondary-foreground text-[11px] sm:text-xs font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                         {p.discount}
                       </div>
                     )}
@@ -444,7 +446,7 @@ function ProductsContent() {
                         alt={p.name}
                         width={300}
                         height={300}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         placeholder="blur"
                       />
                       {/* Hover actions — desktop only */}
@@ -457,7 +459,7 @@ function ProductsContent() {
                         </span>
                       </div>
                     </div>
-                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-primary mb-1">
+                    <p className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary mb-1">
                       {p.category}
                     </p>
                     <h3 className="text-[11px] sm:text-[13px] font-bold text-foreground h-8 sm:h-10 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">
@@ -466,11 +468,11 @@ function ProductsContent() {
                     <div className="mt-2 sm:mt-3 flex items-baseline justify-center gap-2 flex-wrap">
                       <span className="text-secondary font-black text-sm sm:text-base">{p.price}</span>
                       {p.oldPrice && (
-                        <span className="text-[10px] text-muted-foreground line-through">{p.oldPrice}</span>
+                        <span className="text-[11px] text-muted-foreground line-through">{p.oldPrice}</span>
                       )}
                     </div>
                     {!p.inStock && (
-                      <span className="inline-block mt-1 text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                      <span className="inline-block mt-1 text-[11px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
                         Hết hàng
                       </span>
                     )}
@@ -486,7 +488,8 @@ function ProductsContent() {
                   data-testid="button-prev-page"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Trang trước"
                 >
                   ‹
                 </button>
@@ -495,7 +498,9 @@ function ProductsContent() {
                     key={n}
                     data-testid={`button-page-${n}`}
                     onClick={() => setPage(n)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition-all hover:-translate-y-0.5 ${
+                    aria-label={`Trang ${n}`}
+                    aria-current={n === page ? "page" : undefined}
+                    className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all hover:-translate-y-0.5 ${
                       n === page
                         ? "border-2 border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                         : "border border-border text-muted-foreground bg-card hover:border-primary hover:text-primary"
@@ -508,7 +513,8 @@ function ProductsContent() {
                   data-testid="button-next-page"
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Trang tiếp"
                 >
                   ›
                 </button>

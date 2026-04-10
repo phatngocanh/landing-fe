@@ -56,6 +56,8 @@ export default {
         outline: "hsl(var(--outline))",
         "footer-bg": "hsl(var(--footer-bg))",
         "footer-foreground": "hsl(var(--footer-foreground))",
+        zalo: "hsl(var(--zalo))",
+        fanpage: "hsl(var(--fanpage))",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -40,6 +40,9 @@
 
     --footer-bg: 222 47% 11%;
     --footer-foreground: 0 0% 100%;
+
+    --zalo: 210 100% 50%;
+    --fanpage: 220 89% 35%;
   }
 }
 
@@ -49,7 +52,7 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
   }
 }
@@ -67,15 +70,15 @@
   }
 
   .product-card {
-    @apply transition-all duration-500 border border-border/50;
+    @apply transition-all duration-300 border border-border/50;
   }
   .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
   }
 
   .btn-hover-effect {
-    @apply transition-all duration-300;
+    @apply transition-all duration-200;
   }
   .btn-hover-effect:hover {
     filter: brightness(110%);
@@ -105,5 +108,30 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+/* Accessibility: disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 

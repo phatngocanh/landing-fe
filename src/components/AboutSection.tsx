@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import aboutImage from "@/assets/about-image.jpg";
@@ -20,7 +21,6 @@ const AboutSection = () => (
 
     <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
       <div className="flex flex-col md:flex-row">
-        {/* Image column */}
         <ScrollReveal animation="fade-in-left" className="md:w-72 shrink-0">
           <div className="h-52 md:h-full w-full overflow-hidden relative">
             <Image
@@ -34,33 +34,32 @@ const AboutSection = () => (
           </div>
         </ScrollReveal>
 
-        {/* Content column */}
         <ScrollReveal animation="fade-in-right" className="flex-1">
           <div className="p-6 md:p-8 flex flex-col items-center text-center justify-between h-full gap-5">
             <div>
               <h3 className="text-lg md:text-xl font-black text-foreground uppercase leading-tight tracking-tight mb-3">
-                PHÁT NGỌC ANH CO.,LTD — <span className="text-primary">ZIFAT 999</span>
+                Công Ty TNHH Hóa Phẩm<br /><span className="text-primary">Phát Ngọc Anh</span>
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Thương hiệu Zifat 999 đạt chứng nhận Hàng Việt Nam chất lượng cao từ năm 2012. Quy trình sản xuất tiên tiến mang đến giải pháp tẩy rửa an toàn, hiệu quả cho mọi gia đình Việt.
               </p>
             </div>
 
-            {/* Stats */}
             <div className="flex gap-4 border-t border-border pt-4 w-full">
               {stats.map((s) => (
                 <div key={s.label} className="flex-1 text-center">
                   <p className="text-base font-black text-primary">{s.value}</p>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wide leading-tight mt-0.5">{s.label}</p>
+                  <p className="text-[11px] text-muted-foreground uppercase tracking-wide leading-tight mt-0.5">{s.label}</p>
                 </div>
               ))}
             </div>
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95"
+              className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold text-xs hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-widest active:scale-95 md:px-7 md:py-3 md:text-sm"
             >
-              Tìm hiểu thêm →
+              Tìm hiểu thêm
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 md:h-4 md:w-4" />
             </Link>
           </div>
         </ScrollReveal>

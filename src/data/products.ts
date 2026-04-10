@@ -3,9 +3,6 @@ import product1 from "@/assets/product1.jpg";
 import product2 from "@/assets/product2.jpg";
 import product3 from "@/assets/product3.jpg";
 import product4 from "@/assets/product4.jpg";
-import combo1 from "@/assets/combo1.jpg";
-import combo2 from "@/assets/combo2.jpg";
-import combo3 from "@/assets/combo3.jpg";
 
 export interface Product {
   id: string;
@@ -36,7 +33,6 @@ export const CATEGORIES = [
   "Chăm sóc xe",
   "Thông cống & WC",
   "Diệt côn trùng",
-  "Combo ưu đãi",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
@@ -724,157 +720,6 @@ export const products: Product[] = [
     inStock: true,
   },
 
-  // ── Combo ưu đãi ─────────────────────────────────────────────────
-  {
-    id: "combo-thong-cong",
-    img: combo1,
-    images: [combo1, combo2, combo3],
-    name: "Combo Thông Cống Triệt Để + Bột Vi Sinh Khử Mùi",
-    price: "99.000đ",
-    priceRaw: 99000,
-    oldPrice: "110.000đ",
-    oldPriceRaw: 110000,
-    discount: "-10%",
-    badge: "Bán chạy",
-    category: "Combo ưu đãi",
-    sku: "ZF-C001",
-    description:
-      "Bộ combo tiết kiệm gồm Nước Thông Cống Triệt Để ZIFAT 999 và Bột Vi Sinh Khử Mùi, mang đến giải pháp toàn diện cho đường ống tắc nghẽn và mùi hôi khó chịu trong nhà. Tiết kiệm 10% so với mua lẻ.",
-    uses: [
-      "Thông cống bồn rửa chén, nhà tắm bị tắc",
-      "Khử mùi hôi trong đường ống thoát nước",
-      "Tiêu diệt vi khuẩn trong đường ống",
-      "Ngăn ngừa tắc cống tái phát",
-    ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
-    specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước thông cống 500ml + Bột vi sinh 200g" },
-      { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
-    ],
-    inStock: true,
-  },
-  {
-    id: "combo-lau-san-xit-phong",
-    img: combo2,
-    images: [combo2, combo1, combo3],
-    name: "Combo Nước Lau Sàn Hương Hoa + Xịt Phòng Kháng Khuẩn",
-    price: "120.000đ",
-    priceRaw: 120000,
-    oldPrice: "135.000đ",
-    oldPriceRaw: 135000,
-    discount: "-11%",
-    badge: "Mới",
-    category: "Combo ưu đãi",
-    sku: "ZF-C002",
-    description:
-      "Combo tiết kiệm gồm Nước Lau Sàn Hương Hoa ZIFAT 999 và Xịt Phòng Kháng Khuẩn. Bộ đôi hoàn hảo giúp không gian sống luôn sạch sẽ, thơm tho và được bảo vệ tối ưu khỏi vi khuẩn gây hại.",
-    uses: [
-      "Lau sàn sạch bóng với hương hoa dịu nhẹ",
-      "Xịt phòng khử khuẩn không khí trong nhà",
-      "Khử mùi ẩm mốc trong phòng kín",
-      "Phù hợp cho gia đình có trẻ nhỏ",
-    ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
-    specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước lau sàn 1L + Xịt phòng 300ml" },
-      { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
-    ],
-    inStock: true,
-  },
-  {
-    id: "combo-javel-nuoc-giat",
-    img: combo3,
-    images: [combo3, combo1, combo2],
-    name: "Combo Javel Đậm Đặc + Nước Giặt Hương Nắng",
-    price: "85.000đ",
-    priceRaw: 85000,
-    oldPrice: "90.000đ",
-    oldPriceRaw: 90000,
-    discount: "-6%",
-    badge: null,
-    category: "Combo ưu đãi",
-    sku: "ZF-C003",
-    description:
-      "Combo tiết kiệm gồm Javel Đậm Đặc ZIFAT 999 và Nước Giặt Hương Nắng. Bộ đôi giúp quần áo trắng sáng, thơm tho và sạch khuẩn ngay từ lần giặt đầu tiên.",
-    uses: [
-      "Tẩy trắng quần áo bị ố vàng",
-      "Giặt sạch vết bẩn cứng đầu",
-      "Khử mùi hôi trên quần áo",
-      "An toàn cho vải cotton, polyester",
-    ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
-    specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Javel 1L + Nước giặt 750ml" },
-      { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
-    ],
-    inStock: true,
-  },
-  {
-    id: "combo-nuoc-rua-chen-tay-bep",
-    img: combo1,
-    images: [combo1, combo3, combo2],
-    name: "Combo Nước Rửa Chén + Tẩy Nhà Bếp Đa Năng",
-    price: "75.000đ",
-    priceRaw: 75000,
-    oldPrice: "88.000đ",
-    oldPriceRaw: 88000,
-    discount: "-15%",
-    badge: "Hot",
-    category: "Combo ưu đãi",
-    sku: "ZF-C004",
-    description:
-      "Combo tiết kiệm nhất gồm Nước Rửa Chén và Tẩy Nhà Bếp Đa Năng ZIFAT 999. Bộ đôi không thể thiếu trong mỗi căn bếp, giúp làm sạch bát đĩa, bếp nấu và mặt bếp hiệu quả.",
-    uses: [
-      "Rửa sạch bát đĩa, nồi chảo dầu mỡ",
-      "Tẩy sạch mặt bếp, bếp từ, bếp gas",
-      "Khử mùi tanh, hôi trong bếp",
-      "An toàn cho da tay",
-    ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ gia đình (x2)"],
-    specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước rửa chén 500ml + Tẩy bếp 400ml" },
-      { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
-    ],
-    inStock: true,
-  },
-  {
-    id: "combo-cham-soc-xe-toan-dien",
-    img: combo2,
-    images: [combo2, combo3, combo1],
-    name: "Combo Chăm Sóc Xe Toàn Diện 4 Món",
-    price: "199.000đ",
-    priceRaw: 199000,
-    oldPrice: "240.000đ",
-    oldPriceRaw: 240000,
-    discount: "-17%",
-    badge: "Hot",
-    category: "Combo ưu đãi",
-    sku: "ZF-C005",
-    description:
-      "Bộ combo chăm sóc xe toàn diện 4 món gồm Nước Rửa Xe Bọt Tuyết, Bóng Vỏ Xe, Dung Dịch Rửa Kính và Nước Lau Nội Thất ZIFAT 999. Tiết kiệm 17% so với mua lẻ.",
-    uses: [
-      "Rửa xe sạch bóng từ ngoài đến trong",
-      "Bảo vệ sơn xe khỏi tia UV và oxy hóa",
-      "Làm sạch và tạo độ bóng nội thất",
-      "Đầy đủ dụng cụ chăm sóc xe tại nhà",
-    ],
-    volumes: ["Bộ tiêu chuẩn", "Bộ cao cấp"],
-    specs: [
-      { label: "Thương hiệu", value: "ZIFAT 999" },
-      { label: "Nội dung", value: "Nước rửa xe 500ml + Bóng vỏ 250ml + Rửa kính 300ml + Lau nội thất 250ml" },
-      { label: "Xuất xứ", value: "Việt Nam" },
-      { label: "Hạn sử dụng", value: "24 tháng" },
-    ],
-    inStock: true,
-  },
 ];
 
 export const getProductById = (id: string): Product | undefined =>
