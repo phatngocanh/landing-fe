@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, ChevronLeft, Phone, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, Phone, X, Handshake } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,17 +8,17 @@ import { useMobileMenu } from "@/context/MobileMenuContext";
 import { CATEGORIES } from "@/data/products";
 
 const HOME_LINKS = [
-  { label: "Trang Chủ",  anchor: "#hero"   },
-  { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Tin Tức",    anchor: "#news"   },
-  { label: "Liên Hệ",   anchor: "#footer" },
+  { label: "Trang chủ",  anchor: "#hero"   },
+  { label: "Giới thiệu", anchor: "#about"  },
+  { label: "Tin tức",    anchor: "#news"   },
+  { label: "Liên hệ",   anchor: "#footer" },
 ];
 
 const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"        },
-  { label: "Giới Thiệu", href: "/about"  },
-  { label: "Tin Tức",    href: "/news"   },
-  { label: "Liên Hệ",   href: "/contact"},
+  { label: "Trang chủ",  href: "/"        },
+  { label: "Giới thiệu", href: "/about"  },
+  { label: "Tin tức",    href: "/news"   },
+  { label: "Liên hệ",   href: "/contact"},
 ];
 
 const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
@@ -161,7 +161,7 @@ export default function MobileDrawer() {
                 );
               })}
 
-              {/* Sản Phẩm — opens subcategory panel */}
+              {/* Sản phẩm — opens subcategory panel */}
               <button
                 onClick={() => setPanel("products")}
                 className={`flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[14px] font-bold uppercase tracking-wider transition-colors ${
@@ -169,10 +169,22 @@ export default function MobileDrawer() {
                 }`}
                 data-testid="button-mobile-products"
               >
-                <span>Sản Phẩm</span>
+                <span>Sản phẩm</span>
                 <ChevronRight className="w-4 h-4 text-primary-foreground/60 flex-shrink-0" />
               </button>
             </nav>
+
+            {/* B2B Partnership CTA */}
+            <div className="px-4 pt-2">
+              <Link
+                href="/contact?subject=partnership"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-2xl bg-yellow-400 text-foreground font-bold text-sm tracking-wide hover:brightness-110 transition-all"
+              >
+                <Handshake className="w-4 h-4" />
+                Hợp tác đại lý
+              </Link>
+            </div>
 
             {/* Phone CTA */}
             <div className="px-4 pb-6 pt-2">
@@ -199,7 +211,7 @@ export default function MobileDrawer() {
               data-testid="button-mobile-products-back"
             >
               <ChevronLeft className="w-5 h-5 text-primary-foreground/70" />
-              <span>Sản Phẩm</span>
+              <span>Sản phẩm</span>
             </button>
 
             <nav className="pt-1 pb-4">
@@ -210,7 +222,7 @@ export default function MobileDrawer() {
                 className="flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors text-yellow-300/80"
                 data-testid="link-mobile-all-products"
               >
-                <span>Tất Cả Sản Phẩm</span>
+                <span>Tất cả sản phẩm</span>
               </Link>
 
               {productCategories.map((cat) => (

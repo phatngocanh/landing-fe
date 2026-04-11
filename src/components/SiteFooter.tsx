@@ -82,6 +82,7 @@ const SiteFooter = () => {
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/about">Về chúng tôi</Link></li>
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/news">Tin tức</Link></li>
               <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/contact">Liên hệ</Link></li>
+              <li><Link className="hover:text-white hover:translate-x-1 inline-block transition-all" href="/contact?subject=partnership">Hợp tác đại lý</Link></li>
             </ul>
           </div>
 

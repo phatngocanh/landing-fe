@@ -1,23 +1,23 @@
 "use client";
 
-import { ChevronDown, ArrowRight, Menu, X } from "lucide-react";
+import { ChevronDown, ArrowRight, Menu, X, Handshake } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 
 const HOME_LINKS = [
-  { label: "Trang Chủ",  anchor: "#hero"   },
-  { label: "Giới Thiệu", anchor: "#about"  },
-  { label: "Tin Tức",    anchor: "#news"   },
-  { label: "Liên Hệ",   anchor: "#footer" },
+  { label: "Trang chủ",  anchor: "#hero"   },
+  { label: "Giới thiệu", anchor: "#about"  },
+  { label: "Tin tức",    anchor: "#news"   },
+  { label: "Liên hệ",   anchor: "#footer" },
 ];
 
 const PAGE_LINKS = [
-  { label: "Trang Chủ",  href: "/"        },
-  { label: "Giới Thiệu", href: "/about"  },
-  { label: "Tin Tức",    href: "/news"   },
-  { label: "Liên Hệ",   href: "/contact"},
+  { label: "Trang chủ",  href: "/"        },
+  { label: "Giới thiệu", href: "/about"  },
+  { label: "Tin tức",    href: "/news"   },
+  { label: "Liên hệ",   href: "/contact"},
 ];
 
 import { CATEGORIES } from "@/data/products";
@@ -104,7 +104,7 @@ const SiteNav = () => {
                 <button
                   key={l.label}
                   onClick={() => smoothScroll((l as typeof HOME_LINKS[number]).anchor)}
-                  className={`relative py-1 whitespace-nowrap transition-colors ${active ? "text-yellow-300" : "hover:text-yellow-300"}`}
+                  className={`relative py-1 whitespace-nowrap uppercase transition-colors ${active ? "text-yellow-300" : "hover:text-yellow-300"}`}
                 >
                   {l.label}
                   {active && <ActiveBar />}
@@ -121,7 +121,7 @@ const SiteNav = () => {
               );
             })}
 
-            {/* Sản Phẩm dropdown */}
+            {/* Sản phẩm dropdown */}
             <div className="group relative py-4 -my-4 cursor-pointer">
               <Link
                 href="/products"
@@ -129,7 +129,7 @@ const SiteNav = () => {
                   isProducts ? "text-yellow-300" : "hover:text-yellow-300"
                 }`}
               >
-                <span>Sản Phẩm</span>
+                <span>Sản phẩm</span>
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
                 {isProducts && (
                   <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
@@ -163,7 +163,7 @@ const SiteNav = () => {
                 <button
                   key={l.label}
                   onClick={() => smoothScroll((l as typeof HOME_LINKS[number]).anchor)}
-                  className={`relative py-1 whitespace-nowrap transition-colors ${active ? "text-yellow-300" : "hover:text-yellow-300"}`}
+                  className={`relative py-1 whitespace-nowrap uppercase transition-colors ${active ? "text-yellow-300" : "hover:text-yellow-300"}`}
                 >
                   {l.label}
                   {active && <ActiveBar />}
@@ -179,6 +179,15 @@ const SiteNav = () => {
                 </Link>
               );
             })}
+
+            {/* B2B CTA pill */}
+            <Link
+              href="/contact?subject=partnership"
+              className="ml-auto flex items-center gap-1.5 bg-yellow-400 text-foreground px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-wider hover:brightness-110 transition-all"
+            >
+              <Handshake className="w-3.5 h-3.5" />
+              Hợp tác
+            </Link>
           </div>
         </div>
       </div>

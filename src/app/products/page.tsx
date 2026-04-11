@@ -14,6 +14,8 @@ import {
   ArrowUpDown,
   LayoutGrid,
   LayoutList,
+  Phone,
+  Handshake,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import SiteHeader from "@/components/SiteHeader";
@@ -218,6 +220,22 @@ function ProductsContent() {
 
           {/* ── Main content ── */}
           <div className="flex-1 min-w-0">
+            {/* Mobile B2B CTA strip */}
+            <div className="lg:hidden flex gap-2 mb-4">
+              <a
+                href="tel:02862713214"
+                className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground py-2.5 rounded-xl font-bold text-xs hover:brightness-110 transition-all"
+              >
+                <Phone className="w-3.5 h-3.5" /> Báo giá sỉ
+              </a>
+              <Link
+                href="/contact?subject=partnership"
+                className="flex-1 flex items-center justify-center gap-2 border-2 border-primary text-primary py-2.5 rounded-xl font-bold text-xs hover:bg-primary/10 transition-all"
+              >
+                <Handshake className="w-3.5 h-3.5" /> Hợp tác
+              </Link>
+            </div>
+
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-3 mb-6">
               {/* Search */}
@@ -521,6 +539,24 @@ function ProductsContent() {
               </div>
             )}
           </div>
+
+          {/* ── Right sidebar: B2B CTAs (desktop) ── */}
+          <aside className="hidden lg:flex flex-col gap-5 w-56 xl:w-64 shrink-0 sticky top-24 self-start">
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <h3 className="font-black text-foreground text-sm mb-2">Báo giá sỉ</h3>
+              <p className="text-xs text-muted-foreground mb-4">Liên hệ đội ngũ bán hàng để nhận báo giá tốt nhất cho đơn hàng lớn.</p>
+              <a href="tel:02862713214" className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground py-2.5 rounded-xl font-bold text-xs hover:brightness-110 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Gọi ngay
+              </a>
+            </div>
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <h3 className="font-black text-foreground text-sm mb-2">Trở thành đối tác</h3>
+              <p className="text-xs text-muted-foreground mb-4">Tham gia mạng lưới phân phối Phát Ngọc Anh với chính sách chiết khấu hấp dẫn.</p>
+              <Link href="/contact?subject=partnership" className="flex items-center justify-center gap-2 w-full border border-border text-foreground py-2.5 rounded-xl font-bold text-xs hover:border-primary hover:text-primary transition-all">
+                <Handshake className="w-3.5 h-3.5" /> Tìm hiểu
+              </Link>
+            </div>
+          </aside>
         </div>
       </main>
 

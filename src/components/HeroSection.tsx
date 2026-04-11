@@ -31,8 +31,8 @@ const slides = [
     alt: "ZIFAT 999 — thương hiệu Hàng Việt Nam Chất Lượng Cao",
     title: <>Thương Hiệu<br />Được Tin Dùng</>,
     desc: "Hơn 12 năm đạt danh hiệu Hàng Việt Nam Chất Lượng Cao — sự lựa chọn hàng đầu.",
-    cta: "Tìm hiểu thêm",
-    href: "#about",
+    cta: "Hợp tác cùng chúng tôi",
+    href: "/contact?subject=partnership",
   },
 ];
 
