@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import SiteHeader from "@/components/SiteHeader";
-import SiteNav from "@/components/SiteNav";
 import { getCategories, listProducts } from "@/lib/api/server";
 import {
   applyProductFilters,
@@ -87,8 +85,6 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
   return (
     <div className="scroll-smooth">
-      <SiteHeader />
-      <SiteNav categories={categories} />
       <ProductsView
         categories={categories}
         initialParams={initialParams}

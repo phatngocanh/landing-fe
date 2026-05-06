@@ -23,8 +23,6 @@ import {
   Package,
 } from "lucide-react";
 import aboutImage from "@/assets/about-image.jpg";
-import SiteHeader from "@/components/SiteHeader";
-import SiteNav from "@/components/SiteNav";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const SiteFooter = dynamic(() => import("@/components/SiteFooter"), { ssr: false });
@@ -120,8 +118,6 @@ const CRITERIA = [
 export default function AboutPage() {
   return (
     <div className="scroll-smooth">
-      <SiteHeader />
-      <SiteNav />
 
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-primary text-primary-foreground">

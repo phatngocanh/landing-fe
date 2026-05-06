@@ -1,11 +1,12 @@
 "use client";
 
 import { ChevronDown, ArrowRight, Menu, X, Handshake } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 import type { CategoryDTO } from "@/lib/api/server";
+import { buildCategoryTree } from "@/lib/api/categories-tree";
 
 const HOME_LINKS = [
   { label: "Trang chủ",  anchor: "#hero"   },
@@ -121,40 +122,7 @@ const SiteNav = ({ categories = [] }: Props) => {
               );
             })}
 
-            <div className="group relative py-4 -my-4 cursor-pointer">
-              <Link
-                href="/products"
-                className={`flex items-center gap-1 transition-colors whitespace-nowrap ${
-                  isProducts ? "text-yellow-300" : "hover:text-yellow-300"
-                }`}
-              >
-                <span>Sản phẩm</span>
-                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
-                {isProducts && (
-                  <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
-                )}
-              </Link>
-              {categories.length > 0 && (
-                <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-8 grid grid-cols-2 gap-x-12 gap-y-4 w-[500px] z-50 normal-case font-medium">
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/products?category=${encodeURIComponent(cat.slug)}`}
-                      className="flex items-center gap-3 hover:text-primary hover:translate-x-1 transition-all text-sm"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
-                  <Link
-                    href="/products"
-                    className="flex items-center gap-3 font-bold text-primary mt-4 border-t border-border pt-4 col-span-2 text-sm hover:gap-4 transition-all"
-                  >
-                    <span>Tất cả sản phẩm</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              )}
-            </div>
+            <CategoriesMegaMenu categories={categories} isProducts={isProducts} />
 
             {rightLinks.map((l) => {
               const active = isHome
@@ -196,3 +164,106 @@ const SiteNav = ({ categories = [] }: Props) => {
 };
 
 export default SiteNav;
+
+interface MegaMenuProps {
+  categories: CategoryDTO[];
+  isProducts: boolean;
+}
+
+// Single-view mega menu (desktop only). All top-level categories are visible
+// at once in a 2-column auto-balanced grid; sub-categories are inline under
+// their parent so the user never has to hover individual rows to discover
+// what's available. CSS columns + break-inside-avoid keeps the parent-with-
+// children block intact while balancing visual height across the two columns.
+function CategoriesMegaMenu({ categories, isProducts }: MegaMenuProps) {
+  const tree = useMemo(() => buildCategoryTree(categories), [categories]);
+  const totalProducts = useMemo(
+    () => tree.reduce((sum, t) => sum + t.totalProductCount, 0),
+    [tree],
+  );
+
+  return (
+    <div className="group relative py-4 -my-4">
+      <Link
+        href="/products"
+        className={`flex items-center gap-1 transition-colors whitespace-nowrap cursor-pointer ${
+          isProducts ? "text-yellow-300" : "hover:text-yellow-300"
+        }`}
+      >
+        <span>Sản phẩm</span>
+        <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+        {isProducts && <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />}
+      </Link>
+
+      {tree.length > 0 && (
+        <div className="invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-3 z-50 normal-case font-medium pointer-events-none group-hover:pointer-events-auto">
+          <div className="bg-card text-foreground shadow-2xl rounded-2xl border border-border w-[640px] overflow-hidden">
+            {/* Header strip — brand color, sets context */}
+            <div className="flex items-center justify-between px-5 py-3 bg-primary text-primary-foreground">
+              <p className="text-[10px] font-black uppercase tracking-[0.22em]">
+                Khám phá danh mục
+              </p>
+              <span className="text-[11px] font-semibold opacity-90">
+                {totalProducts} sản phẩm
+              </span>
+            </div>
+
+            {/* Auto-balanced 2-col grid; cards never split mid-block */}
+            <div className="columns-2 gap-x-2 p-2">
+              {tree.map((parent) => {
+                const hasKids = parent.children.length > 0;
+                return (
+                  <div
+                    key={parent.id}
+                    className="break-inside-avoid mb-1 rounded-xl p-3 hover:bg-muted/60 transition-colors"
+                  >
+                    <Link
+                      href={`/products?category=${encodeURIComponent(parent.slug)}`}
+                      className="flex items-start justify-between gap-3 group/parent"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13.5px] font-bold text-foreground line-clamp-1 group-hover/parent:text-primary transition-colors">
+                          {parent.name}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">
+                          {parent.totalProductCount} sản phẩm
+                        </p>
+                      </div>
+                      <ArrowRight className="w-3.5 h-3.5 shrink-0 mt-1 text-muted-foreground/50 group-hover/parent:text-primary group-hover/parent:translate-x-0.5 transition-all" />
+                    </Link>
+                    {hasKids && (
+                      <ul className="mt-2 pl-3 border-l-2 border-primary/20 space-y-0.5">
+                        {parent.children.map((sub) => (
+                          <li key={sub.id}>
+                            <Link
+                              href={`/products?category=${encodeURIComponent(sub.slug)}`}
+                              className="flex items-center justify-between gap-3 py-1 text-[12.5px] text-muted-foreground hover:text-primary hover:translate-x-0.5 transition-all"
+                            >
+                              <span>{sub.name}</span>
+                              <span className="text-[10.5px] text-muted-foreground/70 group-hover/sub:opacity-100">
+                                {sub.productCount}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Bottom CTA — subtle tinted bar, full-width clickable */}
+            <Link
+              href="/products"
+              className="flex items-center justify-between gap-3 px-5 py-3.5 border-t border-border bg-primary/5 hover:bg-primary/10 transition-colors text-sm font-bold text-primary"
+            >
+              <span>Xem tất cả sản phẩm</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

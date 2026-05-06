@@ -4,8 +4,6 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, Tag, ArrowRight, Play, Search, ChevronRight } from "lucide-react";
-import SiteHeader from "@/components/SiteHeader";
-import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import FloatingActions from "@/components/FloatingActions";
 import product1 from "@/assets/product1.jpg";
@@ -104,8 +102,6 @@ export default function NewsPage() {
 
   return (
     <div>
-      <SiteHeader />
-      <SiteNav />
 
       {/* Page header strip */}
       <div className="bg-muted/50 border-b border-border">

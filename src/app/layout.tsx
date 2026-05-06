@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import { MobileMenuProvider } from "@/context/MobileMenuContext";
 import MobileDrawer from "@/components/MobileDrawer";
+import SiteHeader from "@/components/SiteHeader";
+import SiteNav from "@/components/SiteNav";
 import { getCategories } from "@/lib/api/server";
 
 const inter = Inter({
@@ -79,6 +81,8 @@ export default async function RootLayout({
               >
                 Chuyển đến nội dung chính
               </a>
+              <SiteHeader />
+              <SiteNav categories={categories} />
               {children}
             </div>
           </MobileMenuProvider>

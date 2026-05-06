@@ -1,11 +1,12 @@
 "use client";
 
-import { ChevronRight, ChevronLeft, Phone, X, Handshake } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { ChevronRight, ChevronLeft, ChevronDown, Phone, X, Handshake } from "lucide-react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 import type { CategoryDTO } from "@/lib/api/server";
+import { buildCategoryTree, type CategoryNode } from "@/lib/api/categories-tree";
 
 const HOME_LINKS = [
   { label: "Trang chủ",  anchor: "#hero"   },
@@ -30,6 +31,16 @@ interface Props {
 export default function MobileDrawer({ categories = [] }: Props) {
   const { mobileOpen, setMobileOpen } = useMobileMenu();
   const [panel, setPanel] = useState<"main" | "products">("main");
+  const [expandedCategoryIds, setExpandedCategoryIds] = useState<Set<number>>(new Set());
+  const tree = useMemo(() => buildCategoryTree(categories), [categories]);
+  const toggleExpanded = useCallback((id: number) => {
+    setExpandedCategoryIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isProducts = pathname.startsWith("/products") || pathname.startsWith("/product");
@@ -213,17 +224,55 @@ export default function MobileDrawer({ categories = [] }: Props) {
                 <span>Tất cả sản phẩm</span>
               </Link>
 
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/products?category=${encodeURIComponent(cat.slug)}`}
-                  onClick={close}
-                  className="flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
-                  data-testid={`link-mobile-category-${cat.slug}`}
-                >
-                  <span>{cat.name}</span>
-                </Link>
-              ))}
+              {tree.map((parent: CategoryNode) => {
+                const expanded = expandedCategoryIds.has(parent.id);
+                const hasChildren = parent.children.length > 0;
+                return (
+                  <div key={parent.id} className="border-b border-primary-foreground/10">
+                    <div className="flex items-stretch">
+                      <Link
+                        href={`/products?category=${encodeURIComponent(parent.slug)}`}
+                        onClick={close}
+                        className="flex-1 py-3.5 px-5 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
+                        data-testid={`link-mobile-category-${parent.slug}`}
+                      >
+                        {parent.name}
+                      </Link>
+                      {hasChildren && (
+                        <button
+                          type="button"
+                          onClick={() => toggleExpanded(parent.id)}
+                          aria-expanded={expanded}
+                          aria-label={expanded ? "Thu gọn" : "Mở rộng"}
+                          className="px-4 hover:bg-primary-foreground/10 transition-colors flex items-center"
+                          data-testid={`button-mobile-expand-${parent.slug}`}
+                        >
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                      )}
+                    </div>
+                    {hasChildren && expanded && (
+                      <ul className="bg-primary-foreground/5">
+                        {parent.children.map((sub) => (
+                          <li key={sub.id}>
+                            <Link
+                              href={`/products?category=${encodeURIComponent(sub.slug)}`}
+                              onClick={close}
+                              className="flex items-center w-full py-2.5 pl-9 pr-5 text-[12.5px] font-medium normal-case tracking-normal text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground transition-colors"
+                              data-testid={`link-mobile-category-${sub.slug}`}
+                            >
+                              <span className="text-primary-foreground/50 mr-2">—</span>
+                              {sub.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
             </nav>
           </div>
         </div>

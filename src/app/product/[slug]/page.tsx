@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
-import SiteHeader from "@/components/SiteHeader";
-import SiteNav from "@/components/SiteNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { getCategories, getProductBySlug, getRelatedProducts, listProducts } from "@/lib/api/server";
 import ProductDetailView from "./ProductDetailView";
@@ -127,8 +125,6 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <div className="scroll-smooth">
-      <SiteHeader />
-      <SiteNav categories={categories} />
       <ProductDetailView product={product} related={related} />
       <SiteFooter />
       <FloatingActions />

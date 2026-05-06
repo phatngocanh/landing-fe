@@ -7,8 +7,6 @@ import {
   Phone, MapPin, Mail, Clock, MessageCircle,
   Send, CheckCircle, ChevronRight,
 } from "lucide-react";
-import SiteHeader from "@/components/SiteHeader";
-import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import FloatingActions from "@/components/FloatingActions";
 
@@ -74,8 +72,6 @@ function ContactContent() {
 
   return (
     <div id="main-content">
-      <SiteHeader />
-      <SiteNav />
 
       {/* Page header strip */}
       <div className="bg-muted/50 border-b border-border">

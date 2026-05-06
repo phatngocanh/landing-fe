@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import SiteHeader from "@/components/SiteHeader";
-import SiteNav from "@/components/SiteNav";
 import HeroSection from "@/components/HeroSection";
 import TrustBadges from "@/components/TrustBadges";
 import AboutSection from "@/components/AboutSection";
@@ -22,8 +20,6 @@ export const metadata: Metadata = {
 const Index = () => {
   return (
     <div className="scroll-smooth">
-      <SiteHeader />
-      <SiteNav />
       <HeroSection />
       <TrustBadges />
 

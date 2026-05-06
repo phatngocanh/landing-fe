@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Search,
   SlidersHorizontal,
   ArrowRight,
-  ChevronRight,
-  X,
   ArrowUpDown,
+  ChevronRight,
+  ChevronDown,
+  X,
   LayoutGrid,
   LayoutList,
   Phone,
@@ -19,6 +20,7 @@ import { useProducts } from "@/lib/api/products";
 import type { ProductsParams, ProductsResponse } from "@/lib/api/product-filters";
 import { paramsEqual } from "@/lib/api/product-filters";
 import type { CategoryDTO } from "@/lib/api/server";
+import { buildCategoryTree, findCategoryPath } from "@/lib/api/categories-tree";
 
 const SORT_OPTIONS = [
   { value: "default", label: "Mặc định" },
@@ -76,6 +78,23 @@ function Content({ categories, initialParams, initialData }: Props) {
     params,
     paramsEqual(params, initialParams) ? initialData : undefined,
   );
+
+  // Categories tree + auto-expand path of the active selection so parent
+  // accordions open when user lands on a sub-category URL directly.
+  const categoryTree = useMemo(() => buildCategoryTree(categories), [categories]);
+  const activeCategoryAncestors = useMemo(() => {
+    if (!categorySlug || categorySlug === ALL_SLUG) return new Set<number>();
+    return new Set(findCategoryPath(categories, categorySlug).map((c) => c.id));
+  }, [categories, categorySlug]);
+  const [parentExpanded, setParentExpanded] = useState<Set<number>>(new Set());
+  const toggleParentExpanded = useCallback((id: number) => {
+    setParentExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
 
   // Anchor for "scroll to first product on page change". Targets the top of
   // the product grid column so users land just above the new page's items —
@@ -214,19 +233,57 @@ function Content({ categories, initialParams, initialData }: Props) {
                         Tất cả
                       </button>
                     </li>
-                    {categories.map((cat) => (
-                      <li key={cat.id}>
-                        <button
-                          data-testid={`filter-category-${cat.slug}`}
-                          onClick={() => handleCategoryChange(cat.slug)}
-                          className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                            categorySlug === cat.slug ? "bg-primary/10 text-primary font-bold" : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                          }`}
-                        >
-                          {cat.name}
-                        </button>
-                      </li>
-                    ))}
+                    {categoryTree.map((parent) => {
+                      const parentActive = categorySlug === parent.slug;
+                      const inThisBranch = activeCategoryAncestors.has(parent.id);
+                      const expanded = parent.children.length > 0 && (inThisBranch || parentExpanded.has(parent.id));
+                      return (
+                        <li key={parent.id}>
+                          <div className="flex items-stretch">
+                            <button
+                              data-testid={`filter-category-${parent.slug}`}
+                              onClick={() => handleCategoryChange(parent.slug)}
+                              className={`flex-1 text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                                parentActive ? "bg-primary/10 text-primary font-bold" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                              }`}
+                            >
+                              {parent.name}
+                            </button>
+                            {parent.children.length > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => toggleParentExpanded(parent.id)}
+                                aria-expanded={expanded}
+                                aria-label={expanded ? "Thu gọn" : "Mở rộng"}
+                                className="px-2 rounded-xl hover:bg-muted text-muted-foreground transition-colors"
+                              >
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+                              </button>
+                            )}
+                          </div>
+                          {expanded && (
+                            <ul className="mt-0.5 ml-2 pl-3 border-l border-border space-y-0.5">
+                              {parent.children.map((sub) => {
+                                const subActive = categorySlug === sub.slug;
+                                return (
+                                  <li key={sub.id}>
+                                    <button
+                                      data-testid={`filter-category-${sub.slug}`}
+                                      onClick={() => handleCategoryChange(sub.slug)}
+                                      className={`w-full text-left px-3 py-2 rounded-lg text-[13px] font-medium transition-all ${
+                                        subActive ? "bg-primary/10 text-primary font-bold" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                      }`}
+                                    >
+                                      {sub.name}
+                                    </button>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>

@@ -9,6 +9,7 @@ export interface ApiEnvelope<T> {
 
 export interface ApiCategory {
   id: number;
+  parentId: number | null;
   slug: string;
   name: string;
   sortOrder: number;

@@ -9,12 +9,23 @@ interface RuntimeConfig {
   NEXT_PUBLIC_API_URL?: string;
 }
 
+// Defense against an HTTP URL leaking into the bundle / runtime config when
+// the page is served over HTTPS — modern browsers refuse mixed-content fetches
+// silently, and a `default-src 'self' https:` CSP also blocks it. Upgrade in
+// place so admin / direct cross-origin calls don't break.
+function upgradeIfMixed(url: string): string {
+  if (typeof window === "undefined") return url;
+  if (window.location.protocol !== "https:") return url;
+  if (url.startsWith("http://")) return "https://" + url.slice("http://".length);
+  return url;
+}
+
 export function getApiUrl(): string {
   if (typeof window !== "undefined") {
     const cfg = (window as unknown as { __RUNTIME_CONFIG__?: RuntimeConfig }).__RUNTIME_CONFIG__;
-    if (cfg?.NEXT_PUBLIC_API_URL) return cfg.NEXT_PUBLIC_API_URL;
+    if (cfg?.NEXT_PUBLIC_API_URL) return upgradeIfMixed(cfg.NEXT_PUBLIC_API_URL);
   }
-  return process.env.NEXT_PUBLIC_API_URL || FALLBACK;
+  return upgradeIfMixed(process.env.NEXT_PUBLIC_API_URL || FALLBACK);
 }
 
 // Server-side override: when running inside Docker, set API_URL to the internal

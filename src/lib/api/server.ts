@@ -21,6 +21,7 @@ const TAG_CATEGORIES = "categories";
 
 export interface CategoryDTO {
   id: number;
+  parentId: number | null;
   slug: string;
   name: string;
   sortOrder: number;
