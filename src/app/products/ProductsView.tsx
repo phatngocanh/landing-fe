@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -77,11 +77,18 @@ function Content({ categories, initialParams, initialData }: Props) {
     paramsEqual(params, initialParams) ? initialData : undefined,
   );
 
+  // Anchor for "scroll to first product on page change". Targets the top of
+  // the product grid column so users land just above the new page's items —
+  // not all the way at the page header.
+  const gridTopRef = useRef<HTMLDivElement>(null);
+
   const syncUrl = useCallback(
-    (catSlug: string, q: string) => {
+    (catSlug: string, q: string, sortVal: SortValue, p: number) => {
       const params = new URLSearchParams();
       if (catSlug) params.set("category", catSlug);
       if (q) params.set("q", q);
+      if (sortVal !== "default") params.set("sort", sortVal);
+      if (p > 1) params.set("page", String(p));
       const qs = params.toString();
       router.replace(qs ? `/products?${qs}` : "/products", { scroll: false });
     },
@@ -92,41 +99,59 @@ function Content({ categories, initialParams, initialData }: Props) {
     setCategorySlug(slug);
     setPage(1);
     setFiltersOpen(false);
-    syncUrl(slug, search);
+    syncUrl(slug, search, sort, 1);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSearch(searchInput);
     setPage(1);
-    syncUrl(categorySlug, searchInput);
+    syncUrl(categorySlug, searchInput, sort, 1);
   };
 
   const handleClearSearch = () => {
     setSearchInput("");
     setSearch("");
     setPage(1);
-    syncUrl(categorySlug, "");
+    syncUrl(categorySlug, "", sort, 1);
   };
 
   const handleSortChange = (val: SortValue) => {
     setSort(val);
     setPage(1);
+    syncUrl(categorySlug, search, val, 1);
+  };
+
+  const handlePageChange = (n: number) => {
+    const next = Math.min(Math.max(1, n), totalPages);
+    if (next === page) return;
+    setPage(next);
+    syncUrl(categorySlug, search, sort, next);
+    // Wait one frame so the new product slice renders before scrolling.
+    requestAnimationFrame(() => {
+      const el = gridTopRef.current;
+      if (!el) return;
+      // Account for the sticky-ish header (~80px) so the first row isn't
+      // clipped under it.
+      const headerOffset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: "smooth" });
+    });
   };
 
   useEffect(() => {
     const urlCategory = searchParams.get("category") ?? ALL_SLUG;
     const urlSearch = searchParams.get("q") ?? "";
-    if (urlCategory !== categorySlug) {
-      setCategorySlug(urlCategory);
-      setPage(1);
-    }
+    const urlSort = (searchParams.get("sort") as SortValue | null) ?? "default";
+    const urlPage = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10) || 1);
+    if (urlCategory !== categorySlug) setCategorySlug(urlCategory);
     if (urlSearch !== search) {
       setSearch(urlSearch);
       setSearchInput(urlSearch);
-      setPage(1);
     }
-  }, [searchParams, categorySlug, search]);
+    if (urlSort !== sort) setSort(urlSort);
+    if (urlPage !== page) setPage(urlPage);
+  }, [searchParams, categorySlug, search, sort, page]);
 
   const currentCategory = categories.find((c) => c.slug === categorySlug);
   const categoryLabel = categorySlug === ALL_SLUG ? "Tất cả sản phẩm" : currentCategory?.name ?? "Sản phẩm";
@@ -208,7 +233,7 @@ function Content({ categories, initialParams, initialData }: Props) {
             </aside>
           </>
 
-          <div className="flex-1 min-w-0">
+          <div ref={gridTopRef} className="flex-1 min-w-0 scroll-mt-24">
             <div className="lg:hidden flex gap-2 mb-4">
               <a href="tel:02862713214" className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground py-2.5 rounded-xl font-bold text-xs hover:brightness-110 transition-all">
                 <Phone className="w-3.5 h-3.5" /> Báo giá sỉ
@@ -413,7 +438,7 @@ function Content({ categories, initialParams, initialData }: Props) {
               <div className="flex justify-center items-center mt-10 md:mt-16 gap-2">
                 <button
                   data-testid="button-prev-page"
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  onClick={() => handlePageChange(page - 1)}
                   disabled={page === 1}
                   className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Trang trước"
@@ -424,7 +449,7 @@ function Content({ categories, initialParams, initialData }: Props) {
                   <button
                     key={n}
                     data-testid={`button-page-${n}`}
-                    onClick={() => setPage(n)}
+                    onClick={() => handlePageChange(n)}
                     aria-label={`Trang ${n}`}
                     aria-current={n === page ? "page" : undefined}
                     className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all hover:-translate-y-0.5 ${
@@ -438,7 +463,7 @@ function Content({ categories, initialParams, initialData }: Props) {
                 ))}
                 <button
                   data-testid="button-next-page"
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  onClick={() => handlePageChange(page + 1)}
                   disabled={page === totalPages}
                   className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-sm font-bold text-muted-foreground hover:border-primary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Trang tiếp"
