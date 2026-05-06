@@ -182,8 +182,25 @@ function CategoriesMegaMenu({ categories, isProducts }: MegaMenuProps) {
     [tree],
   );
 
+  // State-driven visibility instead of pure CSS :hover so we can dismiss the
+  // dropdown the instant the user clicks a category link. Pure CSS hover
+  // leaves the panel open after click because the cursor is still over it.
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  // Close on route change too — covers Link clicks, programmatic nav, browser back/forward.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
-    <div className="group relative py-4 -my-4">
+    <div
+      className="relative py-4 -my-4"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onClick={(e) => {
+        if ((e.target as HTMLElement).closest("a")) setOpen(false);
+      }}
+    >
       <Link
         href="/products"
         className={`flex items-center gap-1 transition-colors whitespace-nowrap cursor-pointer ${
@@ -191,12 +208,20 @@ function CategoriesMegaMenu({ categories, isProducts }: MegaMenuProps) {
         }`}
       >
         <span>Sản phẩm</span>
-        <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+        />
         {isProducts && <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />}
       </Link>
 
       {tree.length > 0 && (
-        <div className="invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-3 z-50 normal-case font-medium pointer-events-none group-hover:pointer-events-auto">
+        <div
+          className={`absolute left-0 top-full pt-3 z-50 normal-case font-medium transition-all duration-200 ${
+            open
+              ? "visible opacity-100 translate-y-0 pointer-events-auto"
+              : "invisible opacity-0 translate-y-2 pointer-events-none"
+          }`}
+        >
           <div className="bg-card text-foreground shadow-2xl rounded-2xl border border-border w-[640px] overflow-hidden">
             {/* Header strip — brand color, sets context */}
             <div className="flex items-center justify-between px-5 py-3 bg-primary text-primary-foreground">
