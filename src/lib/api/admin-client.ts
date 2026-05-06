@@ -1,8 +1,8 @@
-// Browser-side admin API calls. Always sends cookies via credentials:"include"
-// so the pna_session cookie reaches the BE. Server-side admin calls live in
-// admin-server.ts and forward cookies via next/headers.
+// Browser-side admin API calls. Routed through the same-origin /api/v1/*
+// proxy so the pna_session cookie is set on (and sent from) this Next.js host
+// directly — no cross-subdomain cookie sharing required. Server-side admin
+// calls live in admin-server.ts and forward cookies via next/headers.
 import type { ApiCategory, ApiEnvelope, ApiProductDetail } from "./types";
-import { getApiUrl } from "./runtime-config";
 
 export class ApiError extends Error {
   constructor(message: string, public status: number, public code?: string) {
@@ -12,10 +12,8 @@ export class ApiError extends Error {
 }
 
 async function call<T>(method: string, path: string, body?: unknown): Promise<T | null> {
-  const base = getApiUrl();
-  const res = await fetch(new URL(path.replace(/^\//, ""), base.replace(/\/?$/, "/")), {
+  const res = await fetch(path.startsWith("/") ? path : `/${path}`, {
     method,
-    credentials: "include",
     headers: body ? { "Content-Type": "application/json" } : undefined,
     body: body ? JSON.stringify(body) : undefined,
     cache: "no-store",
