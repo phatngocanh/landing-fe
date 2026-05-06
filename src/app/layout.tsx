@@ -13,6 +13,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+// The root layout fetches categories for the mobile drawer + nav. Pre-rendering
+// at build time risks shipping an empty drawer when BuildKit can't reach the
+// API. Opt out of SSG so every page renders against runtime data; underlying
+// fetches still hit the Next.js cache (revalidate + tags) so cost is minimal.
+export const dynamic = "force-dynamic";
+
 const SITE_NAME = "Phát Ngọc Anh – ZIFAT 999";
 const BASE_URL = "https://phatngocanh.com";
 
