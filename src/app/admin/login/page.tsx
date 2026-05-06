@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { adminLogin, ApiError } from "@/lib/api/admin-client";
+import { auth } from "@/lib/auth";
 
 function LoginForm() {
   const router = useRouter();
@@ -18,9 +19,9 @@ function LoginForm() {
     setLoading(true);
     setError(null);
     try {
-      await adminLogin(username, password);
+      const data = await adminLogin(username, password);
+      auth.setSession(data.token, data.username);
       router.replace(redirectTo);
-      router.refresh();
     } catch (err) {
       if (err instanceof ApiError) setError(err.message || "Đăng nhập thất bại.");
       else setError("Đăng nhập thất bại.");

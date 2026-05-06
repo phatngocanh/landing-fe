@@ -1,8 +1,9 @@
-// Browser-side admin API calls. Routed through the same-origin /api/v1/*
-// proxy so the pna_session cookie is set on (and sent from) this Next.js host
-// directly — no cross-subdomain cookie sharing required. Server-side admin
-// calls live in admin-server.ts and forward cookies via next/headers.
-import type { ApiCategory, ApiEnvelope, ApiProductDetail } from "./types";
+// Browser-side admin API. Calls landing-be directly with a Bearer token from
+// localStorage (set on login) — no cookies, no proxy, no shared-domain tricks.
+// Mirrors management-app-frontend's auth pattern.
+import type { ApiCategory, ApiEnvelope, ApiProductDetail, ApiProductListData } from "./types";
+import { getApiUrl } from "./runtime-config";
+import { auth } from "@/lib/auth";
 
 export class ApiError extends Error {
   constructor(message: string, public status: number, public code?: string) {
@@ -11,13 +12,41 @@ export class ApiError extends Error {
   }
 }
 
-async function call<T>(method: string, path: string, body?: unknown): Promise<T | null> {
-  const res = await fetch(path.startsWith("/") ? path : `/${path}`, {
+interface CallOptions {
+  /** When false, do NOT attach Authorization header. Used for /admin/login. */
+  authed?: boolean;
+}
+
+async function call<T>(
+  method: string,
+  path: string,
+  body?: unknown,
+  opts: CallOptions = {},
+): Promise<T | null> {
+  const base = getApiUrl().replace(/\/?$/, "/");
+  const url = new URL(path.replace(/^\//, ""), base);
+
+  const headers: Record<string, string> = {};
+  if (body !== undefined) headers["Content-Type"] = "application/json";
+  if (opts.authed !== false) {
+    const token = auth.getToken();
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const res = await fetch(url, {
     method,
-    headers: body ? { "Content-Type": "application/json" } : undefined,
-    body: body ? JSON.stringify(body) : undefined,
+    headers,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
     cache: "no-store",
   });
+
+  // 401 means the token is missing or expired — clear local state so the next
+  // navigation picks up the redirect from the layout guard. We don't redirect
+  // here directly (avoids surprises in mid-form flows).
+  if (res.status === 401 && opts.authed !== false) {
+    auth.clear();
+  }
+
   if (res.status === 204) return null;
   const env = (await res.json().catch(() => null)) as ApiEnvelope<T> | null;
   if (!res.ok || !env || !env.success) {
@@ -29,11 +58,30 @@ async function call<T>(method: string, path: string, body?: unknown): Promise<T 
 
 // --- Auth ---
 
-export async function adminLogin(username: string, password: string) {
-  return call<{ username: string }>("POST", "/api/v1/admin/login", { username, password });
+export interface LoginData {
+  token: string;
+  username: string;
+}
+
+export async function adminLogin(username: string, password: string): Promise<LoginData> {
+  const data = await call<LoginData>("POST", "/api/v1/admin/login", { username, password }, { authed: false });
+  if (!data) throw new ApiError("login returned empty response", 500);
+  return data;
 }
 export async function adminLogout() {
   return call<null>("POST", "/api/v1/admin/logout");
+}
+export async function getMe(): Promise<{ username: string } | null> {
+  return call<{ username: string }>("GET", "/api/v1/admin/me");
+}
+
+// --- Read-side admin data (browser only, after login) ---
+
+export async function adminListProducts(): Promise<ApiProductListData | null> {
+  return call<ApiProductListData>("GET", "/api/v1/products?pageSize=100");
+}
+export async function adminGetProduct(slug: string): Promise<ApiProductDetail | null> {
+  return call<ApiProductDetail>("GET", `/api/v1/products/${encodeURIComponent(slug)}`);
 }
 
 // --- Categories ---

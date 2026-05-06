@@ -1,14 +1,12 @@
 "use client";
 
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { ApiError, deleteProduct } from "@/lib/api/admin-client";
 
-export default function ProductRowActions({ id, name }: { id: number; name: string }) {
-  const router = useRouter();
+export default function ProductRowActions({ id, name, onDeleted }: { id: number; name: string; onDeleted?: () => void }) {
   const [pending, startTransition] = useTransition();
 
   return (
@@ -27,7 +25,7 @@ export default function ProductRowActions({ id, name }: { id: number; name: stri
             try {
               await deleteProduct(id);
               toast.success("Đã xóa");
-              router.refresh();
+              onDeleted?.();
             } catch (err) {
               if (err instanceof ApiError) toast.error(err.message);
               else toast.error("Xóa thất bại");

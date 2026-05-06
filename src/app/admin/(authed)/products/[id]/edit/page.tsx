@@ -1,30 +1,57 @@
+"use client";
+
+import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import ProductForm from "@/components/admin/ProductForm";
-import { adminListProducts, adminGetProduct } from "@/lib/api/admin-server";
-import { getCategories } from "@/lib/api/server";
+import { adminListProducts, adminGetProduct } from "@/lib/api/admin-client";
+import type { ApiProductDetail } from "@/lib/api/types";
+import type { CategoryDTO } from "@/lib/api/server";
+import { getApiUrl } from "@/lib/api/runtime-config";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-export default async function EditProductPage({ params }: Props) {
-  const { id } = await params;
+export default function EditProductPage({ params }: Props) {
+  const { id } = use(params);
   const numericId = Number(id);
-  if (!Number.isFinite(numericId)) notFound();
+  const [detail, setDetail] = useState<ApiProductDetail | null>(null);
+  const [categories, setCategories] = useState<CategoryDTO[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "missing">("loading");
 
-  // No "GET admin product by ID" endpoint; resolve id → slug via the list, then
-  // fetch the detail by slug. Catalog is small so this is cheap.
-  const list = await adminListProducts();
-  const summary = list?.items.find((i) => i.id === numericId);
-  if (!summary) notFound();
+  useEffect(() => {
+    if (!Number.isFinite(numericId)) {
+      setStatus("missing");
+      return;
+    }
+    (async () => {
+      const list = await adminListProducts();
+      const summary = list?.items.find((i) => i.id === numericId);
+      if (!summary) {
+        setStatus("missing");
+        return;
+      }
+      const base = getApiUrl().replace(/\/?$/, "/");
+      const [d, catsEnv] = await Promise.all([
+        adminGetProduct(summary.slug),
+        fetch(new URL("api/v1/categories", base)).then((r) => r.json()).catch(() => null),
+      ]);
+      if (!d) {
+        setStatus("missing");
+        return;
+      }
+      setDetail(d);
+      setCategories((catsEnv?.success && catsEnv.data?.items) || []);
+      setStatus("ready");
+    })();
+  }, [numericId]);
 
-  const [detail, categories] = await Promise.all([
-    adminGetProduct(summary.slug),
-    getCategories(),
-  ]);
-  if (!detail) notFound();
+  if (status === "missing") notFound();
+  if (status === "loading" || !detail) {
+    return <div className="p-8 text-sm text-muted-foreground">Đang tải...</div>;
+  }
 
   return (
     <div className="p-8 space-y-6 max-w-6xl">

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LogOut } from "lucide-react";
 import { adminLogout } from "@/lib/api/admin-client";
+import { auth } from "@/lib/auth";
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -15,8 +16,8 @@ export default function LogoutButton() {
         try {
           await adminLogout();
         } finally {
+          auth.clear();
           router.replace("/admin/login");
-          router.refresh();
         }
       }}
       disabled={loading}

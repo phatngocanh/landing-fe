@@ -1,18 +1,38 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
-import { adminListProducts } from "@/lib/api/admin-server";
+import { adminListProducts } from "@/lib/api/admin-client";
+import type { ApiProductSummary } from "@/lib/api/types";
 import ProductRowActions from "./ProductRowActions";
 
-export default async function AdminProductsPage() {
-  const data = await adminListProducts();
-  const items = data?.items ?? [];
+export default function AdminProductsPage() {
+  const [items, setItems] = useState<ApiProductSummary[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  async function reload() {
+    setLoading(true);
+    try {
+      const data = await adminListProducts();
+      setItems(data?.items ?? []);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    reload();
+  }, []);
 
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-black">Sản phẩm</h1>
-          <p className="text-sm text-muted-foreground mt-1">{items.length} sản phẩm</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {loading ? "Đang tải..." : `${items.length} sản phẩm`}
+          </p>
         </div>
         <Link
           href="/admin/products/new"
@@ -34,7 +54,7 @@ export default async function AdminProductsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {items.length === 0 && (
+            {!loading && items.length === 0 && (
               <tr>
                 <td colSpan={5} className="px-4 py-12 text-center text-sm text-muted-foreground">
                   Chưa có sản phẩm nào.
@@ -59,7 +79,7 @@ export default async function AdminProductsPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <ProductRowActions id={p.id} name={p.name} />
+                  <ProductRowActions id={p.id} name={p.name} onDeleted={reload} />
                 </td>
               </tr>
             ))}
