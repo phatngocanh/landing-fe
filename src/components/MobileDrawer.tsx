@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
-import { CATEGORIES } from "@/data/products";
+import type { CategoryDTO } from "@/lib/api/server";
 
 const HOME_LINKS = [
   { label: "Trang chủ",  anchor: "#hero"   },
@@ -21,11 +21,13 @@ const PAGE_LINKS = [
   { label: "Liên hệ",   href: "/contact"},
 ];
 
-const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
-
 const DRAWER_WIDTH = 280;
 
-export default function MobileDrawer() {
+interface Props {
+  categories?: CategoryDTO[];
+}
+
+export default function MobileDrawer({ categories = [] }: Props) {
   const { mobileOpen, setMobileOpen } = useMobileMenu();
   const [panel, setPanel] = useState<"main" | "products">("main");
   const pathname = usePathname();
@@ -34,7 +36,6 @@ export default function MobileDrawer() {
 
   const allLinks = isHome ? HOME_LINKS : PAGE_LINKS;
 
-  // Lock scroll and push page when open
   useEffect(() => {
     const wrap = document.getElementById("page-wrap");
     if (!wrap) return;
@@ -54,7 +55,6 @@ export default function MobileDrawer() {
     };
   }, [mobileOpen]);
 
-  // Reset to main panel when closed
   useEffect(() => {
     if (!mobileOpen) {
       const t = setTimeout(() => setPanel("main"), 350);
@@ -62,7 +62,6 @@ export default function MobileDrawer() {
     }
   }, [mobileOpen]);
 
-  // Close on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname, setMobileOpen]);
@@ -92,7 +91,6 @@ export default function MobileDrawer() {
 
   return (
     <>
-      {/* Overlay */}
       <div
         className={`md:hidden fixed inset-0 z-[150] bg-black/60 transition-opacity duration-300 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -101,7 +99,6 @@ export default function MobileDrawer() {
         aria-hidden="true"
       />
 
-      {/* Drawer panel */}
       <div
         className="md:hidden fixed top-0 left-0 h-full z-[200] bg-primary text-primary-foreground flex flex-col shadow-2xl"
         style={{
@@ -110,7 +107,6 @@ export default function MobileDrawer() {
           transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
-        {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-primary-foreground/15 flex-shrink-0">
           <span className="text-sm font-black uppercase tracking-widest text-primary-foreground/80">Menu</span>
           <button
@@ -123,9 +119,7 @@ export default function MobileDrawer() {
           </button>
         </div>
 
-        {/* Sliding inner panels container */}
         <div className="flex-1 overflow-hidden relative">
-          {/* ── Main panel ── */}
           <div
             className="absolute inset-0 flex flex-col overflow-y-auto overscroll-contain transition-transform duration-300 ease-in-out"
             style={{ transform: panel === "main" ? "translateX(0)" : `translateX(-${DRAWER_WIDTH}px)` }}
@@ -161,7 +155,6 @@ export default function MobileDrawer() {
                 );
               })}
 
-              {/* Sản phẩm — opens subcategory panel */}
               <button
                 onClick={() => setPanel("products")}
                 className={`flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[14px] font-bold uppercase tracking-wider transition-colors ${
@@ -174,7 +167,6 @@ export default function MobileDrawer() {
               </button>
             </nav>
 
-            {/* B2B Partnership CTA */}
             <div className="px-4 pt-2">
               <Link
                 href="/contact?subject=partnership"
@@ -186,7 +178,6 @@ export default function MobileDrawer() {
               </Link>
             </div>
 
-            {/* Phone CTA */}
             <div className="px-4 pb-6 pt-2">
               <a
                 href="tel:02862713214"
@@ -199,12 +190,10 @@ export default function MobileDrawer() {
             </div>
           </div>
 
-          {/* ── Products sub-panel ── */}
           <div
             className="absolute inset-0 flex flex-col overflow-y-auto overscroll-contain transition-transform duration-300 ease-in-out"
             style={{ transform: panel === "products" ? "translateX(0)" : `translateX(${DRAWER_WIDTH}px)` }}
           >
-            {/* Back header */}
             <button
               onClick={() => setPanel("main")}
               className="flex items-center gap-2 px-5 py-3.5 border-b border-primary-foreground/15 hover:bg-primary-foreground/10 transition-colors text-[14px] font-bold uppercase tracking-wider flex-shrink-0 w-full text-left"
@@ -215,7 +204,6 @@ export default function MobileDrawer() {
             </button>
 
             <nav className="pt-1 pb-4">
-              {/* All products link */}
               <Link
                 href="/products"
                 onClick={close}
@@ -225,15 +213,15 @@ export default function MobileDrawer() {
                 <span>Tất cả sản phẩm</span>
               </Link>
 
-              {productCategories.map((cat) => (
+              {categories.map((cat) => (
                 <Link
-                  key={cat}
-                  href={`/products?category=${encodeURIComponent(cat)}`}
+                  key={cat.id}
+                  href={`/products?category=${encodeURIComponent(cat.slug)}`}
                   onClick={close}
                   className="flex items-center justify-between w-full text-left py-3.5 px-5 border-b border-primary-foreground/10 text-[13px] font-semibold normal-case tracking-normal hover:bg-primary-foreground/10 transition-colors"
-                  data-testid={`link-mobile-category-${encodeURIComponent(cat)}`}
+                  data-testid={`link-mobile-category-${cat.slug}`}
                 >
-                  <span>{cat}</span>
+                  <span>{cat.name}</span>
                 </Link>
               ))}
             </nav>

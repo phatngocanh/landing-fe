@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/MobileMenuContext";
+import type { CategoryDTO } from "@/lib/api/server";
 
 const HOME_LINKS = [
   { label: "Trang chủ",  anchor: "#hero"   },
@@ -20,10 +21,11 @@ const PAGE_LINKS = [
   { label: "Liên hệ",   href: "/contact"},
 ];
 
-import { CATEGORIES } from "@/data/products";
-const productCategories = CATEGORIES.filter((c) => c !== "Tất cả");
+interface Props {
+  categories?: CategoryDTO[];
+}
 
-const SiteNav = () => {
+const SiteNav = ({ categories = [] }: Props) => {
   const { mobileOpen, toggleMobile } = useMobileMenu();
   const [activeAnchor, setActiveAnchor] = useState("#hero");
   const [scrolled, setScrolled] = useState(false);
@@ -80,7 +82,6 @@ const SiteNav = () => {
       <div className="container relative">
         <div className="flex items-center justify-between md:justify-start py-4 gap-8 text-[13px] font-bold uppercase tracking-widest">
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden p-1"
             onClick={toggleMobile}
@@ -93,7 +94,6 @@ const SiteNav = () => {
             </div>
           </button>
 
-          {/* ===== Desktop nav ===== */}
           <div className="hidden md:flex items-center gap-8 overflow-visible">
 
             {leftLinks.map((l) => {
@@ -121,7 +121,6 @@ const SiteNav = () => {
               );
             })}
 
-            {/* Sản phẩm dropdown */}
             <div className="group relative py-4 -my-4 cursor-pointer">
               <Link
                 href="/products"
@@ -135,24 +134,26 @@ const SiteNav = () => {
                   <span className="absolute -bottom-4 left-0 right-0 h-0.5 bg-yellow-300 rounded-full" />
                 )}
               </Link>
-              <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-8 grid grid-cols-2 gap-x-12 gap-y-4 w-[500px] z-50 normal-case font-medium">
-                {productCategories.map((cat) => (
+              {categories.length > 0 && (
+                <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full bg-card text-foreground shadow-2xl rounded-2xl border border-border p-8 grid grid-cols-2 gap-x-12 gap-y-4 w-[500px] z-50 normal-case font-medium">
+                  {categories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      href={`/products?category=${encodeURIComponent(cat.slug)}`}
+                      className="flex items-center gap-3 hover:text-primary hover:translate-x-1 transition-all text-sm"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
                   <Link
-                    key={cat}
-                    href={`/products?category=${encodeURIComponent(cat)}`}
-                    className="flex items-center gap-3 hover:text-primary hover:translate-x-1 transition-all text-sm"
+                    href="/products"
+                    className="flex items-center gap-3 font-bold text-primary mt-4 border-t border-border pt-4 col-span-2 text-sm hover:gap-4 transition-all"
                   >
-                    {cat}
+                    <span>Tất cả sản phẩm</span>
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
-                ))}
-                <Link
-                  href="/products"
-                  className="flex items-center gap-3 font-bold text-primary mt-4 border-t border-border pt-4 col-span-2 text-sm hover:gap-4 transition-all"
-                >
-                  <span>Tất cả sản phẩm</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
+                </div>
+              )}
             </div>
 
             {rightLinks.map((l) => {
@@ -180,7 +181,6 @@ const SiteNav = () => {
               );
             })}
 
-            {/* B2B CTA pill */}
             <Link
               href="/contact?subject=partnership"
               className="ml-auto flex items-center gap-1.5 bg-yellow-400 text-foreground px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-wider hover:brightness-110 transition-all"

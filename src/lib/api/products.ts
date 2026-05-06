@@ -1,9 +1,19 @@
+// Product + category data access. Server helpers fetch from landing-be with
+// ISR; client hooks use React Query for live filtering on the products page.
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
-import { products, type Product, type Category } from "@/data/products";
+import { apiFetch } from "./client";
+import {
+  type ApiCategoryListData,
+  type ApiProductListData,
+  type Product,
+  toProductFromSummary,
+} from "./types";
 
 export interface ProductsParams {
-  category?: Category | "Tất cả";
-  search?: string;
+  category?: string; // category slug (empty = all)
+  search?: string;   // free text — applied client-side after fetch
   sort?: "default" | "price-asc" | "price-desc" | "name";
   page?: number;
   pageSize?: number;
@@ -17,61 +27,54 @@ export interface ProductsResponse {
   totalPages: number;
 }
 
-// Simulates network delay just like a real API call
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const PAGE_SIZE_DEFAULT = 12;
 
 async function fetchProducts(params: ProductsParams): Promise<ProductsResponse> {
-  await delay(350);
-
   const {
-    category = "Tất cả",
+    category = "",
     search = "",
     sort = "default",
     page = 1,
-    pageSize = 12,
+    pageSize = PAGE_SIZE_DEFAULT,
   } = params;
 
-  let filtered = [...products];
-
-  if (category && category !== "Tất cả") {
-    filtered = filtered.filter((p) => p.category === category);
-  }
+  // Fetch a generous page (BE max 100) so we can do client-side search/sort
+  // without paging artifacts. Catalog is small (~36 items) so this is cheap.
+  const data = await apiFetch<ApiProductListData>("/api/v1/products", {
+    query: {
+      category: category && category !== "all" ? category : undefined,
+      status: "active",
+      page: 1,
+      pageSize: 100,
+    },
+  });
+  let all = (data?.items ?? []).map(toProductFromSummary);
 
   if (search.trim()) {
     const q = search.toLowerCase().trim();
-    filtered = filtered.filter(
+    all = all.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q) ||
-        p.sku.toLowerCase().includes(q)
+        p.sku.toLowerCase().includes(q),
     );
   }
+  if (sort === "price-asc") all.sort((a, b) => a.priceRaw - b.priceRaw);
+  else if (sort === "price-desc") all.sort((a, b) => b.priceRaw - a.priceRaw);
+  else if (sort === "name") all.sort((a, b) => a.name.localeCompare(b.name, "vi"));
 
-  if (sort === "price-asc") {
-    filtered.sort((a, b) => a.priceRaw - b.priceRaw);
-  } else if (sort === "price-desc") {
-    filtered.sort((a, b) => b.priceRaw - a.priceRaw);
-  } else if (sort === "name") {
-    filtered.sort((a, b) => a.name.localeCompare(b.name, "vi"));
-  }
-
-  const total = filtered.length;
+  const total = all.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const safePage = Math.min(Math.max(1, page), totalPages);
   const start = (safePage - 1) * pageSize;
-  const data = filtered.slice(start, start + pageSize);
-
-  return { data, total, page: safePage, pageSize, totalPages };
+  return {
+    data: all.slice(start, start + pageSize),
+    total,
+    page: safePage,
+    pageSize,
+    totalPages,
+  };
 }
-
-async function fetchProductById(id: string): Promise<Product | null> {
-  await delay(200);
-  return products.find((p) => p.id === id) ?? null;
-}
-
-// ── React Query hooks ────────────────────────────────────────────────
 
 export function useProducts(params: ProductsParams) {
   return useQuery({
@@ -82,11 +85,13 @@ export function useProducts(params: ProductsParams) {
   });
 }
 
-export function useProduct(id: string) {
+export function useCategories() {
   return useQuery({
-    queryKey: ["product", id],
-    queryFn: () => fetchProductById(id),
-    staleTime: 60_000,
-    enabled: !!id,
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const data = await apiFetch<ApiCategoryListData>("/api/v1/categories");
+      return data?.items ?? [];
+    },
+    staleTime: 5 * 60_000,
   });
 }

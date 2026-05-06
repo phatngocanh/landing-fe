@@ -4,6 +4,8 @@ pipeline {
         skipDefaultCheckout()
     }
     environment {
+        NEXT_PUBLIC_API_URL = credentials('NEXT_PUBLIC_API_URL_LANDING_APP')
+
         DOCKER_TAG = 'latest'
         CONTAINER_NAME = 'landing-fe-container'
     }
@@ -45,6 +47,7 @@ pipeline {
                             --restart unless-stopped \\
                             --name ${env.CONTAINER_NAME} \\
                             -p 3636:3000 \\
+                            -e NEXT_PUBLIC_API_URL=${env.NEXT_PUBLIC_API_URL} \\
                             landing-fe:${env.DOCKER_TAG}
                     """
                 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import { MobileMenuProvider } from "@/context/MobileMenuContext";
 import MobileDrawer from "@/components/MobileDrawer";
+import { getCategories } from "@/lib/api/server";
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -54,15 +55,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const categories = await getCategories();
   return (
     <html lang="vi" className={inter.variable}>
       <body className={`${inter.className} overflow-x-clip`}>
+        <script src="/runtime-config.js" />
         <Providers>
           <MobileMenuProvider>
-            <MobileDrawer />
+            <MobileDrawer categories={categories} />
             <div id="page-wrap" className="relative min-h-dvh">
               <a
                 href="#main-content"
