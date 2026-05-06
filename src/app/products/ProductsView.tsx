@@ -16,6 +16,8 @@ import {
   Handshake,
 } from "lucide-react";
 import { useProducts } from "@/lib/api/products";
+import type { ProductsParams, ProductsResponse } from "@/lib/api/product-filters";
+import { paramsEqual } from "@/lib/api/product-filters";
 import type { CategoryDTO } from "@/lib/api/server";
 
 const SORT_OPTIONS = [
@@ -41,30 +43,39 @@ function ProductCardSkeleton() {
 
 interface Props {
   categories: CategoryDTO[];
+  initialParams: ProductsParams;
+  initialData: ProductsResponse;
 }
 
-function Content({ categories }: Props) {
+function Content({ categories, initialParams, initialData }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const initialCategorySlug = searchParams.get("category") ?? ALL_SLUG;
-  const initialSearch = searchParams.get("q") ?? "";
-
-  const [categorySlug, setCategorySlug] = useState<string>(initialCategorySlug);
-  const [search, setSearch] = useState(initialSearch);
-  const [searchInput, setSearchInput] = useState(initialSearch);
-  const [sort, setSort] = useState<SortValue>("default");
-  const [page, setPage] = useState(1);
+  const [categorySlug, setCategorySlug] = useState<string>(initialParams.category ?? ALL_SLUG);
+  const [search, setSearch] = useState(initialParams.search ?? "");
+  const [searchInput, setSearchInput] = useState(initialParams.search ?? "");
+  const [sort, setSort] = useState<SortValue>(
+    (initialParams.sort ?? "default") as SortValue,
+  );
+  const [page, setPage] = useState(initialParams.page ?? 1);
   const [gridCols, setGridCols] = useState<"grid" | "list">("grid");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const { data, isLoading, isFetching } = useProducts({
+  const params: ProductsParams = {
     category: categorySlug,
     search,
     sort,
     page,
     pageSize: PAGE_SIZE,
-  });
+  };
+  // Hand React Query the server-rendered payload only on the very first render
+  // (when params still match initialParams). After any filter change the key
+  // changes and React Query fetches fresh — keeping SSR HTML and live data in
+  // sync without hydration mismatches.
+  const { data, isLoading, isFetching } = useProducts(
+    params,
+    paramsEqual(params, initialParams) ? initialData : undefined,
+  );
 
   const syncUrl = useCallback(
     (catSlug: string, q: string) => {
@@ -368,7 +379,7 @@ function Content({ categories }: Props) {
                     {p.discount && (
                       <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-secondary text-secondary-foreground text-[10px] sm:text-xs font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">{p.discount}</div>
                     )}
-                    <div className="aspect-square mb-3 sm:mb-4 bg-muted rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center justify-center overflow-hidden relative">
+                    <div className="aspect-square mb-3 sm:mb-4 rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden relative">
                       <img src={p.img} alt={p.name} className="w-full h-full object-contain group-hover:scale-[1.04] transition-transform duration-300" />
                       <div className="absolute inset-x-0 bottom-0 px-2 pb-2 hidden sm:flex justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                         <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md">
@@ -460,10 +471,10 @@ function Content({ categories }: Props) {
   );
 }
 
-export default function ProductsView({ categories }: Props) {
+export default function ProductsView({ categories, initialParams, initialData }: Props) {
   return (
     <Suspense>
-      <Content categories={categories} />
+      <Content categories={categories} initialParams={initialParams} initialData={initialData} />
     </Suspense>
   );
 }

@@ -28,7 +28,7 @@ const ProductsSection = async () => {
                 {p.badge && (
                   <div className="absolute top-1 left-1 sm:top-2 sm:left-2 z-10 bg-primary text-primary-foreground text-[10px] sm:text-[11px] font-black px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full">{p.badge}</div>
                 )}
-                <div className="aspect-square mb-1.5 sm:mb-2 bg-muted rounded-md sm:rounded-lg p-1.5 sm:p-2 flex items-center justify-center overflow-hidden relative">
+                <div className="aspect-square mb-1.5 sm:mb-2 rounded-md sm:rounded-lg flex items-center justify-center overflow-hidden relative">
                   <img className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src={p.img} alt={p.name} />
                 </div>
                 <h3 className="text-[11px] sm:text-xs md:text-[13px] font-bold text-foreground h-7 sm:h-8 overflow-hidden line-clamp-2 leading-snug group-hover:text-primary transition-colors">{p.name}</h3>

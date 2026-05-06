@@ -4,13 +4,24 @@ import dynamic from "next/dynamic";
 import SiteHeader from "@/components/SiteHeader";
 import SiteNav from "@/components/SiteNav";
 import JsonLd from "@/components/seo/JsonLd";
-import { getCategories, getProductBySlug, getRelatedProducts } from "@/lib/api/server";
+import { getCategories, getProductBySlug, getRelatedProducts, listProducts } from "@/lib/api/server";
 import ProductDetailView from "./ProductDetailView";
 
 const SiteFooter = dynamic(() => import("@/components/SiteFooter"));
 const FloatingActions = dynamic(() => import("@/components/FloatingActions"));
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://phatngocanh.com";
+
+// Pre-render every active product at build time. New products get ISR-rendered
+// on first hit (`dynamicParams: true` is the default) and cached per the
+// `revalidate` window in `getProductBySlug`. Bust on demand by POSTing to
+// /api/revalidate with `tags: ["product:<slug>"]` after admin writes.
+export async function generateStaticParams() {
+  const { items } = await listProducts({ pageSize: 200 });
+  return items.map((p) => ({ slug: p.slug }));
+}
+
+export const revalidate = 300;
 
 interface Props {
   params: Promise<{ slug: string }>;

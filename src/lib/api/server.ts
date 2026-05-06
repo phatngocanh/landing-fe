@@ -1,4 +1,7 @@
 // Server-only data fetchers for landing-be. Use from React Server Components.
+//
+// All fetches are tagged so `revalidateTag("products"|"categories")` from
+// `/api/revalidate` busts them on demand (e.g. after an admin write).
 import { apiFetch } from "./client";
 import {
   type ApiCategoryListData,
@@ -9,9 +12,12 @@ import {
   toProductFromSummary,
 } from "./types";
 
-const REVALIDATE_PRODUCT_LIST = 300; // 5 min
+const REVALIDATE_PRODUCT_LIST = 300; // 5 min — soft fallback; tag-bust is preferred
 const REVALIDATE_PRODUCT_DETAIL = 300;
 const REVALIDATE_CATEGORIES = 600; // 10 min
+
+const TAG_PRODUCTS = "products";
+const TAG_CATEGORIES = "categories";
 
 export interface CategoryDTO {
   id: number;
@@ -25,6 +31,7 @@ export async function getCategories(): Promise<CategoryDTO[]> {
   try {
     const data = await apiFetch<ApiCategoryListData>("/api/v1/categories", {
       revalidate: REVALIDATE_CATEGORIES,
+      tags: [TAG_CATEGORIES],
     });
     return data?.items ?? [];
   } catch (err) {
@@ -54,6 +61,7 @@ export async function listProducts(opts: ListProductsOptions = {}): Promise<{
         pageSize: opts.pageSize ?? 100,
       },
       revalidate: REVALIDATE_PRODUCT_LIST,
+      tags: [TAG_PRODUCTS],
     });
     return {
       items: (data?.items ?? []).map(toProductFromSummary),
@@ -71,6 +79,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
     const data = await apiFetch<ApiProductDetail>(`/api/v1/products/${encodeURIComponent(slug)}`, {
       revalidate: REVALIDATE_PRODUCT_DETAIL,
+      tags: [TAG_PRODUCTS, `product:${slug}`],
     });
     return data ? toProductFromDetail(data) : null;
   } catch (err) {

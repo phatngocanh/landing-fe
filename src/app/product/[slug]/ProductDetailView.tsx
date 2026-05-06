@@ -338,7 +338,7 @@ export default function ProductDetailView({ product, related }: Props) {
                   {p.badge && (
                     <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 bg-primary text-primary-foreground text-[11px] sm:text-[11px] font-black px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">{p.badge}</div>
                   )}
-                  <div className="aspect-square mb-3 sm:mb-6 bg-muted rounded-lg sm:rounded-2xl p-3 sm:p-6 flex items-center justify-center overflow-hidden relative">
+                  <div className="aspect-square mb-3 sm:mb-6 rounded-lg sm:rounded-2xl flex items-center justify-center overflow-hidden relative">
                     <img className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src={p.img} alt={p.name} loading="lazy" />
                     <div className="absolute inset-0 hidden sm:flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <span className="w-10 h-10 rounded-full bg-card shadow-md flex items-center justify-center text-foreground translate-y-3 group-hover:translate-y-0 duration-300"><Eye className="w-4 h-4" /></span>
