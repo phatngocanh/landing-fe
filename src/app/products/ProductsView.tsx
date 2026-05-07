@@ -389,13 +389,20 @@ function Content({ categories, initialParams, initialData }: Props) {
               </div>
             )}
 
-            {isFetching && !isLoading && (
-              <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                Đang tải...
-              </div>
-            )}
-
+            <div className="relative">
+              {isFetching && !isLoading && (
+                <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-center pt-4">
+                  <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-card/90 backdrop-blur border border-border shadow-sm text-xs font-semibold text-muted-foreground">
+                    <span className="w-3.5 h-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                    Đang tải...
+                  </span>
+                </div>
+              )}
+              <div
+                className={`transition-opacity duration-200 ease-out ${
+                  isFetching && !isLoading ? "opacity-50" : "opacity-100"
+                }`}
+              >
             {isLoading ? (
               <div className={`grid gap-2.5 sm:gap-5 ${gridCols === "list" ? "grid-cols-1" : "grid-cols-2 lg:grid-cols-3"}`}>
                 {Array.from({ length: 8 }).map((_, i) => (<ProductCardSkeleton key={i} />))}
@@ -490,6 +497,8 @@ function Content({ categories, initialParams, initialData }: Props) {
                 ))}
               </div>
             )}
+              </div>
+            </div>
 
             {!isLoading && totalPages > 1 && (
               <div className="flex justify-center items-center mt-10 md:mt-16 gap-2">

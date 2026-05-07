@@ -45,7 +45,11 @@ const SiteNav = ({ categories = [] }: Props) => {
           return;
         }
       }
+      setActiveAnchor("#hero");
     };
+    // Compute on mount/route-change so the underline doesn't keep a stale
+    // anchor from the previous home visit when no scroll event fires.
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [isHome]);
